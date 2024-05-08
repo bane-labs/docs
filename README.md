@@ -18,7 +18,7 @@ The decision-making process for consensus nodes to manage on-chain parameters th
 
 ### **Bridge Between Neo X TestNet and Neo N3 TestNet**
 
-Neo X supports for bidirectional token transfers between Neo X (EVM) and Neo N3 (NeoVM). Key features includes:
+Neo X supports for bidirectional token transfers between Neo X (EVM) and Neo N3 (NeoVM). Key features include:
 
 * **Bidirectional Bridging of Assets**: Seamless movement of $GAS between networks, improving liquidity and flexibility.
 * **Enhanced Stability and Security**: Upgrades to bridge validators and relayers, along with the introduction of a new role management model to fortify security measures in the bridge smart contracts. For example, the “Security Guard” role can pause bridge operations as needed, while the “Governor” role is empowered to resume operations, as well as propose and update bridge parameters.
