@@ -2,6 +2,11 @@
 
 * [Overview](README.md)
 
+## Governance
+
+* [Governance in Neo X](governance/governance-in-neo-x.md)
+* [Neo X System Contracts](governance/neo-x-system-contracts.md)
+
 ## Bridge
 
 * [How Native Bridge Works](bridge/how-native-bridge-works/README.md)
@@ -9,11 +14,6 @@
   * [Architecture](bridge/how-native-bridge-works/architecture.md)
   * [Technical Flow](bridge/how-native-bridge-works/technical-flow.md)
 * [Quick Start: Bridging Assets](bridge/quick-start-bridging-assets.md)
-
-## Governance
-
-* [Governance in Neo X](governance/governance-in-neo-x.md)
-* [Neo X System Contracts](governance/neo-x-system-contracts.md)
 
 ## Development
 
