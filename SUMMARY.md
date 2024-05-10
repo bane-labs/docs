@@ -2,10 +2,11 @@
 
 * [Overview](README.md)
 
-## Governance
+## Development
 
-* [Governance in Neo X](governance/governance-in-neo-x.md)
-* [Neo X System Contracts](governance/neo-x-system-contracts.md)
+* [TestNet Information](development/testnet-information.md)
+* [Running a Node in TestNet](development/running-a-node-in-testnet.md)
+* [JSON-RPC API](development/json-rpc-api.md)
 
 ## Bridge
 
@@ -15,8 +16,7 @@
   * [Technical Flow](bridge/how-native-bridge-works/technical-flow.md)
 * [Quick Start: Bridging Assets](bridge/quick-start-bridging-assets.md)
 
-## Development
+## Governance
 
-* [TestNet Information](development/testnet-information.md)
-* [Running a Node in TestNet](development/running-a-node-in-testnet.md)
-* [JSON-RPC API](development/json-rpc-api.md)
+* [Governance in Neo X](governance/governance-in-neo-x.md)
+* [Neo X System Contracts](governance/neo-x-system-contracts.md)
