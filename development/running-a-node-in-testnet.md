@@ -45,11 +45,17 @@ To create a blockchain node that uses this genesis block, first use geth init to
 
 ## 3. Initializing Node Account
 
+You can create a new account or import an existing account for your node operation.
+
+### Create a new account
+
 Create your node account with the following command. A password is required to be entered during the process. The resulting account is placed in the specified `--datadir` under the `keystore` path.
 
 ```
 ./geth --datadir ./nodes/node1 account new
 ```
+
+### Import your existing account
 
 Import your existing account with the private key and remember to replace the `./your/privateKey.txt` parameter.
 
@@ -59,41 +65,46 @@ Import your existing account with the private key and remember to replace the `.
 
 ## 4. Running Member Node
 
-Create the `startMember.sh` file in the same folder of `geth`. You may need to change the P2P/HTTP/RPC ports. This script expects node DB directory to be `./node/node1`. You can refer to [https://geth.ethereum.org/docs/fundamentals/command-line-options](https://geth.ethereum.org/docs/fundamentals/command-line-options) for more details about start options.
+While the Member Node does not participate in the consensus process, it provides a remote interface for interacting with the Neo X network.
+
+Create the `startMember.sh` file in the same folder of `geth`. You may need to change the `P2P/HTTP/RPC/WS` ports to avoid conflicts. Please note that the port configuration for the JSON-RPC interface should be set to httpport, not rpcport. Additionally, remember to change `extip` if you want other nodes to be able to find yours. You can refer to [https://geth.ethereum.org/docs/fundamentals/command-line-options](https://geth.ethereum.org/docs/fundamentals/command-line-options) for more details about start options.
+
+This script expects node DB directory to be `./node/node1` and `./node/node1/node_address.txt` stores the address of your account.
 
 ```
 $ vi startMember.sh
 #!/bin/bash
-​
+
 node="nodes/node1"
-​
+
 startP2PPort=30300
 startHttpPort=8545
 startRPCPort=8561
-​
+
 port=`expr $startP2PPort + 1`
 httpport=`expr $startHttpPort + 1`
 rpcport=`expr $startRPCPort + 1`
-​
+wsport=8570
+
 miner=$(<$node/node_address.txt)
 echo "$node and miner is $miner, rpc port $rpcport, p2p port $port"
-​
+
 nohup ./geth \
 --networkid 12227331 \
+--nat extip:10.148.0.2 \
 --port $port \
 --authrpc.port $rpcport \
 --identity=$node \
 --maxpeers=50 \
---txpool.nolocals \
 --syncmode full \
 --gcmode archive \
 --datadir $node \
 --bootnodes "enr:-KO4QFuNbtvEaHsiOpEe22LyYJ9FBNDfsvzhBcohnpLcOmopXlk9sKE9JJlT9_JjVb3K0KTPvfNjjArb8c8Qe-geeoaGAY7rxy0Wg2V0aMfGhBL8z2aAgmlkgnY0gmlwhCO764eJc2VjcDI1NmsxoQNhL5qj-6ycHfDYoD3oujZuxH20AOLdU1aoT5gGGSLSaoRzbmFwwIN0Y3CCdl2DdWRwgnZd" \
 --http.api admin,eth,debug,miner,net,txpool,personal,web3,dbft \
 --http --http.addr 0.0.0.0 --http.port $httpport --http.vhosts "*" --http.corsdomain '*' \
---ws --ws.addr 0.0.0.0 --ws.port 8570 --ws.api eth,net,web3 --ws.origins '*'  \
+--ws --ws.addr 0.0.0.0 --ws.port $wsport --ws.api eth,net,web3 --ws.origins '*'  \
 --verbosity 3  >> $node/node.log 2>&1 &
-​
+
 sleep 3s;
 ps -ef|grep geth|grep mine|grep -v grep;
 ```
@@ -106,29 +117,29 @@ Then run
 
 ## 5. Running Miner Node
 
-Create the startMiner.sh file in the same folder of `geth`. You may need to change the P2P/HTTP/RPC ports. You can refer to [https://geth.ethereum.org/docs/fundamentals/command-line-options](https://geth.ethereum.org/docs/fundamentals/command-line-options) for more details about start options.
+Miner Node participates in the consensus process. If you want to register as a candidate of consensus list you need to run a miner node.
 
-When the node index is set to 1, this script requires the node address to be placed at `nodes/node1/node_address.txt`, the node password to be placed at `nodes/node1/password.txt` and the node DB directory to be placed at `./node/node1`.
+Create the startMiner.sh file in the same folder of `geth`. You may need to change the `P2P/RPC` ports to avoid conflicts. Additionally, remember to change `extip` if you want other nodes to be able to find yours. You can refer to [https://geth.ethereum.org/docs/fundamentals/command-line-options](https://geth.ethereum.org/docs/fundamentals/command-line-options) for more details about start options.
+
+When the inputing node index is set to 1, this script requires the node address to be placed at `nodes/node1/node_address.txt`, the node password to be placed at `nodes/node1/password.txt` and the node DB directory to be placed at `./node/node1`.
 
 ```
 $ vi startMiner.sh
 #!/bin/bash
-​
+
 echo "input node index"
 read nodeIndex
 node="nodes/node$nodeIndex"
-​
+
 startP2PPort=30300
-startHttpPort=8545
 startRPCPort=8561
-​
+
 port=`expr $startP2PPort + $nodeIndex`
-httpport=`expr $startHttpPort + $nodeIndex`
 rpcport=`expr $startRPCPort + $nodeIndex`
-​
+
 miner=$(<$node/node_address.txt)
 echo "$node and miner is $miner, rpc port $rpcport, p2p port $port"
-​
+
 nohup ./geth \
 --networkid 12227331 \
 --nat extip:10.148.0.2 \
@@ -138,15 +149,13 @@ nohup ./geth \
 --password $node/password.txt \
 --authrpc.port $rpcport \
 --identity=$node \
---maxpeers=30 \
---txpool.nolocals \
+--maxpeers=50 \
 --syncmode full \
 --gcmode archive \
 --datadir $node \
 --bootnodes "enr:-KO4QFuNbtvEaHsiOpEe22LyYJ9FBNDfsvzhBcohnpLcOmopXlk9sKE9JJlT9_JjVb3K0KTPvfNjjArb8c8Qe-geeoaGAY7rxy0Wg2V0aMfGhBL8z2aAgmlkgnY0gmlwhCO764eJc2VjcDI1NmsxoQNhL5qj-6ycHfDYoD3oujZuxH20AOLdU1aoT5gGGSLSaoRzbmFwwIN0Y3CCdl2DdWRwgnZd" \
---metrics --metrics.addr 0.0.0.0 --metrics.expensive \
 --verbosity 3  >> $node/node.log 2>&1 &
-​
+
 sleep 3s;
 ps -ef|grep geth|grep mine|grep -v grep;
 ```
