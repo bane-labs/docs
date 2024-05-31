@@ -117,7 +117,7 @@ Then run
 
 ## 5. Running Miner Node
 
-Miner Node participates in the consensus process. If you want to register as a candidate of consensus list you need to run a miner node.
+A miner node participates in the consensus process. If you want to register as a candidate for the  consensus list, you need to run a miner node.
 
 Create the startMiner.sh file in the same folder of `geth`. You may need to change the `P2P/RPC` ports to avoid conflicts. Additionally, remember to change `extip` if you want other nodes to be able to find yours. You can refer to [https://geth.ethereum.org/docs/fundamentals/command-line-options](https://geth.ethereum.org/docs/fundamentals/command-line-options) for more details about start options.
 
@@ -164,4 +164,40 @@ Then run
 
 ```
 ./startMiner.sh
+```
+
+## 6. Registering as a Candidate
+
+After running a miner node, you can stake 1000 GAS to register as a candidate for the consensus list. If your node receives enough votes (top 7 in GAS), it will become a consensus node, which will mint blocks and share the transaction fee rewards.
+
+1. Attach the node
+
+```
+./geth attach nodes/node1/geth.ipc
+```
+
+2. Call the Governance contract
+
+```
+var abi=[ {
+      "inputs": [
+        {
+          "internalType": "uint256",
+          "name": "shareRate",
+          "type": "uint256"
+        }
+      ],
+      "name": "registerCandidate",
+      "outputs": [],
+      "stateMutability": "payable",
+      "payable": "true",
+      "type": "function"
+    } ];
+
+var GovContract = web3.eth.contract(abi);
+
+var govInstance = GovContract.at('0x1212000000000000000000000000000000000001');
+
+// send 1000 GAS(in value) and call registerCandidate(shareRate), shareRate is the rate share to voters, the rate base is 1000, 100 means 10%
+govInstance.registerCandidate(100, {value:'1000000000000000000000', from: eth.accounts[0]});
 ```
