@@ -7,7 +7,7 @@ In the context of Neo X, this project aims to bridge:
 * From **Neo N3** to **Neo X** (_N3->NeoX_);
 * From **Neo X** to **Neo N3** (_NeoX->N3_);
 
-In the following sections we will elabrate on how and why Merkle Trees play a role in the solution, why we call the solution as the "decoupled relayer", the architecture, the roles with their responsibilities, and the involved smart contracts.
+In the following sections we will elaborate on the solution, why we call the solution a "decoupled relayer", the architecture, the roles with their responsibilities, and the involved smart contracts.
 
 
 

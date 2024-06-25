@@ -11,7 +11,7 @@
 ## Bridge
 
 * [How Native Bridge Works](bridge/how-native-bridge-works/README.md)
-  * [Merkle Tree and Decoupled Relayer](bridge/how-native-bridge-works/merkle-tree-and-decoupled-relayer.md)
+  * [Hash Chain and Decoupled Relayer](bridge/how-native-bridge-works/hash-chain-and-decoupled-relayer.md)
   * [Architecture](bridge/how-native-bridge-works/architecture.md)
   * [Technical Flow](bridge/how-native-bridge-works/technical-flow.md)
 * [Quick Start: Bridging Assets](bridge/quick-start-bridging-assets.md)
