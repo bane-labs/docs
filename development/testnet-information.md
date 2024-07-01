@@ -23,3 +23,9 @@ At present, Neo X TestNet (with ChainID 12227331) is launched. Relevant informat
 | Geth Compatibility | Compatible to Geth v1.13.11.                                                        |
 | EVM Compiler       | Use the latest Solidity compiler.                                                   |
 | EVM Version        | Compile smart contracts with EVM version set to `shanghai` to ensure compatibility. |
+
+### Deployed Contracts
+
+| Deployed Contract | Address                                    |
+| ----------------- | ------------------------------------------ |
+| WGAS10            | 0x8095581030409afc716d5f35Ce5172e13d7bA316 |
