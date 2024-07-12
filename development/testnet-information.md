@@ -12,7 +12,7 @@ At present, Neo X TestNet (with ChainID 12227332) is launched. Relevant informat
 | Description     | The public testnet for NeoX                                        |
 | Chain lD        | 12227332                                                           |
 | RPC Endpoint    | [https://neoxt4seed1.ngd.network](https://neoxt4seed1.ngd.network) |
-| WSS Endpoint    | wss://neox4wss1.ngd.network                                        |
+| WSS Endpoint    | wss://neoxt4wss1.ngd.network                                       |
 | Block Explorer  | [https://xt3scan.ngd.network/](https://xt3scan.ngd.network/)       |
 | Currency Symbol | GAS                                                                |
 
