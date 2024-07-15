@@ -19,7 +19,7 @@ At present, Neo X TestNet T3 (support ending in July ) and T4 are launched. Rele
 | Chain lD        | 12227332                                                           |
 | RPC Endpoint    | [https://neoxt4seed1.ngd.network](https://neoxt4seed1.ngd.network) |
 | WSS Endpoint    | wss://neoxt4wss1.ngd.network                                       |
-| Block Explorer  | [https://xt3scan.ngd.network/](https://xt3scan.ngd.network/)       |
+| Block Explorer  | [https://xt4scan.ngd.network/](https://xt4scan.ngd.network/)       |
 | Currency Symbol | GAS                                                                |
 
 ### Development Environment Recommendations
