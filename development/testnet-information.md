@@ -1,23 +1,21 @@
 # Development Environment Information
 
-At present, Neo X TestNet T3 and T4 are launched. Relevant information is listed as below.
+At present, Neo X TestNet T3 (support ending in July ) and T4 are launched. Relevant information is listed as below.
 
 ### TestNet Information
 
-**NeoX T3** (Support ending at the end of July )
-
 | Name            | Value                                                          |
 | --------------- | -------------------------------------------------------------- |
+| TestNet         | NeoX T3                                                        |
 | Chain lD        | 12227331                                                       |
 | RPC Endpoint    | [https://neoxseed1.ngd.network](https://neoxseed1.ngd.network) |
 | WSS Endpoint    | wss://neoxwss1.ngd.network                                     |
 | Block Explorer  | [https://xt3scan.ngd.network/](https://xt3scan.ngd.network/)   |
 | Currency Symbol | GAS                                                            |
 
-**NeoX T4**
-
 | Name            | Value                                                              |
 | --------------- | ------------------------------------------------------------------ |
+| TestNet         | NeoX T4                                                            |
 | Chain lD        | 12227332                                                           |
 | RPC Endpoint    | [https://neoxt4seed1.ngd.network](https://neoxt4seed1.ngd.network) |
 | WSS Endpoint    | wss://neoxt4wss1.ngd.network                                       |
