@@ -34,4 +34,4 @@ At present, Neo X TestNet T3 (support ending in July ) and T4 are launched. Rele
 
 | Deployed Contract | Address                                    |
 | ----------------- | ------------------------------------------ |
-| WGAS10            | 0x8095581030409afc716d5f35Ce5172e13d7bA316 |
+| WGAS10            | 0x1CE16390FD09040486221e912B87551E4e44Ab17 |
