@@ -1,6 +1,6 @@
 # Quick Start: Bridging Assets
 
-This guide helps users quickly move GAS or any NEP-11 tokens from Neo N3 to Neo X, or vice versa, using the [Neo X bridge](https://t3bridge.banelabs.org/).
+This guide helps users quickly move GAS or any NEP-11 tokens from Neo N3 to Neo X, or vice versa, using the [Neo X bridge](https://testnet.bridge.banelabs.org/).
 
 We will walk you through the entire process, explaining each step in depth. If you get stuck at any point, feel free to reach out to us on [Discord](https://discord.gg/neosmarteconomy) for assistance.
 
@@ -19,7 +19,7 @@ To get started quickly, you need to have:
 
 You'll also need to add the Neo X's RPC endpoint to your wallet. Here we provide two ways for doing this using MetaMask.
 
-* (Recommended) Click the button on the bottom-left of [Neo X's Explorer](https://xt3scan.ngd.network/) to automatically add Neo X to MetaMask   &#x20;
+* (Recommended) Click the button on the bottom-left of [Neo X's Explorer](https://xt4scan.ngd.network/) to automatically add Neo X to MetaMask   &#x20;
 
 <div align="left">
 
@@ -40,11 +40,11 @@ You'll also need to add the Neo X's RPC endpoint to your wallet. Here we provide
 
 The information about Neo X is listed as below:
 
-<table><thead><tr><th width="212">Parameter</th><th width="170">Neo X Mainnet</th><th>Neo X Testnet</th></tr></thead><tbody><tr><td>Network name</td><td>Neo X</td><td>Neo X Testnet</td></tr><tr><td>RPC URL</td><td></td><td><a href="https://neoxseed1.ngd.network">https://neoxseed1.ngd.network</a></td></tr><tr><td>Chain ID</td><td></td><td>12227331</td></tr><tr><td>Currency symbol</td><td>GAS</td><td>GAS</td></tr><tr><td>Block explorer URL</td><td></td><td><a href="https://xt3scan.ngd.network/">https://xt3scan.ngd.network</a></td></tr></tbody></table>
+<table><thead><tr><th width="212">Parameter</th><th width="170">Neo X Mainnet</th><th>Neo X Testnet</th></tr></thead><tbody><tr><td>Network name</td><td>Neo X</td><td>Neo X Testnet</td></tr><tr><td>RPC URL</td><td></td><td><a href="https://neoxt4seed1.ngd.network">https://neoxt4seed1.ngd.network</a></td></tr><tr><td>Chain ID</td><td></td><td>12227332</td></tr><tr><td>Currency symbol</td><td>GAS</td><td>GAS</td></tr><tr><td>Block explorer URL</td><td></td><td><a href="https://xt4scan.ngd.network/">https://xt4scan.ngd.network/</a></td></tr></tbody></table>
 
 ### **Step 2: Initiate the deposit**
 
-1. Go to [https://t3bridge.banelabs.org](https://t3bridge.banelabs.org/).
+1. Go to [https://testnet.bridge.banelabs.org/](https://testnet.bridge.banelabs.org/).
 2.  Log in to the bridge with your wallet. Check that you're connected to Neo N3 and Neo X on the page for asset deposits.
 
     > Note: Neo X TestNet currently only supports the bridging of _GAS_ .
@@ -60,7 +60,7 @@ It usually takes around 1-2 minutes (varying based on the chain congestion) for 
 
 ## Withdrawing _GAS_ (from Neo X to Neo N3)
 
-1.  Log in to [https://t3bridge.banelabs.org](https://t3bridge.banelabs.org) with your wallet. Check that you are connected to the source network (e.g., Neo X) and the destination network (e.g., Neo N3) shown at the top of the page.      &#x20;
+1.  Log in to [https://testnet.bridge.banelabs.org/](https://testnet.bridge.banelabs.org/) with your wallet. Check that you are connected to the source network (e.g., Neo X) and the destination network (e.g., Neo N3) shown at the top of the page.      &#x20;
 
     <figure><img src="../.gitbook/assets/image (4).png" alt=""><figcaption></figcaption></figure>
 2.  Enter the amount of _GAS_ you want to bridge over in the `From` box and then press `Withdraw`. Follow the prompts on your web3 wallet.
