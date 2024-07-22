@@ -72,7 +72,6 @@ Create the `startMember.sh` file in the same folder of `geth`. You may need to c
 This script expects node DB directory to be `./node/node1` and `./node/node1/node_address.txt` stores the address of your account.
 
 ```
-$ vi startMember.sh
 #!/bin/bash
 
 node="nodes/node1"
@@ -86,7 +85,6 @@ httpport=`expr $startHttpPort + 1`
 rpcport=`expr $startRPCPort + 1`
 wsport=8570
 
-miner=$(<$node/node_address.txt)
 echo "$node and miner is $miner, rpc port $rpcport, p2p port $port"
 
 nohup ./geth \
@@ -124,7 +122,6 @@ Create the startMiner.sh file in the same folder of `geth`. You may need to chan
 When the inputing node index is set to 1, this script requires the node address to be placed at `nodes/node1/node_address.txt`, the node password to be placed at `nodes/node1/password.txt` and the node DB directory to be placed at `./node/node1`.
 
 ```
-$ vi startMiner.sh
 #!/bin/bash
 
 echo "input node index"
