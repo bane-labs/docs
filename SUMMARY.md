@@ -16,6 +16,10 @@
   * [Technical Flow](bridge/how-native-bridge-works/technical-flow.md)
 * [Quick Start: Bridging Assets](bridge/quick-start-bridging-assets.md)
 
+## Oracle
+
+* [Supra](oracle/supra.md)
+
 ## Governance
 
 * [Governance in Neo X](governance/governance-in-neo-x.md)
