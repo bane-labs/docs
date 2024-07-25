@@ -1,7 +1,5 @@
 # Development Environment Information
 
-
-
 ### Networks
 
 #### MainNet
@@ -11,7 +9,7 @@
 | MainNet         | NeoX Mainnet                                                             |
 | Chain lD        | 47763                                                                    |
 | RPC Endpoint    | [https://mainnet-1.rpc.banelabs.org](https://mainnet-1.rpc.banelabs.org) |
-| WSS Endpoint    | [wss://mainnet.wss1.banelabs.org/](wss://mainnet.wss1.banelabs.org/)     |
+| WSS Endpoint    | wss://mainnet.wss1.banelabs.org/                                         |
 | Block Explorer  | [https://xexplorer.neo.org](https://xexplorer.neo.org)                   |
 | Currency Symbol | GAS                                                                      |
 
@@ -36,7 +34,7 @@
 
 ### Deployed Contracts
 
-| Deployed Contract | Address                                    |
-| ----------------- | ------------------------------------------ |
-| WGAS10            | 0x1CE16390FD09040486221e912B87551E4e44Ab17 |
-| Multicall3        | 0x82096F92248dF7afDdef72E545F06e5be0cf0F99 |
+| Deployed Contract | Address                                    | Network |
+| ----------------- | ------------------------------------------ | ------- |
+| WGAS10            | 0x1CE16390FD09040486221e912B87551E4e44Ab17 | TestNet |
+| Multicall3        | 0x82096F92248dF7afDdef72E545F06e5be0cf0F99 | TestNet |
