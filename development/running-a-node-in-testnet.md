@@ -1,6 +1,6 @@
-# Running a Node in TestNet
+# Running a Node
 
-This document contains step-by-step instructions for running a geth node in the Neo X test network.
+This document contains step-by-step instructions for running a geth node in Neo X.
 
 ## Hardware Requirements
 

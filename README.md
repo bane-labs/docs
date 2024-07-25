@@ -1,9 +1,5 @@
 # Overview
 
-## About the Document
-
-This document provides the information based on the beta version of Neo X TestNet. It will be updated continuously to align with the evolving development version of Neo X.
-
 ## What is Neo X?
 
 Neo X is an EVM-compatible sidechain incorporating Neo's distinctive dBFT consensus mechanism. Serving as a bridge between Neo N3 and the widely used EVM network, Neo X will play a crucial role in expanding the Neo ecosystem and offering developers more opportunities for innovation.
@@ -16,7 +12,7 @@ Leveraging the dBFT consensus mechanism, Neo X employs a multi-node governance s
 
 The decision-making process for consensus nodes to manage on-chain parameters through voting will be incorporated in future versions or updates. For more information about the complete Neo X governance system, see [Governance](broken-reference/).
 
-### **Bridge Between Neo X TestNet and Neo N3 TestNet**
+### **Bridge Between Neo X and Neo N3**
 
 Neo X supports for bidirectional token transfers between Neo X (EVM) and Neo N3 (NeoVM). Key features include:
 
