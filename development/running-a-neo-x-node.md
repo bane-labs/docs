@@ -1,4 +1,4 @@
-# Running a Node
+# Running a Neo X Node
 
 This document contains step-by-step instructions for running a geth node in Neo X.
 
