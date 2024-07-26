@@ -88,8 +88,8 @@ wsport=8570
 echo "$node and miner is $miner, rpc port $rpcport, p2p port $port"
 
 nohup ./geth \
---networkid 12227331 \
---nat extip:10.148.0.2 \
+--networkid {networkid} \
+--nat extip:{IP address} \
 --port $port \
 --authrpc.port $rpcport \
 --identity=$node \
@@ -97,7 +97,7 @@ nohup ./geth \
 --syncmode full \
 --gcmode archive \
 --datadir $node \
---bootnodes "enr:-KO4QFuNbtvEaHsiOpEe22LyYJ9FBNDfsvzhBcohnpLcOmopXlk9sKE9JJlT9_JjVb3K0KTPvfNjjArb8c8Qe-geeoaGAY7rxy0Wg2V0aMfGhBL8z2aAgmlkgnY0gmlwhCO764eJc2VjcDI1NmsxoQNhL5qj-6ycHfDYoD3oujZuxH20AOLdU1aoT5gGGSLSaoRzbmFwwIN0Y3CCdl2DdWRwgnZd" \
+--bootnodes "bootnodes" \
 --http.api admin,eth,debug,miner,net,txpool,personal,web3,dbft \
 --http --http.addr 0.0.0.0 --http.port $httpport --http.vhosts "*" --http.corsdomain '*' \
 --ws --ws.addr 0.0.0.0 --ws.port $wsport --ws.api eth,net,web3 --ws.origins '*'  \

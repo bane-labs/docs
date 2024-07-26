@@ -4,7 +4,7 @@
 
 ## Development
 
-* [Development Environment Information](development/testnet-information.md)
+* [Development Environment Information](development/development-environment-information.md)
 * [Running a Neo X Node](development/running-a-neo-x-node.md)
 * [JSON-RPC API](development/json-rpc-api.md)
 
