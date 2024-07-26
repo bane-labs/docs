@@ -1,26 +1,23 @@
 # Quick Start: Bridging Assets
 
-This guide helps users quickly move GAS or any NEP-11 tokens from Neo N3 to Neo X, or vice versa, using the [Neo X bridge](https://testnet.bridge.banelabs.org/).
+This guide helps users quickly move GAS or any NEP-11 tokens from Neo N3 to Neo X, or vice versa, using the Neo X bridge.
 
 We will walk you through the entire process, explaining each step in depth. If you get stuck at any point, feel free to reach out to us on [Discord](https://discord.gg/neosmarteconomy) for assistance.
 
 ## Prerequisites
 
-To get started quickly, you need to have:
-
-* A web3 wallet installed, such as [Neoline](https://neoline.io/en/) or [Metamask](https://metamask.io/download/). If you don't have one, visit the link to download.
-* Some GAS on Neo N3. There are several ways to acquire _GAS_ :
-  * Use a supported centralized exchange like Binance or OKX, which allows you to buy _GAS_ and withdraw it to your wallet. Most major centralized exchanges support direct withdrawal from your centralized exchange wallet to Neo N3   &#x20;
-  * Request funds from a faucet for [Testnet N3T5](https://n3t5wish.ngd.network/#/), if you are using a testnet
-
-Access the appropriate URL based on the network you are connecting to. These will be referenced in the following steps.
-
-* **Mainnet**
-  * Neo X Bridge: [https://xbridge.neo.org/](https://xbridge.neo.org/)
-  * Neo X's Explorer: [https://xexplorer.neo.org/](https://xexplorer.neo.org/)
-* **Testnet**
-  * Neo X Bridge: [https://testnet.bridge.banelabs.org/](https://testnet.bridge.banelabs.org/)
-  * Neo X's Explorer: [https://xt4scan.ngd.network/](https://xt4scan.ngd.network/)
+1. To get started quickly, you need to have:
+   * A web3 wallet installed, such as [Neoline](https://neoline.io/en/) or [Metamask](https://metamask.io/download/). If you don't have one, visit the link to download.
+   * Some GAS on Neo N3. There are several ways to acquire _GAS_ :
+     * Use a supported centralized exchange like Binance or OKX, which allows you to buy _GAS_ and withdraw it to your wallet. Most major centralized exchanges support direct withdrawal from your centralized exchange wallet to Neo N3   &#x20;
+     * Request funds from a faucet for [Testnet N3T5](https://n3t5wish.ngd.network/#/), if you are using a testnet
+2. Access the appropriate URL based on the network you are connecting to. These will be referenced in the following steps.
+   * **Mainnet**
+     * Neo X Bridge: [https://xbridge.neo.org/](https://xbridge.neo.org/)
+     * Neo X's Explorer: [https://xexplorer.neo.org/](https://xexplorer.neo.org/)
+   * **Testnet**
+     * Neo X Bridge: [https://testnet.bridge.banelabs.org/](https://testnet.bridge.banelabs.org/)
+     * Neo X's Explorer: [https://xt4scan.ngd.network/](https://xt4scan.ngd.network/)
 
 ## Depositing GAS (from Neo N3 to Neo X)
 
