@@ -96,15 +96,7 @@ At the end of every election epoch, the 7 candidates with the highest amount of 
 
 Otherwise, the consensus nodes of the next epoch will be the following predefined stand-by members.
 
-| Testnet Stand-by Address                     | Mainnet Stand-by Address                     |
-| -------------------------------------------- | -------------------------------------------- |
-| `0xcbbeca26e89011e32ba25610520b20741b809007` | `0x34a3b2abb99b4c128acf61dcbbd1fcac0b161652` |
-| `0x4ea2a4697d40247c8be1f2b9ffa03a0e92dcbacc` | `0x641ec1c538fa17e6ad8193c9b580f6850b114280` |
-| `0xd10f47396dc6c76ad53546158751582d3e2683ef` | `0xe3973f57e8a0aa312c1917ab0e6a05d8b6af6609` |
-| `0xa51fe05b0183d01607bf48c1718d1168a1c11171` | `0xa61ac4a4f006f4fceeb72ee0012a2d3367168d10` |
-| `0x01b517b301bb143476da35bb4a1399500d925514` | `0xe6d1a9db6a0893926bd81c0ef93aaaa543c116f0` |
-| `0x7976ad987d572377d39fb4bab86c80e08b6f8327` | `0x4fe8af0dbb633283d8e9703668142fd130f2818d` |
-| `0xd711da2d8c71a801fc351163337656f1321343a0` | `0x763452f65353fffe73d46539e51a6ddfc0e2c86a` |
+<table><thead><tr><th width="388">Testnet Stand-by Address</th><th>Mainnet Stand-by Address</th></tr></thead><tbody><tr><td><code>0xcbbeca26e89011e32ba25610520b20741b809007</code></td><td><code>0x34a3b2abb99b4c128acf61dcbbd1fcac0b161652</code></td></tr><tr><td><code>0x4ea2a4697d40247c8be1f2b9ffa03a0e92dcbacc</code></td><td><code>0x641ec1c538fa17e6ad8193c9b580f6850b114280</code></td></tr><tr><td><code>0xd10f47396dc6c76ad53546158751582d3e2683ef</code></td><td><code>0xe3973f57e8a0aa312c1917ab0e6a05d8b6af6609</code></td></tr><tr><td><code>0xa51fe05b0183d01607bf48c1718d1168a1c11171</code></td><td><code>0xa61ac4a4f006f4fceeb72ee0012a2d3367168d10</code></td></tr><tr><td><code>0x01b517b301bb143476da35bb4a1399500d925514</code></td><td><code>0xe6d1a9db6a0893926bd81c0ef93aaaa543c116f0</code></td></tr><tr><td><code>0x7976ad987d572377d39fb4bab86c80e08b6f8327</code></td><td><code>0x4fe8af0dbb633283d8e9703668142fd130f2818d</code></td></tr><tr><td><code>0xd711da2d8c71a801fc351163337656f1321343a0</code></td><td><code>0x763452f65353fffe73d46539e51a6ddfc0e2c86a</code></td></tr></tbody></table>
 
 ### Reward
 
