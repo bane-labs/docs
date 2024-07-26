@@ -29,7 +29,7 @@ You'll also need to add the Neo X's RPC endpoint to your wallet. Here we provide
 
 <div align="left">
 
-<figure><img src="../.gitbook/assets/1714361607193 (1).png" alt="" width="338"><figcaption></figcaption></figure>
+<figure><img src="https://lh7-rt.googleusercontent.com/docsz/AD_4nXe9s3hiBzPOnSMXqkE9cuJlMNMAP8_ntzMM5glMAQOu4EB3PLPzrTF2GdkQlLmZkPQB0noFrelAc5i_p6msxxxrcmRC0zBc9X4pf2vUP1Z1J3f7iSuiJVilC9_72LZ8iEn_4F1MALoMbPlc2JsVQTXaJRXV?key=Y_0tKG4RxtVCtlTsvrBZYw" alt=""><figcaption></figcaption></figure>
 
 </div>
 

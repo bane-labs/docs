@@ -35,9 +35,11 @@ You can download the latest `geth-linux-amd64` binary from [https://github.com/b
 
 ## 2. Initializing Geth Database
 
-Download the latest `genesis_testnet.json` configuration file from [https://github.com/bane-labs/go-ethereum/blob/bane-main/config/genesis\_testnet.json](https://github.com/bane-labs/go-ethereum/blob/bane-main/config/genesis\_testnet.json).
+Download the latest .json configuration file from [https://github.com/bane-labs/go-ethereum/tree/bane-main/config](https://github.com/bane-labs/go-ethereum/tree/bane-main/config).
 
-To create a blockchain node that uses this genesis block, first use geth init to import and set the canonical genesis block for the new chain. This requires the path to genesis.json to be passed as an argument. `--datadir` is the target destination for the node database, here we use `./nodes/node1`.
+To create a blockchain node that uses this genesis block, first use geth init to import and set the canonical genesis block for the new chain. This requires the path to the configuration file to be passed as an argument.
+
+&#x20;`--datadir` is the target destination for the node database. In this example, we use `./nodes/node1` and `genesis_testnet.json`  for the testnet:
 
 ```
 ./geth init --datadir ./nodes/node1 ./genesis_testnet.json
