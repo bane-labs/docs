@@ -81,7 +81,7 @@ Create the `startSeed.sh` file in the same folder of `geth`. You may need to cha
 
 This script expects node DB directory to be `./node/node1`.
 
-Testnet:
+#### Testnet:
 
 ```
 #!/bin/bash
@@ -116,7 +116,7 @@ sleep 3s;
 ps -ef|grep geth|grep mine|grep -v grep;
 ```
 
-Mainnet:
+#### Mainnet:
 
 ```
 #!/bin/bash

@@ -24,5 +24,3 @@ Neo X supports for bidirectional token transfers between Neo X (EVM) and Neo N3 
 * **Enhanced Stability and Security**: Upgrades to bridge validators and relayers, along with the introduction of a new role management model to fortify security measures in the bridge smart contracts. For example, the “Security Guard” role can pause bridge operations as needed, while the “Governor” role is empowered to resume operations, as well as propose and update bridge parameters.
 * **Bridge Upgradability**: Consensus nodes on the Neo X chain can now propose and implement bridge upgrades, ensuring that the bridge evolves in alignment with the community’s needs.
 * **Token Support**: We have laid the groundwork to include NEP-17 and ERC-20 tokens, such as `NEO` token, in future versions of the bridge.
-
-\\
