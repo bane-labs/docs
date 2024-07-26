@@ -6,33 +6,7 @@ Neo X system contracts are a set of build-in Solidity contracts with predefined 
 
 These contracts are not deployed by transactions but allocated in the [genesis file](https://github.com/bane-labs/go-ethereum/blob/bane-main/config). The address setting of existing pre-compiled contracts is listed as below.
 
-| Address                                      | Contract                                                      |
-| -------------------------------------------- | ------------------------------------------------------------- |
-| `0x1212000000000000000000000000000000000000` | GovProxyAdmin                                                 |
-| `0x1212000000000000000000000000000000000001` | Governance Proxy                                              |
-| `0x1212100000000000000000000000000000000001` | Governance Implementation                                     |
-| `0x1212000000000000000000000000000000000002` | Policy Proxy                                                  |
-| `0x1212100000000000000000000000000000000002` | Policy Implementation                                         |
-| `0x1212000000000000000000000000000000000003` | GovernanceReward Proxy                                        |
-| `0x1212100000000000000000000000000000000003` | GovernanceReward Implementation                               |
-| `0x1212000000000000000000000000000000000004` | Bridge Proxy                                                  |
-| `0x1212100000000000000000000000000000000004` | Bridge Implementation                                         |
-| `0x1212000000000000000000000000000000000005` | BridgeManagement Proxy                                        |
-| `0x1212100000000000000000000000000000000005` | BridgeManagement Implementation                               |
-| `0x1212000000000000000000000000000000000006` | Treasury                                                      |
-| `0x1212000000000000000000000000000000000007` | CommitteeMultiSig Proxy                                       |
-| `0x1212100000000000000000000000000000000007` | CommitteeMultiSig Implementation                              |
-| `0x1212000000000000000000000000000000000008` | Stub0 Proxy                                                   |
-| `0x1212100000000000000000000000000000000008` | Stub Implementation (shared between all Stub Proxy contracts) |
-| `0x1212000000000000000000000000000000000009` | Stub1 Proxy                                                   |
-| `0x121200000000000000000000000000000000000a` | Stub2 Proxy                                                   |
-| `0x121200000000000000000000000000000000000b` | Stub3 Proxy                                                   |
-| `0x121200000000000000000000000000000000000c` | Stub4 Proxy                                                   |
-| `0x121200000000000000000000000000000000000d` | Stub5 Proxy                                                   |
-| `0x121200000000000000000000000000000000000e` | Stub6 Proxy                                                   |
-| `0x121200000000000000000000000000000000000f` | Stub7 Proxy                                                   |
-| `0x1212000000000000000000000000000000000010` | Stub8 Proxy                                                   |
-| `0x1212000000000000000000000000000000000011` | Stub9 Proxy                                                   |
+<table><thead><tr><th width="100">Address</th><th>Contract</th></tr></thead><tbody><tr><td><code>0x1212000000000000000000000000000000000000</code></td><td>GovProxyAdmin</td></tr><tr><td><code>0x1212000000000000000000000000000000000001</code></td><td>Governance Proxy</td></tr><tr><td><code>0x1212100000000000000000000000000000000001</code></td><td>Governance Implementation</td></tr><tr><td><code>0x1212000000000000000000000000000000000002</code></td><td>Policy Proxy</td></tr><tr><td><code>0x1212100000000000000000000000000000000002</code></td><td>Policy Implementation</td></tr><tr><td><code>0x1212000000000000000000000000000000000003</code></td><td>GovernanceReward Proxy</td></tr><tr><td><code>0x1212100000000000000000000000000000000003</code></td><td>GovernanceReward Implementation</td></tr><tr><td><code>0x1212000000000000000000000000000000000004</code></td><td>Bridge Proxy</td></tr><tr><td><code>0x1212100000000000000000000000000000000004</code></td><td>Bridge Implementation</td></tr><tr><td><code>0x1212000000000000000000000000000000000005</code></td><td>BridgeManagement Proxy</td></tr><tr><td><code>0x1212100000000000000000000000000000000005</code></td><td>BridgeManagement Implementation</td></tr><tr><td><code>0x1212000000000000000000000000000000000006</code></td><td>Treasury</td></tr><tr><td><code>0x1212000000000000000000000000000000000007</code></td><td>CommitteeMultiSig Proxy</td></tr><tr><td><code>0x1212100000000000000000000000000000000007</code></td><td>CommitteeMultiSig Implementation</td></tr><tr><td><code>0x1212000000000000000000000000000000000008</code></td><td>Stub0 Proxy</td></tr><tr><td><code>0x1212100000000000000000000000000000000008</code></td><td>Stub Implementation (shared between all Stub Proxy contracts)</td></tr><tr><td><code>0x1212000000000000000000000000000000000009</code></td><td>Stub1 Proxy</td></tr><tr><td><code>0x121200000000000000000000000000000000000a</code></td><td>Stub2 Proxy</td></tr><tr><td><code>0x121200000000000000000000000000000000000b</code></td><td>Stub3 Proxy</td></tr><tr><td><code>0x121200000000000000000000000000000000000c</code></td><td>Stub4 Proxy</td></tr><tr><td><code>0x121200000000000000000000000000000000000d</code></td><td>Stub5 Proxy</td></tr><tr><td><code>0x121200000000000000000000000000000000000e</code></td><td>Stub6 Proxy</td></tr><tr><td><code>0x121200000000000000000000000000000000000f</code></td><td>Stub7 Proxy</td></tr><tr><td><code>0x1212000000000000000000000000000000000010</code></td><td>Stub8 Proxy</td></tr><tr><td><code>0x1212000000000000000000000000000000000011</code></td><td>Stub9 Proxy</td></tr></tbody></table>
 
 ## GovernanceVote
 
