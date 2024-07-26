@@ -5,7 +5,8 @@
 ## Development
 
 * [Development Environment Information](development/testnet-information.md)
-* [Running a Neo X Node](development/running-a-node-in-testnet.md)
+* [Running a Node](development/running-a-node-in-testnet.md)
+* [Running a Neo X Node](development/running-a-node-in-testnet-1.md)
 * [JSON-RPC API](development/json-rpc-api.md)
 
 ## Bridge
