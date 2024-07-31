@@ -161,7 +161,7 @@ Then run
 
 A miner node participates in the consensus process. If you want to register as a candidate for the  consensus list, you need to run a miner node.
 
-Create the startMiner.sh file in the same folder of `geth`. You may need to change the `P2P/RPC` ports to avoid conflicts. Additionally, remember to change `extip` if you want other nodes to be able to find yours. You can refer to [https://geth.ethereum.org/docs/fundamentals/command-line-options](https://geth.ethereum.org/docs/fundamentals/command-line-options) for more details about start options.
+Create the `startMiner.sh` file in the same folder of `geth`. You may need to change the `P2P/RPC` ports to avoid conflicts. Additionally, remember to change `extip` if you want other nodes to be able to find yours. You can refer to [https://geth.ethereum.org/docs/fundamentals/command-line-options](https://geth.ethereum.org/docs/fundamentals/command-line-options) for more details about start options.
 
 When the inputing node index is set to 1, this script requires the node address to be placed at `nodes/node1/node_address.txt`, the node password to be placed at `nodes/node1/password.txt` and the node DB directory to be placed at `./node/node1`.
 
