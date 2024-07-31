@@ -154,7 +154,7 @@ ps -ef|grep geth|grep mine|grep -v grep;
 Then run
 
 ```
-./startMember.sh
+./startSeed.sh
 ```
 
 ## 5. Running Miner Node
