@@ -16,9 +16,13 @@
   * [Technical Flow](bridge/how-native-bridge-works/technical-flow.md)
 * [Quick Start: Bridging Assets](bridge/quick-start-bridging-assets.md)
 
-## Oracle
+## Integrations
 
-* [Supra](oracle/supra.md)
+* [The Graph](integrations/the-graph/README.md)
+  * [Introduction](integrations/the-graph/introduction.md)
+  * [Quick Start](integrations/the-graph/quick-start.md)
+* [Oracles](integrations/oracles/README.md)
+  * [Supra](integrations/oracles/supra.md)
 
 ## Governance
 
