@@ -251,7 +251,7 @@ Then run
 
 ## 6. Registering as a Candidate
 
-After running a miner node, you can stake 2000 GAS to register as a candidate for the consensus list. If your node receives enough votes (top 7 in GAS), it will become a consensus node, which will mint blocks and share the transaction fee rewards.
+After running a miner node, you can stake 1000 GAS to register as a candidate for the consensus list. If your node receives enough votes (top 7 in GAS), it will become a consensus node, which will mint blocks and share the transaction fee rewards.
 
 1. Attach the node
 
