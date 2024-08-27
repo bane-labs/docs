@@ -15,3 +15,7 @@ T4 Testnet:
 
 * **storage**: `0x5df499C9DB456154F81121282c0cB16b59e74C4b`
 * **pull**: `0xc99c8510D9FF355CD664F9412bdD645c5e25a7f1`
+* Chainlink AggregatorV3 interface of Pair ID 166: 0x99f4800f8958Caf403688b988f683188dF36CEaF
+* Chainlink AggregatorV3 interface of Pair ID 211: 0xB29f673C3bA1657b2F0ef160dD60425deB67BD38
+* Chainlink AggregatorV3 interface of Pair ID 44:  0xe027fE13ae0a9d302A1338b861de64EBb9c6b1b1
+* Chainlink AggregatorV3 interface of Pair ID 260:  0xE7d292a336c15ab80A51E9b6959b5Ec9eA870474
