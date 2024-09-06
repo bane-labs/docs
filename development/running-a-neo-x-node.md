@@ -281,6 +281,6 @@ var GovContract = web3.eth.contract(abi);
 
 var govInstance = GovContract.at('0x1212000000000000000000000000000000000001');
 
-// send 2000 GAS(This value is 20000 in current testnet) and call registerCandidate(shareRate), shareRate is the rate share to voters, the rate base is 1000, 100 means 10%
-govInstance.registerCandidate(100, {value:'2000000000000000000000', from: eth.accounts[0]});
+// send 1000 GAS(This value is 20000 in current testnet) and call registerCandidate(shareRate), shareRate is the rate share to voters, the rate base is 1000, 100 means 10%
+govInstance.registerCandidate(100, {value:'1000000000000000000000', from: eth.accounts[0]});
 ```
