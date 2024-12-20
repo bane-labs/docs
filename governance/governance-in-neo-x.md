@@ -11,7 +11,7 @@ To qualify as a candidate node on Neo X, the applicant should adhere to the foll
 
 Suitable applicants can proceed with the registration process by staking 20000 GAS (TestNet) or 1000 GAS (MainNet)  through the Neo X governance interface. This deposit serves as a commitment to participation in the governance process.
 
-Upon a normal node exit, the staked GAS tokens will be refunded to the applicant. A tentative locking period of approximately two weeks (equivalent to two Epochs, 120,960 blocks) is enforced to ensure the stability of the governance ecosystem.
+Upon a normal node exit, the staked GAS tokens will be refunded to the applicant. A tentative locking period of approximately 120,960 blocks is enforced to ensure the stability of the governance ecosystem.
 
 ## How to Become a Voter on Neo X?
 
@@ -19,7 +19,7 @@ All GAS token holders are eligible to vote on Neo X.
 
 ## The Consensus Node Election Process
 
-Each election period, equivalent to an Epoch, spans approximately one week. From all candidate nodes, a total of seven nodes are elected as consensus nodes.
+Each election period, equivalent to an Epoch, spans approximately 60,480 blocks. From all candidate nodes, a total of seven nodes are elected as consensus nodes.
 
 Any individual possessing GAS tokens on Neo X can participate in the election process by voting for their preferred consensus nodes. Votes are cast by staking any amount of GAS tokens (no less than 1 GAS) for only one candidate. The quantity of GAS tokens staked determines the voting power and influence in the reward amount this voter will receive if the candidate is elected.
 
