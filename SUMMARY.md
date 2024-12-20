@@ -28,3 +28,7 @@
 
 * [Governance in Neo X](governance/governance-in-neo-x.md)
 * [Neo X System Contracts](governance/neo-x-system-contracts.md)
+
+## FAQ
+
+* [Transaction Underpriced Error](faq/transaction-underpriced-error.md)
