@@ -10,6 +10,8 @@ If the `gasTipCap` is too low, the transaction will be flagged as underpriced. S
 
 #### Error Context
 
+A typical error message looks like this:
+
 {% code overflow="wrap" %}
 ```
 - server returned an error response: error code -32000: transaction underpriced: policy minGasTipCap needed 20000000000, baseFee needed 20000000000, gasTipCap 1, gasFeeCap 40000000001
