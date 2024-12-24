@@ -10,6 +10,10 @@ Mainnet:
 
 * **storage**: `0x58e158c74DF7Ad6396C0dcbadc4878faC9e93d57`
 * **pull**: `0x8B506d2616671b6742b968C18bEFdA1e665A9025`
+* Chainlink AggregatorV3 interface of Pair ID 166 (wBTC/USDT): 0xBB0f96cede5728D69409340be459A864478e9222
+* Chainlink AggregatorV3 interface of Pair ID 211 (WETH/USDT): 0xd6869E35e568Aa6BF481Fda57ac38f7353AF596F
+* Chainlink AggregatorV3 interface of Pair ID 44 (NEO/USDT): 0x8fd2622c2CA0d7f8Bd0e2Ee98B143213dBcF4975
+* Chainlink AggregatorV3 interface of Pair ID 260 (GAS/USDT): 0xe38231C17771f02fEE44B5275B3625Bf67817120
 
 T4 Testnet:
 
