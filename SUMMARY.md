@@ -29,6 +29,13 @@
 * [Governance in Neo X](governance/governance-in-neo-x.md)
 * [Neo X System Contracts](governance/neo-x-system-contracts.md)
 
+## Security
+
+* [Anti-MEV Protection](security/anti-mev-protection/README.md)
+  * [Threshold Encryption and DKG](security/anti-mev-protection/threshold-encryption-and-dkg.md)
+  * [Constructing Envelope Transactions](security/anti-mev-protection/constructing-envelope-transactions.md)
+  * [dBFT Enhancements Against MEV](security/anti-mev-protection/dbft-enhancements-against-mev.md)
+
 ## FAQ
 
 * [Transaction Underpriced Error](faq/transaction-underpriced-error.md)
