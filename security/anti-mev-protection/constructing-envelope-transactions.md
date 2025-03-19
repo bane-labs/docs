@@ -38,11 +38,11 @@ To send a secret transaction wrapped with an Envelope, we recommend the followin
 5. Encrypt the signed transaction with Neo X TPKE;
 6. Construct an Envelope transaction with the encrypted data and send it through wallet with the same `nonce`.
 
-> **Note**: The node in step 2 will return an RPC error to prevent the wallet nonce from increasing. This is expected behavior; use steps 3 and 4 to verify the result.
+> **Note**: The node in step 2 always returns an RPC error to prevent the wallet nonce from increasing, so that we keep compatible with popular wallets e.g. Metamask. This is the expected behavior, so please follow steps 3 and 4 to verify the final result.
 
 ## **Envelope Transaction Verification**
 
-In Neo X, **Envelope transactions** must pass mempool, otherwise they cannot be decrypted and executed in the dBFT consensus process.
+In Neo X, **Envelope transactions** must first pass mempool, otherwise they cannot be decrypted or executed in the dBFT consensus process.
 
 ### **Verification Criteria**
 
