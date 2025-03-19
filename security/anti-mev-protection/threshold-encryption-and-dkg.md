@@ -73,14 +73,43 @@ If some secret shares are lost, the remaining consensus members help restore the
 
 Neo X's DKG enables a **Threshold Public Key Encryption (TPKE)** scheme, ensuring that encrypted transactions can only be decrypted if at least **2f+1** consensus nodes cooperate. This mechanism is crucial for preventing premature exposure of transaction details.
 
-### Encryption Process
+Neo X TPKE utilizes the BLS12-381 curve, encoding any secret to **( G\_1 )** for encryption and any message to **( G\_2 )** for signature generation.
 
-1. A transaction payload is encrypted using an ephemeral AES key.
-2. The AES key is encrypted using the threshold public key and embedded into the transaction.
-3. The encrypted transaction (Envelope) is submitted to the network.
+### Encryption
 
-### Decryption Process
+For a given secret message ( msg ), the encryption process follows these steps:
 
-1. During block finalization, consensus nodes collectively contribute decryption shares.
-2. Once at least **2f+1** shares are available, the transaction payload is decrypted and executed.
-3. This ensures transactions remain confidential until they are irreversibly ordered in the block.
+1.  A random point G1 point _P_ is chosen as a seed to generate an AES key. The encrypted ciphertext is computed as:
+
+    $$
+    C_1 = AES(Hash(P), msg)
+    $$
+2.  To ensure security, a random scalar `r` is selected to encrypt _P_ as:
+
+    $$
+    C_2 = P + rS
+    $$
+
+    where:
+
+    * `r` is a random scalar,
+    * `S` is the global public key.
+3. The final encrypted message _C_, which is broadcasted across the network, consists of <img src="../../.gitbook/assets/1742373928425.png" alt="" data-size="line">
+
+### **Decryption**
+
+To recover the original `msg`, the Neo X consensus network must decrypt C1 to recover _P_. The decryption process follows:
+
+1. Each CN computes and shares <img src="../../.gitbook/assets/1742374088419.png" alt="" data-size="line">, where:
+   * _R_ is the commitment of the random scalar `r`,
+   * <img src="../../.gitbook/assets/1742374545593.png" alt="" data-size="line"> is the local secret key.
+2. Since validator indices (DKG indices) are publicly known within Neo X Governance, these shares can be aggregated and solved using a [**Vandermonde matrix**](https://en.wikipedia.org/wiki/Vandermonde_matrix).
+3. Once the seed _P_ is recovered, the original message `msg` can be decrypted using AES.
+
+### Signature
+
+For a given message `msg`, Neo X generates a signature through the following process:
+
+1. The message is encoded to G2 as Q = HashToG2(msg)
+2. A signature share is computed as <img src="../../.gitbook/assets/1742374942046.png" alt="" data-size="line"> where <img src="../../.gitbook/assets/1742374545593 (1).png" alt="" data-size="line"> is the local secret key.
+3. After collecting enough broadcasted shares, CNs aggregate and get the final signature with [Vandermonde matrix](https://en.wikipedia.org/wiki/Vandermonde_matrix) in the same way as TPKE decryption.
