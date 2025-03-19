@@ -8,8 +8,8 @@ The DKG mechanism in Neo X enables a fully decentralized key generation process 
 
 Each DKG round consists of three key steps:
 
-1. **Share** – The next consensus group generates **n distributed secret shares** and a **global public key**, where `n` is the number of Neo X consensus nodes.
-2. **Reshare** – The current consensus group (if available) transfers the **previous round’s secret** to the next group.
+1. **Share** – The next consensus group generates **n** distributed secret shares and a global public key, where `n` is the number of Neo X consensus nodes.
+2. **Reshare** – The current consensus group (if available) transfers the previous round’s secret to the next group.
 3. **Recover (Optional)** – If up to `f` secret shares are lost, the remaining `2f+1` shares reconstruct the secret to complete the transition.
 
 Starting from [**v0.3.0**](https://github.com/bane-labs/go-ethereum/releases/tag/v0.3.0), the DKG module automates the entire process, except for setting up the initial Anti-MEV keystore with a secret passphrase.
@@ -71,9 +71,9 @@ If some secret shares are lost, the remaining consensus members help restore the
 
 ## Threshold Public Key Encryption (TPKE)
 
-Neo X's DKG enables a **Threshold Public Key Encryption (TPKE)** scheme, ensuring that encrypted transactions can only be decrypted if at least **2f+1** consensus nodes cooperate. This mechanism is crucial for preventing premature exposure of transaction details.
+Neo X's DKG enables a Threshold Public Key Encryption (TPKE) scheme, ensuring that encrypted transactions can only be decrypted if at least **2f+1** consensus nodes cooperate. This mechanism is crucial for preventing premature exposure of transaction details.
 
-Neo X TPKE utilizes the BLS12-381 curve, encoding any secret to **( G\_1 )** for encryption and any message to **( G\_2 )** for signature generation.
+Neo X TPKE utilizes the BLS12-381 curve, encoding any secret to G1 for encryption and any message to G2 for signature generation.
 
 ### Encryption
 
