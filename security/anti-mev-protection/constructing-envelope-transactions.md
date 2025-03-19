@@ -1,22 +1,31 @@
 # Constructing Envelope Transactions
 
-To prevent MEV attacks, Neo X users must submit transactions within **Envelope Transactions**, ensuring their transactions remain encrypted until confirmed within the consensus process.
+To prevent MEV attacks, Neo X users can submit transactions within Envelope Transactions, ensuring their transactions remain encrypted until confirmed within the consensus process.
 
 ## Envelope Structure
 
-An Envelope transaction must meet the following criteria:
+A valid Envelope transaction must meet the following criteria:
 
-1. The **recipient** address `to` must be `Neo X GovReward Contract (0x1212000000000000000000000000000000000003)`.
-2. The **sender** address `from` must match the inner secret transaction sender.
-3. The `nonce` must be identical to the inner transaction's nonce.
-4. The `gas tip` must exceed the network's `minGasTipCap` plus `envelopeFee`.
-5.  The **transaction data** must follow this structure:
+* The recipient address `to` must be `Neo X GovReward Contract (0x1212000000000000000000000000000000000003)`.
+* The sender address `from` must match the inner secret transaction sender.
+* The `nonce` must be identical to that of the inner secret transactions.
+* The `gas tip` must exceed the network's `minGasTipCap` plus `envelopeFee`.
+* The `data` field of the Envelope transaction must be formatted as follows:
+  * A 4-byte prefix (`0xffffffff`).
+  * A 4-byte DKG epoch index (big-endian).
+  * A 4-byte inner secret transaction `gaslimit` (big-endian).
+  * A 32-byte hash of the inner secret transaction.
+  * A TPKE-encrypted ciphertext.
 
-    ```
-    |  prefix  | epoch  | gaslimit |  inner secret transaction hash  |  TPKE ciphertext  |
-    |  4-byte  | 4-byte |  4-byte  |           32-byte              |       bytes       |
-    |e.g. 0xffffffff|00000001|00005208 | 777bbe0bb1e4c3...eff6fd15a      | 80f8c8c2...fa6a1810 |
-    ```
+Here is an example of the `data` field of an Envelope transaction:
+
+```
+|  prefix  | epoch  | gaslimit |  inner secret transaction hash  |  TPKE ciphertext  |
+|  4-byte  | 4-byte |  4-byte  |           32-byte              |       bytes       |
+|0xffffffff|00000001|00005208 | 777bbe0bb1e4c3...eff6fd15a      | 80f8c8c2...fa6a1810 |
+```
+
+In a nutshell, Envelopes are always calling the `fallback()` method of the Neo X GovReward contract. This method burns gas based on the declared `gaslimit` in `data` to allocate block space in Envelope execution, and it works with `eth_estimateGas` automatically.
 
 ## Steps to Send an Envelope Transaction
 
