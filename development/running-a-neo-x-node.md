@@ -77,9 +77,9 @@ Import your existing account with the private key and remember to replace the `.
 ./geth account import --datadir ./nodes/node1 ./your/privateKey.txt
 ```
 
-### Set Up an Anti-MEV Keystore
+### Set up an Anti-MEV keystore
 
-Validators and candidates participating in **AMEV-dBFT** must set up an **anti-MEV keystore**, or the node will fail to enable AMEV-dBFT.
+Validators and candidates participating in **AMEV-dBFT** must set up an anti-MEV keystore, or the node will fail to enable AMEV-dBFT.
 
 To create an anti-MEV keystore for your validator account, run:
 
