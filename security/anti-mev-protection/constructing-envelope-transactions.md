@@ -1,4 +1,4 @@
-# Constructing Envelope Transactions
+# Envelope Transaction
 
 To prevent MEV attacks, Neo X users can submit transactions within Envelope Transactions, ensuring their transactions remain encrypted until confirmed within the consensus process.
 
@@ -42,13 +42,13 @@ To send a secret transaction wrapped with an Envelope, we recommend the followin
 
 ## **Envelope Transaction Verification**
 
-In Neo X, **Envelope transactions** must first pass mempool, otherwise they cannot be decrypted or executed in the dBFT consensus process.
+In Neo X, Envelope transactions must first pass mempool, otherwise they cannot be decrypted or executed in the dBFT consensus process.
 
 ### **Verification Criteria**
 
 * The sender has sufficient balance to cover the required gas fees.
 * The `nonce` used in both the Envelope and its enclosed transaction is valid.
-* The Envelope `gaslimit`  does not exceed the `maxEnvelopeGasLimit` policy.
+* The Envelope `gaslimit` does not exceed the `maxEnvelopeGasLimit` policy.
 
 ### **Execution Behavior**
 

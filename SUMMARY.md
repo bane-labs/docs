@@ -32,9 +32,9 @@
 ## Security
 
 * [Anti-MEV Protection](security/anti-mev-protection/README.md)
-  * [Threshold Encryption and DKG](security/anti-mev-protection/threshold-encryption-and-dkg.md)
-  * [Constructing Envelope Transactions](security/anti-mev-protection/constructing-envelope-transactions.md)
-  * [dBFT Enhancements Against MEV](security/anti-mev-protection/dbft-enhancements-against-mev.md)
+  * [Threshold Encryption](security/anti-mev-protection/threshold-encryption-and-dkg.md)
+  * [Envelope Transaction](security/anti-mev-protection/constructing-envelope-transactions.md)
+  * [dBFT Enhancement](security/anti-mev-protection/dbft-enhancements-against-mev.md)
 
 ## FAQ
 
