@@ -60,3 +60,7 @@ In Neo X, **Envelope transactions** must pass mempool, otherwise they cannot be 
 ### **Network Constraints**
 
 Neo X enforces limits on both the number of Envelope transactions per block and their total gas consumption, as defined by the `maxEnvelopesPerBlock` and `maxEnvelopeGasLimit` policies. During periods of high network traffic, Envelope transactions may experience delays.
+
+## RPC APIs
+
+Neo X provides several new RPC APIs to facilitate the Envelpe construction. For more details, refer to [JSON-RPC API](../../development/json-rpc-api.md).
