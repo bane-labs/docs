@@ -77,6 +77,18 @@ Import your existing account with the private key and remember to replace the `.
 ./geth account import --datadir ./nodes/node1 ./your/privateKey.txt
 ```
 
+### Set Up an Anti-MEV Keystore
+
+Validators and candidates participating in **AMEV-dBFT** must set up an **anti-MEV keystore**, or the node will fail to enable AMEV-dBFT.
+
+To create an anti-MEV keystore for your validator account, run:
+
+```sh
+shCopyEdit./geth --datadir ./nodes/node1 antimev init <address>
+```
+
+You will be prompted to enter a password for the keystore.
+
 ## 4. Running Seed Node
 
 A seed node is a network member that does not participate in the consensus process. This node can be used to interact with the Neo X network, including: creating accounts, transferring funds, deploying and interacting with contracts, and querying node APIs.
@@ -195,6 +207,7 @@ nohup ./geth \
 --mine --miner.etherbase=$miner \
 --unlock $miner \
 --password $node/password.txt \
+--antimev.password $node/password.txt \
 --authrpc.port $rpcport \
 --identity=$node \
 --maxpeers=50 \
@@ -234,6 +247,7 @@ nohup ./geth \
 --mine --miner.etherbase=$miner \
 --unlock $miner \
 --password $node/password.txt \
+--antimev.password $node/password.txt \
 --authrpc.port $rpcport \
 --identity=$node \
 --maxpeers=50 \
