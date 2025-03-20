@@ -77,14 +77,14 @@ Import your existing account with the private key and remember to replace the `.
 ./geth account import --datadir ./nodes/node1 ./your/privateKey.txt
 ```
 
-### Set up an Anti-MEV keystore
+### Set up an Anti-MEV keystore (Testnet)
 
 Validators and candidates participating in **AMEV-dBFT** must set up an anti-MEV keystore, or the node will fail to enable AMEV-dBFT.
 
 To create an anti-MEV keystore for your validator account, run:
 
-```sh
-shCopyEdit./geth --datadir ./nodes/node1 antimev init <address>
+```
+./geth --datadir ./nodes/node1 antimev init <address>
 ```
 
 You will be prompted to enter a password for the keystore.
@@ -247,7 +247,6 @@ nohup ./geth \
 --mine --miner.etherbase=$miner \
 --unlock $miner \
 --password $node/password.txt \
---antimev.password $node/password.txt \
 --authrpc.port $rpcport \
 --identity=$node \
 --maxpeers=50 \
@@ -280,12 +279,17 @@ After running a miner node, you can stake 1000 GAS to register as a candidate fo
 2. Call the Governance contract
 
 ```
-var abi=[ {
+var abi = [{
       "inputs": [
         {
           "internalType": "uint256",
           "name": "shareRate",
           "type": "uint256"
+        },
+        {
+          "internalType": "bytes",
+          "name": "pubkey",
+          "type": "bytes"
         }
       ],
       "name": "registerCandidate",
@@ -293,12 +297,12 @@ var abi=[ {
       "stateMutability": "payable",
       "payable": "true",
       "type": "function"
-    } ];
+    }];
 
 var GovContract = web3.eth.contract(abi);
 
 var govInstance = GovContract.at('0x1212000000000000000000000000000000000001');
 
 // send 1000 GAS(This value is 20000 in current testnet) and call registerCandidate(shareRate), shareRate is the rate share to voters, the rate base is 1000, 100 means 10%
-govInstance.registerCandidate(100, {value:'1000000000000000000000', from: eth.accounts[0]});
+govInstance.registerCandidate(100, ANTIMEV_PUBKEY, {value:'1000000000000000000000', from: eth.accounts[0]});
 ```
