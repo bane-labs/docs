@@ -9,7 +9,7 @@ To qualify as a candidate node on Neo X, the applicant should adhere to the foll
 * Hardware Requirements: The applicant’s infrastructure must meet the specified [hardware requirements](broken-reference) for Neo X nodes. This includes ensuring compliance with machine maintenance standards and the establishment of a robust technical setup.
 * Institutional Recognition: The applicant should represent an established organization or institution recognized within the market ecosystem.
 
-Suitable applicants can proceed with the registration process by staking 20000 GAS (TestNet) or 1000 GAS (MainNet)  through the Neo X governance interface. This deposit serves as a commitment to participation in the governance process.
+Suitable applicants can proceed with the registration process by staking 20000 GAS (Testnet) or 1000 GAS (Mainnet)  through the Neo X governance interface. This deposit serves as a commitment to participation in the governance process.
 
 Upon a normal node exit, the staked GAS tokens will be refunded to the applicant. A tentative locking period of approximately 120,960 blocks is enforced to ensure the stability of the governance ecosystem.
 

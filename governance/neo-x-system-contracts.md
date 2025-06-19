@@ -123,7 +123,7 @@ An EOA account is allowed to become a candidate only after successful registrati
 
 1. Registrant invokes `registerCandidate(uint shareRate)` of `0x1212000000000000000000000000000000000001` as message sender;
 2. Registrant is an EOA account and not yet a candidate;
-3. Put `20000 GAS` (TestNet) or `1000 GAS` (MainNet) deposit `value` along with the transaction as registration fee;
+3. Put `20000 GAS` (Testnet) or `1000 GAS` (Mainnet) deposit `value` along with the transaction as registration fee;
 4. Provide a `shareRate` ranges from `0` to `1000` in parameters, which is a distribution ratio in thousandths. It determines how many rewards of the total that voters can share, and can not be changed until the candidate exits;
 5. (optional) Withdraw past deposits if it has registered and exited before.
 
@@ -147,7 +147,7 @@ If it is necessary to change the vote target (e.g. the current voted candidate e
 At the end of every election epoch, the 7 candidates with the highest amount of votes will be selected by Governance and become consensus nodes of the next epoch. However, this consensus set recalculation has two prerequisites:
 
 1. The size of candidate list is larger than `7`;
-2. The amount of total valid votes is higher than `3,000,000 GAS` (TestNet) or `6,000,000 GAS` (MainNet).
+2. The amount of total valid votes is higher than `3,000,000 GAS` (Testnet) or `6,000,000 GAS` (Mainnet).
 
 Otherwise, the consensus nodes of the next epoch will be the following predefined stand-by members.
 

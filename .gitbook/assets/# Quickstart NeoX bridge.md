@@ -52,7 +52,7 @@ The information about NeoX is listed as below:
 
    ![](https://files.gitbook.com/v0/b/gitbook-x-prod.appspot.com/o/spaces%2F9XHO2y3ZR9IUy80jltkz%2Fuploads%2Fbh1yUyuizEz8kIHKvsD7%2FScreenshot%202024-04-23%20at%2010.48.04%20copy.png?alt=media&token=b3b0db89-45f6-4104-8f33-380ee443cff1)
 
-   > Note: Neo X TestNet currently only supports the bridging of  *GAS* .
+   > Note: Neo X Testnet currently only supports the bridging of  *GAS* .
 
 3. Enter the amount of *GAS*  you want to bridge over in the **From** box and then press `Deposit`. Follow the prompts on your Neo N3 wallet. You can also click `MAX` to deposit all *GAS* to NeoX.
 
