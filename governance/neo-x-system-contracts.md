@@ -243,12 +243,37 @@ There are several special cases of reward distribution:
 
 The current Neo X Policy maintains following parameters. All these policies are both checked by honest consensus nodes locally and by dBFT globally.
 
-| Name                        | Parameter        | Usage                                                                                                 |
-| --------------------------- | ---------------- | ----------------------------------------------------------------------------------------------------- |
-| Address Blacklist           | `isBlackListed`  | Prevent blacklisted addresses to send transactions or be elected as block validators in Neo X network |
-| Minimum Transaction Tip Cap | `minGasTipCap`   | Force transaction senders to pay a minimum tip to Neo X Governance                                    |
-| Base Fee                    | `baseFee`        | Burn a fixed part of transaction fees instead of following EIP-1559's dynamic evaluation              |
-| Candidate Limit             | `candidateLimit` | Limit the number of candidates in Governance registration and election                                |
+<table>
+    <thead>
+        <tr>
+            <th width="160">Name</th>
+            <th width="140">Parameter</th>
+            <th width="450">Usage</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>Address Blacklist</td>
+            <td><code>isBlackListed</code></td>
+            <td>Prevent blacklisted addresses to send transactions or be elected as block validators in Neo X network</td>
+        </tr>
+        <tr>
+            <td>Minimum Transaction Tip Cap</td>
+            <td><code>minGasTipCap</code></td>
+            <td>Force transaction senders to pay a minimum tip to Neo X Governance</td>
+        </tr>
+        <tr>
+            <td>Base Fee</td>
+            <td><code>baseFee</code></td>
+            <td>Burn a fixed part of transaction fees instead of following EIP-1559's dynamic evaluation</td>
+        </tr>
+        <tr>
+            <td>Candidate Limit</td>
+            <td><code>candidateLimit</code></td>
+            <td>Limit the number of candidates in Governance registration and election</td>
+        </tr>
+    </tbody>
+</table>
 
 Since all the policy setters adopt the `needVote` modifier, any policy change requires more than 1/2 of the current Neo X consensus nodes votes to be collected.
 
