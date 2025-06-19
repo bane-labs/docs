@@ -15,75 +15,75 @@ These contracts are not deployed by transactions but allocated in the [genesis f
     </thead>
     <tbody>
         <tr>
-            <td><code>0x1212000000000000000000000000000000000000</code></td>
+            <td>0x1212000000000000000000000000000000000000</td>
             <td>GovProxyAdmin</td>
         </tr>
         <tr>
-            <td><code>0x1212000000000000000000000000000000000001</code></td>
+            <td>0x1212000000000000000000000000000000000001</td>
             <td>Governance Proxy</td>
         </tr>
         <tr>
-            <td><code>0x1212000000000000000000000000000000000002</code></td>
+            <td>0x1212000000000000000000000000000000000002</td>
             <td>Policy Proxy</td>
         </tr>
         <tr>
-            <td><code>0x1212000000000000000000000000000000000003</code></td>
+            <td>0x1212000000000000000000000000000000000003</td>
             <td>GovernanceReward Proxy</td>
         </tr>
         <tr>
-            <td><code>0x1212000000000000000000000000000000000004</code></td>
+            <td>0x1212000000000000000000000000000000000004</td>
             <td>Bridge Proxy</td>
         </tr>
         <tr>
-            <td><code>0x1212000000000000000000000000000000000005</code></td>
+            <td>0x1212000000000000000000000000000000000005</td>
             <td>BridgeManagement Proxy</td>
         </tr>
         <tr>
-            <td><code>0x1212000000000000000000000000000000000006</code></td>
+            <td>0x1212000000000000000000000000000000000006</td>
             <td>Treasury</td>
         </tr>
         <tr>
-            <td><code>0x1212000000000000000000000000000000000007</code></td>
+            <td>0x1212000000000000000000000000000000000007</td>
             <td>CommitteeMultiSig Proxy</td>
         </tr>
         <tr>
-            <td><code>0x1212000000000000000000000000000000000008</code></td>
+            <td>0x1212000000000000000000000000000000000008</td>
             <td>KeyManagement Proxy</td>
         </tr>
         <tr>
-            <td><code>0x1212000000000000000000000000000000000009</code></td>
+            <td>0x1212000000000000000000000000000000000009</td>
             <td>Stub1 Proxy</td>
         </tr>
         <tr>
-            <td><code>0x121200000000000000000000000000000000000a</code></td>
+            <td>0x121200000000000000000000000000000000000a</td>
             <td>Stub2 Proxy</td>
         </tr>
         <tr>
-            <td><code>0x121200000000000000000000000000000000000b</code></td>
+            <td>0x121200000000000000000000000000000000000b</td>
             <td>Stub3 Proxy</td>
         </tr>
         <tr>
-            <td><code>0x121200000000000000000000000000000000000c</code></td>
+            <td>0x121200000000000000000000000000000000000c</td>
             <td>Stub4 Proxy</td>
         </tr>
         <tr>
-            <td><code>0x121200000000000000000000000000000000000d</code></td>
+            <td>0x121200000000000000000000000000000000000d</td>
             <td>Stub5 Proxy</td>
         </tr>
         <tr>
-            <td><code>0x121200000000000000000000000000000000000e</code></td>
+            <td>0x121200000000000000000000000000000000000e</td>
             <td>Stub6 Proxy</td>
         </tr>
         <tr>
-            <td><code>0x121200000000000000000000000000000000000f</code></td>
+            <td>0x121200000000000000000000000000000000000f</td>
             <td>Stub7 Proxy</td>
         </tr>
         <tr>
-            <td><code>0x1212000000000000000000000000000000000010</code></td>
+            <td>0x1212000000000000000000000000000000000010</td>
             <td>Stub8 Proxy</td>
         </tr>
         <tr>
-            <td><code>0x1212000000000000000000000000000000000011</code></td>
+            <td>0x1212000000000000000000000000000000000011</td>
             <td>Stub9 Proxy</td>
         </tr>
     </tbody>
@@ -170,32 +170,32 @@ contracts is listed as below.
     </thead>
     <tbody>
         <tr>
-            <td><code>0xcbbeca26e89011e32ba25610520b20741b809007</code></td>
-            <td><code>0x34a3b2abb99b4c128acf61dcbbd1fcac0b161652</code></td>
+            <td>0xcbbeca26e89011e32ba25610520b20741b809007</td>
+            <td>0x34a3b2abb99b4c128acf61dcbbd1fcac0b161652</td>
         </tr>
         <tr>
-            <td><code>0x4ea2a4697d40247c8be1f2b9ffa03a0e92dcbacc</code></td>
-            <td><code>0x641ec1c538fa17e6ad8193c9b580f6850b114280</code></td>
+            <td>0x4ea2a4697d40247c8be1f2b9ffa03a0e92dcbacc</td>
+            <td>0x641ec1c538fa17e6ad8193c9b580f6850b114280</td>
         </tr>
         <tr>
-            <td><code>0xd10f47396dc6c76ad53546158751582d3e2683ef</code></td>
-            <td><code>0xe3973f57e8a0aa312c1917ab0e6a05d8b6af6609</code></td>
+            <td>0xd10f47396dc6c76ad53546158751582d3e2683ef</td>
+            <td>0xe3973f57e8a0aa312c1917ab0e6a05d8b6af6609</td>
         </tr>
         <tr>
-            <td><code>0xa51fe05b0183d01607bf48c1718d1168a1c11171</code></td>
-            <td><code>0xa61ac4a4f006f4fceeb72ee0012a2d3367168d10</code></td>
+            <td>0xa51fe05b0183d01607bf48c1718d1168a1c11171</td>
+            <td>0xa61ac4a4f006f4fceeb72ee0012a2d3367168d10</td>
         </tr>
         <tr>
-            <td><code>0x01b517b301bb143476da35bb4a1399500d925514</code></td>
-            <td><code>0xe6d1a9db6a0893926bd81c0ef93aaaa543c116f0</code></td>
+            <td>0x01b517b301bb143476da35bb4a1399500d925514</td>
+            <td>0xe6d1a9db6a0893926bd81c0ef93aaaa543c116f0</td>
         </tr>
         <tr>
-            <td><code>0x7976ad987d572377d39fb4bab86c80e08b6f8327</code></td>
-            <td><code>0x4fe8af0dbb633283d8e9703668142fd130f2818d</code></td>
+            <td>0x7976ad987d572377d39fb4bab86c80e08b6f8327</td>
+            <td>0x4fe8af0dbb633283d8e9703668142fd130f2818d</td>
         </tr>
         <tr>
-            <td><code>0xd711da2d8c71a801fc351163337656f1321343a0</code></td>
-            <td><code>0x763452f65353fffe73d46539e51a6ddfc0e2c86a</code></td>
+            <td>0xd711da2d8c71a801fc351163337656f1321343a0</td>
+            <td>0x763452f65353fffe73d46539e51a6ddfc0e2c86a</td>
         </tr>
     </tbody>
 </table>

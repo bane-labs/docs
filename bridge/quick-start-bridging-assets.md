@@ -49,7 +49,7 @@ The information about Neo X is listed as below:
 <table>
     <thead>
         <tr>
-            <th width="180">Parameter</th>
+            <th width="180">Property</th>
             <th width="275">Mainnet</th>
             <th width="275">Testnet</th>
         </tr>
@@ -57,12 +57,12 @@ The information about Neo X is listed as below:
     <tbody>
         <tr>
             <td>Network name</td>
-            <td>Neo X MainNet</td>
-            <td>Neo X TestNet</td>
+            <td>Neo X Mainnet</td>
+            <td>Neo X Testnet T4</td>
         </tr>
         <tr>
             <td>RPC URL</td>
-            <td><a href="https://mainnet-1.rpc.banelabs.org/">https://mainnet-1.rpc.banelabs.org/</a></td>
+            <td><a href="https://mainnet-1.rpc.banelabs.org">https://mainnet-1.rpc.banelabs.org</a></td>
             <td><a href="https://neoxt4seed1.ngd.network">https://neoxt4seed1.ngd.network</a></td>
         </tr>
         <tr>
@@ -77,8 +77,8 @@ The information about Neo X is listed as below:
         </tr>
         <tr>
             <td>Block explorer URL</td>
-            <td><a href="https://xexplorer.neo.org/">https://xexplorer.neo.org/</a></td>
-            <td><a href="https://xt4scan.ngd.network/">https://xt4scan.ngd.network/</a></td>
+            <td><a href="https://xexplorer.neo.org">https://xexplorer.neo.org</a></td>
+            <td><a href="https://xt4scan.ngd.network">https://xt4scan.ngd.network</a></td>
         </tr>
     </tbody>
 </table>
