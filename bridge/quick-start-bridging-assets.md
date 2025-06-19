@@ -46,7 +46,42 @@ You'll also need to add the Neo X's RPC endpoint to your wallet. Here we provide
 
 The information about Neo X is listed as below:
 
-<table><thead><tr><th width="177">Parameter</th><th width="294">Mainnet</th><th>Testnet</th></tr></thead><tbody><tr><td>Network name</td><td>Neo X MainNet</td><td>Neo X TestNet</td></tr><tr><td>RPC URL</td><td><a href="https://mainnet-1.rpc.banelabs.org/">https://mainnet-1.rpc.banelabs.org/</a></td><td><a href="https://neoxt4seed1.ngd.network">https://neoxt4seed1.ngd.network</a></td></tr><tr><td>Chain ID</td><td>47763</td><td>12227332</td></tr><tr><td>Currency symbol</td><td>GAS</td><td>GAS</td></tr><tr><td>Block explorer URL</td><td><a href="https://xexplorer.neo.org/">https://xexplorer.neo.org/</a></td><td><a href="https://xt4scan.ngd.network/">https://xt4scan.ngd.network/</a></td></tr></tbody></table>
+<table>
+    <thead>
+        <tr>
+            <th width="180">Parameter</th>
+            <th width="275">Mainnet</th>
+            <th width="275">Testnet</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>Network name</td>
+            <td>Neo X MainNet</td>
+            <td>Neo X TestNet</td>
+        </tr>
+        <tr>
+            <td>RPC URL</td>
+            <td><a href="https://mainnet-1.rpc.banelabs.org/">https://mainnet-1.rpc.banelabs.org/</a></td>
+            <td><a href="https://neoxt4seed1.ngd.network">https://neoxt4seed1.ngd.network</a></td>
+        </tr>
+        <tr>
+            <td>Chain ID</td>
+            <td>47763</td>
+            <td>12227332</td>
+        </tr>
+        <tr>
+            <td>Currency symbol</td>
+            <td>GAS</td>
+            <td>GAS</td>
+        </tr>
+        <tr>
+            <td>Block explorer URL</td>
+            <td><a href="https://xexplorer.neo.org/">https://xexplorer.neo.org/</a></td>
+            <td><a href="https://xt4scan.ngd.network/">https://xt4scan.ngd.network/</a></td>
+        </tr>
+    </tbody>
+</table>
 
 ### **Step 2: Initiate the deposit**
 
@@ -76,5 +111,3 @@ It usually takes around 1-2 minutes (varying based on the chain congestion) for 
     <figure><img src="../.gitbook/assets/image (5).png" alt=""><figcaption></figcaption></figure>
 
 It usually takes around 1-2 minutes (varying based on the chain congestion) for funds to transfer to Neo N3 after submitting the transaction from your Metamask.
-
-\

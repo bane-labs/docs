@@ -6,7 +6,88 @@ Neo X system contracts are a set of build-in Solidity contracts with predefined 
 
 These contracts are not deployed by transactions but allocated in the [genesis file](https://github.com/bane-labs/go-ethereum/blob/bane-main/config). The address setting of existing pre-compiled contracts is listed as below.
 
-<table><thead><tr><th width="467">Address</th><th>Contract</th></tr></thead><tbody><tr><td><code>0x1212000000000000000000000000000000000000</code></td><td>GovProxyAdmin</td></tr><tr><td><code>0x1212000000000000000000000000000000000001</code></td><td>Governance Proxy</td></tr><tr><td><code>0x1212000000000000000000000000000000000002</code></td><td>Policy Proxy</td></tr><tr><td><code>0x1212000000000000000000000000000000000003</code></td><td>GovernanceReward Proxy</td></tr><tr><td><code>0x1212000000000000000000000000000000000004</code></td><td>Bridge Proxy</td></tr><tr><td><code>0x1212000000000000000000000000000000000005</code></td><td>BridgeManagement Proxy</td></tr><tr><td><code>0x1212000000000000000000000000000000000006</code></td><td>Treasury</td></tr><tr><td><code>0x1212000000000000000000000000000000000007</code></td><td>CommitteeMultiSig Proxy</td></tr><tr><td><code>0x1212000000000000000000000000000000000008</code></td><td>KeyManagement Proxy</td></tr><tr><td><code>0x1212000000000000000000000000000000000009</code></td><td>Stub1 Proxy</td></tr><tr><td><code>0x121200000000000000000000000000000000000a</code></td><td>Stub2 Proxy</td></tr><tr><td><code>0x121200000000000000000000000000000000000b</code></td><td>Stub3 Proxy</td></tr><tr><td><code>0x121200000000000000000000000000000000000c</code></td><td>Stub4 Proxy</td></tr><tr><td><code>0x121200000000000000000000000000000000000d</code></td><td>Stub5 Proxy</td></tr><tr><td><code>0x121200000000000000000000000000000000000e</code></td><td>Stub6 Proxy</td></tr><tr><td><code>0x121200000000000000000000000000000000000f</code></td><td>Stub7 Proxy</td></tr><tr><td><code>0x1212000000000000000000000000000000000010</code></td><td>Stub8 Proxy</td></tr><tr><td><code>0x1212000000000000000000000000000000000011</code></td><td>Stub9 Proxy</td></tr></tbody></table>
+<table>
+    <thead>
+        <tr>
+            <th width="450">Address</th>
+            <th width="300">Contract</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td><code>0x1212000000000000000000000000000000000000</code></td>
+            <td>GovProxyAdmin</td>
+        </tr>
+        <tr>
+            <td><code>0x1212000000000000000000000000000000000001</code></td>
+            <td>Governance Proxy</td>
+        </tr>
+        <tr>
+            <td><code>0x1212000000000000000000000000000000000002</code></td>
+            <td>Policy Proxy</td>
+        </tr>
+        <tr>
+            <td><code>0x1212000000000000000000000000000000000003</code></td>
+            <td>GovernanceReward Proxy</td>
+        </tr>
+        <tr>
+            <td><code>0x1212000000000000000000000000000000000004</code></td>
+            <td>Bridge Proxy</td>
+        </tr>
+        <tr>
+            <td><code>0x1212000000000000000000000000000000000005</code></td>
+            <td>BridgeManagement Proxy</td>
+        </tr>
+        <tr>
+            <td><code>0x1212000000000000000000000000000000000006</code></td>
+            <td>Treasury</td>
+        </tr>
+        <tr>
+            <td><code>0x1212000000000000000000000000000000000007</code></td>
+            <td>CommitteeMultiSig Proxy</td>
+        </tr>
+        <tr>
+            <td><code>0x1212000000000000000000000000000000000008</code></td>
+            <td>KeyManagement Proxy</td>
+        </tr>
+        <tr>
+            <td><code>0x1212000000000000000000000000000000000009</code></td>
+            <td>Stub1 Proxy</td>
+        </tr>
+        <tr>
+            <td><code>0x121200000000000000000000000000000000000a</code></td>
+            <td>Stub2 Proxy</td>
+        </tr>
+        <tr>
+            <td><code>0x121200000000000000000000000000000000000b</code></td>
+            <td>Stub3 Proxy</td>
+        </tr>
+        <tr>
+            <td><code>0x121200000000000000000000000000000000000c</code></td>
+            <td>Stub4 Proxy</td>
+        </tr>
+        <tr>
+            <td><code>0x121200000000000000000000000000000000000d</code></td>
+            <td>Stub5 Proxy</td>
+        </tr>
+        <tr>
+            <td><code>0x121200000000000000000000000000000000000e</code></td>
+            <td>Stub6 Proxy</td>
+        </tr>
+        <tr>
+            <td><code>0x121200000000000000000000000000000000000f</code></td>
+            <td>Stub7 Proxy</td>
+        </tr>
+        <tr>
+            <td><code>0x1212000000000000000000000000000000000010</code></td>
+            <td>Stub8 Proxy</td>
+        </tr>
+        <tr>
+            <td><code>0x1212000000000000000000000000000000000011</code></td>
+            <td>Stub9 Proxy</td>
+        </tr>
+    </tbody>
+</table>
 
 ## GovernanceVote
 
@@ -70,7 +151,54 @@ At the end of every election epoch, the 7 candidates with the highest amount of 
 
 Otherwise, the consensus nodes of the next epoch will be the following predefined stand-by members.
 
-<table data-full-width="true"><thead><tr><th width="383">Testnet Stand-by Address</th><th width="483">Mainnet Stand-by Address</th></tr></thead><tbody><tr><td><code>0xcbbeca26e89011e32ba25610520b20741b809007</code></td><td><code>0x34a3b2abb99b4c128acf61dcbbd1fcac0b161652</code></td></tr><tr><td><code>0x4ea2a4697d40247c8be1f2b9ffa03a0e92dcbacc</code></td><td><code>0x641ec1c538fa17e6ad8193c9b580f6850b114280</code></td></tr><tr><td><code>0xd10f47396dc6c76ad53546158751582d3e2683ef</code></td><td><code>0xe3973f57e8a0aa312c1917ab0e6a05d8b6af6609</code></td></tr><tr><td><code>0xa51fe05b0183d01607bf48c1718d1168a1c11171</code></td><td><code>0xa61ac4a4f006f4fceeb72ee0012a2d3367168d10</code></td></tr><tr><td><code>0x01b517b301bb143476da35bb4a1399500d925514</code></td><td><code>0xe6d1a9db6a0893926bd81c0ef93aaaa543c116f0</code></td></tr><tr><td><code>0x7976ad987d572377d39fb4bab86c80e08b6f8327</code></td><td><code>0x4fe8af0dbb633283d8e9703668142fd130f2818d</code></td></tr><tr><td><code>0xd711da2d8c71a801fc351163337656f1321343a0</code></td><td><code>0x763452f65353fffe73d46539e51a6ddfc0e2c86a</code></td></tr></tbody></table>
+<div align="right" data-full-width="false">
+    <figure><img src="../.gitbook/assets/architecture.png" alt="">
+        <figcaption></figcaption>
+    </figure>
+</div>
+
+These contracts are not deployed by transactions but allocated in the [genesis
+file](https://github.com/bane-labs/go-ethereum/blob/bane-main/config). The address setting of existing pre-compiled
+contracts is listed as below.
+
+<table>
+    <thead>
+        <tr>
+            <th width="375">Testnet Stand-by Address</th>
+            <th width="375">Mainnet Stand-by Address</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td><code>0xcbbeca26e89011e32ba25610520b20741b809007</code></td>
+            <td><code>0x34a3b2abb99b4c128acf61dcbbd1fcac0b161652</code></td>
+        </tr>
+        <tr>
+            <td><code>0x4ea2a4697d40247c8be1f2b9ffa03a0e92dcbacc</code></td>
+            <td><code>0x641ec1c538fa17e6ad8193c9b580f6850b114280</code></td>
+        </tr>
+        <tr>
+            <td><code>0xd10f47396dc6c76ad53546158751582d3e2683ef</code></td>
+            <td><code>0xe3973f57e8a0aa312c1917ab0e6a05d8b6af6609</code></td>
+        </tr>
+        <tr>
+            <td><code>0xa51fe05b0183d01607bf48c1718d1168a1c11171</code></td>
+            <td><code>0xa61ac4a4f006f4fceeb72ee0012a2d3367168d10</code></td>
+        </tr>
+        <tr>
+            <td><code>0x01b517b301bb143476da35bb4a1399500d925514</code></td>
+            <td><code>0xe6d1a9db6a0893926bd81c0ef93aaaa543c116f0</code></td>
+        </tr>
+        <tr>
+            <td><code>0x7976ad987d572377d39fb4bab86c80e08b6f8327</code></td>
+            <td><code>0x4fe8af0dbb633283d8e9703668142fd130f2818d</code></td>
+        </tr>
+        <tr>
+            <td><code>0xd711da2d8c71a801fc351163337656f1321343a0</code></td>
+            <td><code>0x763452f65353fffe73d46539e51a6ddfc0e2c86a</code></td>
+        </tr>
+    </tbody>
+</table>
 
 After enabling DKG-related features and the KeyManagement contract for further antimev usage, there is a short period (currently `360` blocks) for key generations before epoch change. In this period, the **top 7 candidates** get locked in election, so the voted GAS amount can't further affect the result. Related voter operations (e.g. voting and withdrawing) and candidate operations (e.g. registering and exiting) are still open to use, which provides a smooth UX, but they don't change the election result as well.
 
