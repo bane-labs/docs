@@ -25,15 +25,60 @@ Validators are nodes that listen for events emitted by the bridge contracts, cre
 
 The table below provides an overview of the main functionalities of the smart contracts and who is allowed to use them.
 
-|                       | BridgeManagement         | Neo N3 Bridge   | Neo X Bridge  |
-| --------------------- | ------------------------ | --------------- | ------------- |
-| Update Contract       | Owner (Council on Neo X) | Owner           | Council       |
-| Assign Roles          | Owner                    | -               | -             |
-| Deposit GAS/tokens    | -                        | Anyone          | -             |
-| Withdraw GAS/tokens   | -                        | Relayer         | -             |
-| Distribute GAS/tokens | -                        | -               | Relayer       |
-| Pause                 | -                        | SecurityGuard   | SecurityGuard |
-| Unpause               | -                        | Governor        | Governor      |
+<table>
+    <thead>
+        <tr>
+            <th width="220">Functionality</th>
+            <th width="230">BridgeManagement</th>
+            <th width="150">Neo N3 Bridge</th>
+            <th width="150">Neo X Bridge</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>Update Contract</td>
+            <td>Owner (Council on Neo X)</td>
+            <td>Owner</td>
+            <td>Council</td>
+        </tr>
+        <tr>
+            <td>Assign Roles</td>
+            <td>Owner</td>
+            <td>-</td>
+            <td>-</td>
+        </tr>
+        <tr>
+            <td>Deposit GAS/tokens</td>
+            <td>-</td>
+            <td>Anyone</td>
+            <td>-</td>
+        </tr>
+        <tr>
+            <td>Withdraw GAS/tokens</td>
+            <td>-</td>
+            <td>Relayer</td>
+            <td>-</td>
+        </tr>
+        <tr>
+            <td>Distribute GAS/tokens</td>
+            <td>-</td>
+            <td>-</td>
+            <td>Relayer</td>
+        </tr>
+        <tr>
+            <td>Pause</td>
+            <td>-</td>
+            <td>SecurityGuard</td>
+            <td>SecurityGuard</td>
+        </tr>
+        <tr>
+            <td>Unpause</td>
+            <td>-</td>
+            <td>Governor</td>
+            <td>Governor</td>
+        </tr>
+    </tbody>
+</table>
 
 > **IMPORTANT:**
 >
