@@ -32,9 +32,9 @@ In a nutshell, Envelopes are always calling the `fallback()` method of the Neo X
 To send a secret transaction wrapped with an Envelope, we recommend the following steps which should be compatible with most of popular wallets (e.g. Metamask):
 
 1. Construct a secret transaction;
-2. Request the wallet to sign this transaction and send it to nodes configured with `--txpool.signaturecache`;
+2. Request the wallet to sign this transaction and send it to nodes configured with `--txpool.amevcache`;
 3. Request the wallet to sign the `nonce` of the secret transaction as a message;
-4. Use this signature to fetch the signed transaction through `eth_getEncryptedTransaction`;
+4. Use this signature to fetch the signed transaction through `eth_getCachedTransaction`;
 5. Encrypt the signed transaction with Neo X TPKE;
 6. Construct an Envelope transaction with the encrypted data and send it through wallet with the same `nonce`.
 
