@@ -44,11 +44,3 @@ Further properties of the parties involved are as follows:
 3. Smart Contract
    * Access to the distribution functions should be restricted to the relayer.
    * The distribution functions should only accept data that has been signed by at least five of the seven validators (5/7 multi-sig).
-
-
-
-
-
-
-
-\

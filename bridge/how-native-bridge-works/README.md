@@ -8,9 +8,3 @@ In the context of Neo X, this project aims to bridge:
 * From **Neo X** to **Neo N3** (_NeoX->N3_);
 
 In the following sections we will elaborate on the solution, why we call the solution a "decoupled relayer", the architecture, the roles with their responsibilities, and the involved smart contracts.
-
-
-
-
-
-\
