@@ -22,15 +22,15 @@
         </tr>
         <tr>
             <td>RPC Endpoint</td>
-            <td><a href="https://mainnet-1.rpc.banelabs.org">https://mainnet-1.rpc.banelabs.org</a></td>
+            <td><a href="https://mainnet-1.rpc.banelabs.org">https://mainnet-1.rpc.banelabs.org</a><br><a href="https://mainnet-2.rpc.banelabs.org">https://mainnet-2.rpc.banelabs.org</a><br><a href="https://mainnet-3.rpc.banelabs.org">https://mainnet-3.rpc.banelabs.org</a></td>
         </tr>
         <tr>
             <td>WSS Endpoint</td>
-            <td>wss://mainnet.wss1.banelabs.org</td>
+            <td>wss://mainnet.wss1.banelabs.org<br>wss://mainnet.wss2.banelabs.org<br>wss://mainnet.wss3.banelabs.org</td>
         </tr>
         <tr>
             <td>Block Explorer</td>
-            <td><a href="https://xexplorer.neo.org">https://xexplorer.neo.org</a></td>
+            <td><a href="https://neoxscan.ngd.network">https://neoxscan.ngd.network</a><br><a href="https://xexplorer.neo.org">https://xexplorer.neo.org</a></td>
         </tr>
         <tr>
             <td>Currency Symbol</td>
@@ -59,15 +59,15 @@
         </tr>
         <tr>
             <td>RPC Endpoint</td>
-            <td><a href="https://neoxt4seed1.ngd.network">https://neoxt4seed1.ngd.network</a></td>
+            <td><a href="https://neoxt4seed1.ngd.network">https://neoxt4seed1.ngd.network</a><br><a href="https://neoxt4seed2.ngd.network">https://neoxt4seed2.ngd.network</a><br><a href="https://neoxt4seed3.ngd.network">https://neoxt4seed3.ngd.network</a><br><a href="https://neoxt4seed5.ngd.network">https://neoxt4seed5.ngd.network</a> (Only cache transactions for Anti-MEV)</td>
         </tr>
         <tr>
             <td>WSS Endpoint</td>
-            <td>wss://neoxt4wss1.ngd.network</td>
+            <td>wss://neoxt4wss1.ngd.network<br>wss://neoxt4wss2.ngd.network<br>wss://neoxt4wss3.ngd.network</td>
         </tr>
         <tr>
             <td>Block Explorer</td>
-            <td><a href="https://xt4scan.ngd.network">https://xt4scan.ngd.network</a></td>
+            <td><a href="https://neoxt4scan.ngd.network">https://neoxt4scan.ngd.network</a><br><a href="https://xt4scan.ngd.network">https://xt4scan.ngd.network</a></td>
         </tr>
         <tr>
             <td>Currency Symbol</td>
@@ -88,7 +88,7 @@
     <tbody>
         <tr>
             <td>Geth Compatibility</td>
-            <td>v1.13.11</td>
+            <td>v1.13.15</td>
         </tr>
         <tr>
             <td>Solidity Compiler</td>
