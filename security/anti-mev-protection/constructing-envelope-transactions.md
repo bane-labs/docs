@@ -2,6 +2,8 @@
 
 To prevent MEV attacks, Neo X users can submit transactions within Envelope Transactions, ensuring their transactions remain encrypted until confirmed within the consensus process.
 
+We've deployed a [LIVE Demo](https://neox-tpke-examples.pages.dev/examples/transfer) for Neo X Testnet T4. Have a try to send GAS or ERC-20 tokens with Envelope transactions and your Metamask.
+
 ## Envelope Structure
 
 A valid Envelope transaction must meet the following criteria:
@@ -20,9 +22,9 @@ A valid Envelope transaction must meet the following criteria:
 Here is an example of the `data` field of an Envelope transaction:
 
 ```
-|  prefix  | epoch  | gaslimit |  inner secret transaction hash  |  TPKE ciphertext  |
-|  4-byte  | 4-byte |  4-byte  |           32-byte              |       bytes       |
-|0xffffffff|00000001|00005208 | 777bbe0bb1e4c3...eff6fd15a      | 80f8c8c2...fa6a1810 |
+|  prefix  | epoch  | gaslimit |  inner secret transaction hash  |   TPKE ciphertext   |
+|  4-byte  | 4-byte |  4-byte  |             32-byte             |        bytes        |
+|0xffffffff|00000001| 00005208 |    777bbe0bb1e4c3...eff6fd15a   | 80f8c8c2...fa6a1810 |
 ```
 
 In a nutshell, Envelopes are always calling the `fallback()` method of the Neo X GovReward contract. This method burns gas based on the declared `gaslimit` in `data` to allocate block space in Envelope execution, and it works with `eth_estimateGas` automatically.
