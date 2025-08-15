@@ -4,20 +4,28 @@ This document details the complete flow for sending messages from Neo N3 to EVM 
 
 ## Overview
 
-The N3 to EVM flow allows Neo N3 applications to execute operations on EVM-based blockchains and receive results back. This is accomplished through a message bridge system that creates `AMBTypes.Call` structures on N3, serializes them using ethers library encoding, sends them across chains, executes them on EVM, and returns results.
+The message bridge allows Neo N3 applications to execute operations on EVM-based blockchains and receive results back.
+
+This is accomplished by encoding an `AMBTypes.Call` struct and sending the encoded bytes to the N3 message bridge contract. The [decoupled relayer](/bridge/how-native-bridge-works/hash-chain-and-decoupled-relayer.md#Hash_Chain_and_Decoupled_Relayer) then ensures safe transfer of the data to the EVM chain. Once the data has been bridged, the message can be executed on the EVM chain and its result may be returned.
+
+> Currently, BaneLabs does not provide a service to execute messages. In future versions execution rewards might be added to messages, so that users can attach an incentive for anyone active on the destination network to execute a message for them.
 
 ## Complete Flow Steps
 
-### Step 1: Prepare the EVM Call Structure (N3 Side using ethers)
+In the following we'll use an example call to elaborate on the flow. For simplicity, let's assume we want to get the Neo balance of an account on Neo X.
 
-First, you prepare the EVM call by creating an `AMBTypes.Call` structure on the N3 side using the ethers library for proper ABI encoding:
+> As the bridging process is an asynchronous process, fetching a value that can be fluctuent like a Neo balance might not be the most intuitive use case. However, for the purpose of this example it should sufficiently elaborate on the steps required to use the message bridge.
+
+### Step 1: Prepare the EVM Call Structure
+
+First, prepare the EVM call by creating an `AMBTypes.Call` structure on the N3 side using the ethers library for proper ABI encoding:
 
 ```javascript
 const { ethers } = require('ethers');
 
 // Define the Neo token contract address on EVM and target address
-const neoTokenContractAddress = "0x1234567890123456789012345678901234567890"; // EVM Neo token address
-const targetAddress = "0xabcdefabcdefabcdefabcdefabcdefabcdefabcdef"; // Address to check balance for
+const neoTokenContractAddress = "0xc28736dc83f4fd43d6fb832Fd93c3eE7bB26828f"; // Neo token address on Neo X Testnet
+const targetAddress = "0xabcdefabcdefabcdefabcdefabcdefabcdefabcd"; // Address to check the balance for
 
 // Create the interface for ERC20 balanceOf function
 const erc20Interface = new ethers.Interface([
@@ -27,14 +35,14 @@ const erc20Interface = new ethers.Interface([
 // Encode the balanceOf function call
 const callData = erc20Interface.encodeFunctionData("balanceOf", [targetAddress]);
 console.log("Encoded balanceOf callData:", callData);
-// Output: 0x70a08231000000000000000000000000abcdefabcdefabcdefabcdefabcdefabcdefabcdef
+// Output: 0x70a08231000000000000000000000000abcdefabcdefabcdefabcdefabcdefabcdefabcd
 
 // Create the EVM Call structure (equivalent to AMBTypes.Call)
 const evmCall = {
     target: neoTokenContractAddress,    // Target EVM Neo token contract
     allowFailure: false,                // Don't allow failure
-    value: 0,                          // No ETH value needed for view call
-    callData: callData                 // Encoded balanceOf(address) call
+    value: 0,                           // No gas value needed for the call
+    callData: callData                  // Encoded balanceOf(address) call data
 };
 
 // Serialize the entire Call structure using ethers ABI encoder
@@ -49,312 +57,154 @@ console.log("Serialized Call message:", serializedMessage);
 
 ### Step 2: Send Executable Message from N3
 
-Send the EVM call as an executable message from N3:
+Send the EVM call as an executable message from N3 (Java example code):
 
 ```java
-Hash256 tx = testMessageSender.sendExecutableMessage(rawMessage, true);
+// Get the fee for sending a message across the bridge.
+BigInteger sendingFee = messageBridgeContract.callFunctionReturningInt("sendingFee");
+// Build the transaction to send the executable message to Neo X using the sendingFee as maximal allowed fee and your account as bridge fee payer.
+TransactionBuilder b = messageBridgeContract.invokeFunction("sendExecutableMessage", byteArray(rawMessage), bool(storeResult), hash160(myAccount), integer(sendingFee));
+Transaction transaction = b.signers(AccountSigner.calledByEntry(myAccount)).sign();
+NeoSendRawTransaction response = transaction.send();
+Await.waitUntilTransactionIsExecuted(response.getSendRawTransaction().getHash(), neow3j);
 ```
 
 **Parameters:**
-- `rawMessage`: The encoded EVM contract call data
-- `true`: Store the execution result for later retrieval
-- Automatically includes fee sponsor and gas fee
+
+- `rawMessage`: The encoded EVM contract call data, i.e., the output `serializedMessage` above.
+- `true`: Once the message is executed, the result of the execution should be stored on-chain, so that it can be returned to Neo N3 if needed. If set to `false`, the result will not be stored. The result will be included in an event that is fired when executing regardless of this value.
 
 This creates an **EXECUTABLE** type message with:
+
 - **Message Type**: `0` (EXECUTABLE)
 - **Timestamp**: Current N3 block time
 - **Sender**: The N3 contract/account sending the message
-- **Store Result Flag**: `true` (result should be stored and sent back)
+- **Store Result Flag**: `true` (result should be stored on-chain on Neo X)
 - **Payload**: The EVM contract call data
 
-### Step 3: Message Relay to EVM
+The message will be assigned a number (a `nonce`). You can get it by either reading the remaining stack item of the transaction (the nonce is returned by the `sendExecutableMessage()` function), or you can check the events of the transaction for the event `MessageSend`.
 
-The message is picked up by relayers who monitor the N3 blockchain:
-
-1. **Relayer Detection**: Off-chain relayers listen for `MessageSent` events on N3
-2. **Message Validation**: Relayers validate the message format and collect validator signatures
-3. **EVM Submission**: Relayers submit the message to the EVM MessageBridge contract
-
-### Step 4: Message Storage on EVM
-
-The message is stored on the EVM side through the `storeMessage()` function:
-
-```solidity
-// Relayers call this function with validator signatures and message data
-messageBridge.storeMessage(depositRoot, signatures, messageData);
+```java
+ApplicationLog log = transaction.getApplicationLog();
+BigInteger messageNonce = log.getFirstExecution().getFirstStackItem().getInteger();
 ```
 
-**Validation errors and events during storage:**
+### Step 3: Message Relay to the EVM Chain
 
-1. **Signature Verification**: The EVM MessageBridge verifies that enough validators have signed the message
-   ```solidity
-   if (!management.verifyValidatorSignatures(depositRoot, signatures)) {
-       revert InvalidValidatorSignatures();
-   }
-   ```
+In this step, you need to wait until the decoupled relayer has transferred the message to the EVM chain. This should only take a couple of seconds.
 
-2. **Nonce Validation**: Ensures messages are processed in sequential order
-   ```solidity
-   if (messageData[i].nonce != state.nonce + i + 1) {
-       revert InvalidNonceSequence();
-   }
-   ```
+You can listen to the `MessageDeposit` event emitted by the MessageBridge contract. The first argument in the event is the message nonce. Once the event appears, your message has been transferred to the EVM chain and is now ready to be executed.
 
-3. **Root Verification**: Validates the provided deposit root matches the computed root
-   ```solidity
-   if (MessageBridgeLib._computeNewTopRoot(state.root, messages) != depositRoot) {
-       revert InvalidRoot();
-   }
-   ```
+### Step 4: Message Execution on EVM
 
-4. **Events Emitted**: Storage events are emitted for monitoring
-   ```solidity
-   emit MessageDepositRootUpdate(nonce, depositRoot);
-   emit MessageDeposit(nonce, messageData.message);
-   ```
+Once the message has been stored on the EVM chain, the message can be executed by anyone calling `executeMessage(uint256)` with the message nonce as parameter:
 
-### Step 5: : Message Execution on EVM
-
-Once stored, the message can be executed by anyone calling `executeMessage()`:
-
-```solidity
+```javascript
 // Anyone can execute a stored message by providing its nonce
-AMBTypes.Result memory result = messageBridge.executeMessage(nonce);
+await messageBridge.executeMessage(nonce);
 ```
 
-**EVM Execution Process:**
-1. **Message Retrieval**: The EVM execution system retrieves the stored message by nonce
-   ```solidity
-   StoredMessage memory storedMessage = evmMessages[nonce];
-   bytes memory rawMessage = storedMessage.rawMessage;
-   ```
-
-2. **Call Deserialization**: The serialized `AMBTypes.Call` struct is deserialized
-   ```solidity
-   AMBTypes.Call memory call = abi.decode(rawMessage, (AMBTypes.Call));
-   ```
-
-3. **Execution Validation**: Check if message hasn't expired and wasn't already executed
-   ```solidity
-   ExecutableState memory execState = evmExecutableStates[nonce];
-   require(!execState.executed, "MessageAlreadyExecuted");
-   require(block.timestamp <= execState.expirationTimestamp, "ExecutionWindowExpired");
-   ```
-
-4. **Contract Execution**: The ExecutionManager executes the call
-   ```solidity
-   // 3. The Call structure is executed:
-   //    - Target: 0x1234567890123456789012345678901234567890 (Neo token contract)
-   //    - Value: 0 (no ETH sent)
-   //    - CallData: 0x70a08231000000000000000000000000abcdefabcdefabcdefabcdefabcdefabcdefabcdef
-   //    - AllowFailure: false
-
-   // 4. This results in calling:
-   uint256 balance = IERC20(call.target).balanceOf(targetAddress);
-   // Result: balance in Wei (e.g., 1000000000000000000 for 1 NEO with 18 decimals)
-   ```
-
-5. **Result Storage**: If `storeResult` was true, the execution result is stored
-   ```solidity
-   if (metadata.storeResult) {
-       evmExecutionResults[nonce] = abi.encode(result);
-   }
-   ```
-
-### Step 6: Verify Execution Results
+### Step 5: Verify Execution Results
 
 After execution, you can verify the execution results on EVM:
 
-```solidity
-// Check if the execution was successful and verify the result
-AMBTypes.Result memory executionResult = messageBridge.getExecutableState(nonce);
-
-// If storeResult was true, the result is automatically stored in evmExecutionResults
-if (metadata.storeResult) {
-    // The result is now available in storage and can be retrieved later
-    // The encoded result contains both success status and return data
-    bytes memory storedResult = ambStorage.evmExecutionResults[nonce];
-    AMBTypes.Result memory result = abi.decode(storedResult, (AMBTypes.Result));
-    
-    if (result.success) {
-        // Decode the balance result from the return data
-        uint256 balance = abi.decode(result.returnData, (uint256));
-        // Balance is now available for use or further processing
-    }
-}
-
-// Event is emitted for monitoring and verification
-emit MessageExecuted(nonce, result);
+```javascript
+const { success, returnData } = await messageBridge.getResult(nonce);
 ```
 
-### Step 7: Result Message Relay to N3
+> If the message's `storeResult` was set to `false` when sending it, the result is only accessible in the `MessageExecuted` event emitted when the message was executed.
 
-Relayers monitor EVM for result messages and relay them back to N3:
+### Step 6: Return Result back to N3
 
-1. **EVM Event Monitoring**: Relayers watch for result message events on EVM
-2. **Signature Collection**: Multiple validator signatures are collected
-3. **N3 Submission**: The result message is submitted to the N3 MessageBridge
+> This and the following steps are only needed if you want to return the result to N3.
 
-### Step 8: Result Storage on N3
+In order to send a result back, you can call the `sendResultMessage(uint256)` function:
 
-The result message is stored on N3:
-
-```java
-// Relayers call this method with validator signatures
-messageBridge.storeMessage(depositRoot, signatures, resultMessages);
+```javascript
+await messageBridge.sendResultMessage(nonce);
 ```
 
-**What happens on N3:**
-1. Validator signatures are verified
-2. The result message is stored in N3 storage
-3. The message is marked as available for retrieval
+This will send the result back to Neo N3 in form of a normal message sent from EVM to Neo N3. It will get a new nonce. You can check the `MessageSent` event of the transaction to get this message nonce.
 
-### Step 8: Result Retrieval on N3 (Currently not implemented)
+### Step 7: Message Relay back to Neo N3
 
-Finally, you can retrieve the result on the N3 side:
+Now, the decoupled relayer transferres the response message back to Neo N3. Take the message nonce from the returning message (i.e., the one from the `MessageSent` event in Step 6) and wait for the `Store` event on the MessageBridge contract on Neo N3 that has contains this nonce.
 
-```java
-// Get the result of the original message execution
-uint originalMessageNonce = nonce; // The nonce from step 2
-AMBTypes.Result result = messageBridge.getResult(originalMessageNonce);
+Once the result is transferred, it can be read on-chain on Neo N3.
 
-if (result.success) {
-    // Decode the balance result using ethers-compatible decoding
-    // The returnData contains the encoded uint256 balance
-    BigInteger neoBalance = DecodeUint256(result.returnData);
-    
-    // Convert from Wei to NEO (divide by 10^18 if NEO token uses 18 decimals)
-    decimal neoBalanceInTokens = (decimal)neoBalance / (decimal)Math.Pow(10, 18);
-    
-    // Now you have the Neo token balance from EVM!
-    System.Console.WriteLine($"Neo token balance on EVM: {neoBalanceInTokens} NEO");
-}
-```
-
-Helper method for decoding uint256 (compatible with ethers encoding):
-```java
-private static BigInteger DecodeUint256(byte[] encodedData)
-{
-    // EVM ABI encoding for uint256 is 32 bytes, big-endian (ethers standard)
-    if (encodedData.Length != 32) 
-        throw new ArgumentException("Invalid encoded uint256 data");
-    
-    // Convert from big-endian bytes to BigInteger
-    Array.Reverse(encodedData); // Convert to little-endian for .NET
-    return new BigInteger(encodedData);
-}
-```
+In this step, the message bridge is used in the reverse direction from the EVM chain to the Neo N3 chain. As in Step 3, you now need to wait until the decoupled relayer has transferred the message to Neo N3. The event emitted when messages are transferred is `Store` and its first state entry is the nonce.
 
 ## Example Implementation (JavaScript + N3)
 
 ```javascript
+const { ethers } = require('ethers');
+
+// Define the Neo token contract address on EVM and target address
+const neoTokenContractAddress = "0xc28736dc83f4fd43d6fb832Fd93c3eE7bB26828f"; // Neo token address on Neo X Testnet
+const targetAddress = "0xabcdefabcdefabcdefabcdefabcdefabcdefabcd"; // Address to check the balance for
+
+// Create the interface for ERC20 balanceOf function
+const erc20Interface = new ethers.Interface([
+    "function balanceOf(address account) view returns (uint256)"
+]);
+
+
 // JavaScript side for encoding
 const { ethers } = require('ethers');
 
-class NeoTokenBalanceQuery {
-    constructor(messageBridge, neoTokenAddress) {
-        this.messageBridge = messageBridge;
-        this.neoTokenAddress = neoTokenAddress;
-        this.erc20Interface = new ethers.Interface([
-            "function balanceOf(address account) view returns (uint256)"
-        ]);
-    }
+function exampleFunc() {
+    const encodedMessage = getEncodedMessage("0xc28736dc83f4fd43d6fb832Fd93c3eE7bB26828f", "0xabcdefabcdefabcdefabcdefabcdefabcdefabcd");
 
-    queryBalance(targetAddress) {
-        // Encode the balanceOf call using ethers
-        const callData = this.erc20Interface.encodeFunctionData("balanceOf", [targetAddress]);
-        
-        // Create the Call structure
-        const evmCall = {
-            target: this.neoTokenAddress,
-            allowFailure: false,
-            value: 0,
-            callData: callData
-        };
+    // TBD: Send message on Neo N3 using Javascript
+    // Invoke the method sendExecutableMessage on the MessageBridge contract on Neo N3 using the encodedMessage bytes.
+    // const nonce = messageBridge.sendExecutableMessage(messageBytes, true, sender, messageFee);
 
-        // Serialize the Call structure
-        const callStructAbi = ["tuple(address target, bool allowFailure, uint256 value, bytes callData)"];
-        const abiCoder = new ethers.AbiCoder();
-        const serializedMessage = abiCoder.encode(callStructAbi, [evmCall]);
+    // Once the message has been bridged over to the EVM chain, you can execute it
+    await messageBridge.connect(sender).executeMessage(nonce, {maxFeePerGas, maxPriorityFeePerGas});
 
-        return {
-            serializedMessage: serializedMessage,
-            callData: callData,
-            evmCall: evmCall
-        };
-    }
-
-    decodeBalanceResult(resultData) {
-        // Decode the uint256 balance result
-        const abiCoder = new ethers.AbiCoder();
-        const balance = abiCoder.decode(["uint256"], resultData)[0];
-        return balance;
-    }
+    // If the result should be stored on-chain, you can return the result now.
+    await messageBridge.connect(sender).sendResultMessage(nonce, {maxFeePerGas, maxPriorityFeePerGas});
 }
 
-// Usage example
-const query = new NeoTokenBalanceQuery(messageBridge, "0x1234567890123456789012345678901234567890");
-const { serializedMessage } = query.queryBalance("0xabcdefabcdefabcdefabcdefabcdefabcdefabcdef");
+function getEncodedMessage(tokenAddress, targetAddress) {
+    // Encode the balanceOf call using ethers
+    const erc20Interface = new ethers.Interface(["function balanceOf(address account) view returns (uint256)"]);
+    const callData = erc20Interface.encodeFunctionData("balanceOf", [targetAddress]);
 
-// Convert to N3 byte array and send
-const messageBytes = hexStringToByteArray(serializedMessage);
-const nonce = messageBridge.sendExecutableMessage(messageBytes, true, messageFee);
-```
+    // Create the Call structure
+    const evmCall = {
+        target: tokenAddress,
+        allowFailure: false,
+        value: 0,
+        callData: callData
+    };
 
-```java
-// N3 side for sending and receiving
-public class NeoTokenBalanceQuery
-{
-    private readonly MessageBridge messageBridge;
-    private readonly UInt160 evmNeoTokenAddress;
-    
-    public NeoTokenBalanceQuery(MessageBridge bridge, UInt160 tokenAddress)
-    {
-        messageBridge = bridge;
-        evmNeoTokenAddress = tokenAddress;
-    }
-    
-    public uint QueryBalance(string serializedMessage)
-    {
-        // Convert the ethers-encoded message to byte array
-        byte[] messageBytes = hexStringToByteArray(serializedMessage);
-        long fee = messageBridge.getMessageFee();
-        
-        uint nonce = messageBridge.sendExecutableMessage(messageBytes, true, fee);
-        return nonce; // Return nonce to track the request
-    }
-    
-    public BigInteger GetBalance(uint messageNonce)
-    {
-        var result = messageBridge.getResult(messageNonce);
-        if (!result.success)
-            throw new Exception("Balance query failed");
-            
-        return DecodeUint256(result.returnData);
-    }
-    
-    private byte[] hexStringToByteArray(string hexString)
-    {
-        if (hexString.startsWith("0x"))
-            hexString = hexString.substring(2);
-            
-        int len = hexString.length();
-        byte[] data = new byte[len / 2];
-        for (int i = 0; i < len; i += 2) {
-            data[i / 2] = (byte) ((Character.digit(hexString.charAt(i), 16) << 4)
-                                 + Character.digit(hexString.charAt(i+1), 16));
-        }
-        return data;
-    }
+    // Serialize the Call structure
+    const callStructAbi = ["tuple(address target, bool allowFailure, uint256 value, bytes callData)"];
+    const abiCoder = new ethers.AbiCoder();
+    const serializedMessage = abiCoder.encode(callStructAbi, [evmCall]);
+
+    return {
+        serializedMessage: serializedMessage,
+        callData: callData,
+        evmCall: evmCall
+    };
+}
+
+function decodeBalanceResult(resultData) {
+    // Decode the uint256 balance result
+    const abiCoder = new ethers.AbiCoder();
+    const balance = abiCoder.decode(["uint256"], resultData)[0];
+    return balance;
 }
 ```
 
-## Example Message Flow Visualization
+## Visualization
 
-```
-N3 Side (JavaScript + ethers):
+```markdown
+JavaScript + ethers for building the EVM call
 ┌─────────────────────────────────────────────────────────┐
-│ const evmCall = {                                       │
+| const evmCall = {                                       │
 │   target: "0x1234...7890",  // Neo token contract       │
 │   allowFailure: false,                                  │
 │   value: 0,                                             │
@@ -368,21 +218,19 @@ N3 Side (JavaScript + ethers):
 │ 0x0000002000000000000000001234...7890000000000000...    │
 └─────────────────────────────────────────────────────────┘
                               │
-                              ▼ hexStringToByteArray() → N3
+                              ▼ Send the message on Neo N3
 ┌─────────────────────────────────────────────────────────┐
-│ N3 MessageBridge.sendExecutableMessage(bytes, bool)     │
+│ messageBridge.sendExecutableMessage(bytes, bool)        │
 └─────────────────────────────────────────────────────────┘
                               │
                               ▼ Cross-chain relay
-EVM Side:
 ┌─────────────────────────────────────────────────────────┐
-│ abi.decode(message, (AMBTypes.Call))                    │
-│ ↓                                                       │
-│ ExecutionManager.executeCall(call.target, call.value,   │
-│                              call.callData)             │
-│ ↓                                                       │
-│ IERC20(0x1234...7890).balanceOf(0xabcd...cdef)          │
-│ → Returns: 1000000000000000000 (1 NEO with 18 decimals) │
+│ messageBridge.executeMessage(nonce)                     │
+└─────────────────────────────────────────────────────────┘
+                              │
+                              ▼ Return the result to Neo N3
+┌─────────────────────────────────────────────────────────┐
+│ messageBridge.sendResultMessage(nonce)                  │
 └─────────────────────────────────────────────────────────┘
 ```
 
