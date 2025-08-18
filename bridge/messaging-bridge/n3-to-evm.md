@@ -1,10 +1,10 @@
 # N3 to EVM Message Bridge Flow
 
-This document details the complete flow for sending messages from Neo N3 to EVM blockchain, using the example scenario of querying a Neo token's balance on EVM from N3 and receiving the result back.
+This document details the complete flow for sending messages from N3 to Neo X (EVM blockchain) using the example scenario of querying a Neo token's balance on EVM from N3 and receiving the result back.
 
 ## Overview
 
-The message bridge allows Neo N3 applications to execute operations on EVM-based blockchains and receive results back.
+The message bridge allows N3 applications to execute operations on EVM-based blockchains and receive results back.
 
 This is accomplished by encoding an `AMBTypes.Call` struct and sending the encoded bytes to the N3 message bridge contract. The [decoupled relayer](/bridge/how-native-bridge-works/hash-chain-and-decoupled-relayer.md#Hash_Chain_and_Decoupled_Relayer) then ensures safe transfer of the data to the EVM chain. Once the data has been bridged, the message can be executed on the EVM chain and its result may be returned.
 
@@ -61,9 +61,9 @@ Send the EVM call as an executable message from N3 (Java example code):
 
 ```java
 // Get the fee for sending a message across the bridge.
-BigInteger sendingFee = messageBridgeContract.callFunctionReturningInt("sendingFee");
+BigInteger sendingFee = n3MessageBridge.callFunctionReturningInt("sendingFee");
 // Build the transaction to send the executable message to Neo X using the sendingFee as maximal allowed fee and your account as bridge fee payer.
-TransactionBuilder b = messageBridgeContract.invokeFunction("sendExecutableMessage", byteArray(rawMessage), bool(storeResult), hash160(myAccount), integer(sendingFee));
+TransactionBuilder b = n3MessageBridge.invokeFunction("sendExecutableMessage", byteArray(rawMessage), bool(storeResult), hash160(myAccount), integer(sendingFee));
 Transaction transaction = b.signers(AccountSigner.calledByEntry(myAccount)).sign();
 NeoSendRawTransaction response = transaction.send();
 Await.waitUntilTransactionIsExecuted(response.getSendRawTransaction().getHash(), neow3j);
@@ -72,7 +72,7 @@ Await.waitUntilTransactionIsExecuted(response.getSendRawTransaction().getHash(),
 **Parameters:**
 
 - `rawMessage`: The encoded EVM contract call data, i.e., the output `serializedMessage` above.
-- `true`: Once the message is executed, the result of the execution should be stored on-chain, so that it can be returned to Neo N3 if needed. If set to `false`, the result will not be stored. The result will be included in an event that is fired when executing regardless of this value.
+- `true`: Once the message is executed, the result of the execution should be stored on-chain, so that it can be returned to N3 if needed. If set to `false`, the result will not be stored. The result will be included in an event that is fired when executing regardless of this value.
 
 This creates an **EXECUTABLE** type message with:
 
@@ -101,7 +101,7 @@ Once the message has been stored on the EVM chain, the message can be executed b
 
 ```javascript
 // Anyone can execute a stored message by providing its nonce
-await messageBridge.executeMessage(nonce);
+await evmMessageBridge.executeMessage(nonce);
 ```
 
 ### Step 5: Verify Execution Results
@@ -121,20 +121,20 @@ const { success, returnData } = await messageBridge.getResult(nonce);
 In order to send a result back, you can call the `sendResultMessage(uint256)` function:
 
 ```javascript
-await messageBridge.sendResultMessage(nonce);
+await evmMessageBridge.sendResultMessage(nonce);
 ```
 
-This will send the result back to Neo N3 in form of a normal message sent from EVM to Neo N3. It will get a new nonce. You can check the `MessageSent` event of the transaction to get this message nonce.
+This will send the result back to N3 in form of a normal message sent from EVM to N3. It will get a new nonce. You can check the `MessageSent` event of the transaction to get this message nonce.
 
-### Step 7: Message Relay back to Neo N3
+### Step 7: Message Relay back to N3
 
-Now, the decoupled relayer transferres the response message back to Neo N3. Take the message nonce from the returning message (i.e., the one from the `MessageSent` event in Step 6) and wait for the `Store` event on the MessageBridge contract on Neo N3 that has contains this nonce.
+Now, the decoupled relayer transferres the response message back to N3. Take the message nonce from the returning message (i.e., the one from the `MessageSent` event in Step 6) and wait for the `Store` event on the MessageBridge contract on N3 that has this nonce.
 
-Once the result is transferred, it can be read on-chain on Neo N3.
+In this step, the message bridge is used in the reverse direction from the EVM chain to the N3 chain. As in Step 3, you now need to wait until the decoupled relayer has transferred the message to N3. The event emitted when messages are transferred is `Store` and its first state entry is the nonce.
 
-In this step, the message bridge is used in the reverse direction from the EVM chain to the Neo N3 chain. As in Step 3, you now need to wait until the decoupled relayer has transferred the message to Neo N3. The event emitted when messages are transferred is `Store` and its first state entry is the nonce.
+Once the result is transferred, it can be read on-chain on N3.
 
-## Example Implementation (JavaScript + N3)
+## Example Implementation (JavaScript)
 
 ```javascript
 const { ethers } = require('ethers');
@@ -148,22 +148,20 @@ const erc20Interface = new ethers.Interface([
     "function balanceOf(address account) view returns (uint256)"
 ]);
 
-
-// JavaScript side for encoding
-const { ethers } = require('ethers');
-
 function exampleFunc() {
     const encodedMessage = getEncodedMessage("0xc28736dc83f4fd43d6fb832Fd93c3eE7bB26828f", "0xabcdefabcdefabcdefabcdefabcdefabcdefabcd");
 
-    // TBD: Send message on Neo N3 using Javascript
-    // Invoke the method sendExecutableMessage on the MessageBridge contract on Neo N3 using the encodedMessage bytes.
-    // const nonce = messageBridge.sendExecutableMessage(messageBytes, true, sender, messageFee);
+    // TBD: Send message on N3 using Javascript
+    // Invoke the method sendExecutableMessage on the MessageBridge contract on N3 using the encodedMessage bytes.
+    // const nonce = n3MessageBridge.sendExecutableMessage(messageBytes, true, sender, messageFee);
+
+    // Wait until the message arrives on the EVM chain...
 
     // Once the message has been bridged over to the EVM chain, you can execute it
-    await messageBridge.connect(sender).executeMessage(nonce, {maxFeePerGas, maxPriorityFeePerGas});
+    await evmMessageBridge.connect(sender).executeMessage(nonce, {maxFeePerGas, maxPriorityFeePerGas});
 
     // If the result should be stored on-chain, you can return the result now.
-    await messageBridge.connect(sender).sendResultMessage(nonce, {maxFeePerGas, maxPriorityFeePerGas});
+    await evmMessageBridge.connect(sender).sendResultMessage(nonce, {value: sendingFee, maxFeePerGas, maxPriorityFeePerGas});
 }
 
 function getEncodedMessage(tokenAddress, targetAddress) {
@@ -204,7 +202,7 @@ function decodeBalanceResult(resultData) {
 ```markdown
 JavaScript + ethers for building the EVM call
 ┌─────────────────────────────────────────────────────────┐
-| const evmCall = {                                       │
+│ const evmCall = {                                       │
 │   target: "0x1234...7890",  // Neo token contract       │
 │   allowFailure: false,                                  │
 │   value: 0,                                             │
@@ -218,20 +216,20 @@ JavaScript + ethers for building the EVM call
 │ 0x0000002000000000000000001234...7890000000000000...    │
 └─────────────────────────────────────────────────────────┘
                               │
-                              ▼ Send the message on Neo N3
+                              ▼ Send the message on N3
 ┌─────────────────────────────────────────────────────────┐
 │ messageBridge.sendExecutableMessage(bytes, bool)        │
 └─────────────────────────────────────────────────────────┘
                               │
-                              ▼ Cross-chain relay
+                              ▼ Cross-chain relay - then execute on EVM
 ┌─────────────────────────────────────────────────────────┐
 │ messageBridge.executeMessage(nonce)                     │
 └─────────────────────────────────────────────────────────┘
                               │
-                              ▼ Return the result to Neo N3
+                              ▼ Return the result to N3
 ┌─────────────────────────────────────────────────────────┐
 │ messageBridge.sendResultMessage(nonce)                  │
 └─────────────────────────────────────────────────────────┘
 ```
 
-This completes the full N3 to EVM flow showing how to properly prepare the call data using the ethers library for encoding the `AMBTypes.Call` structure and `balanceOf` method call, serialize it, and execute it on EVM.
+This completes the full N3 to EVM flow showing how to properly prepare the call data using the ethers library for encoding the `AMBTypes.Call` structure and `balanceOf` method call, serializing it, sending it, executing it, and then sending the results back to N3.

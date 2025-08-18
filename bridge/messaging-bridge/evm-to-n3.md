@@ -1,24 +1,29 @@
 # EVM to N3 Message Bridge Flow
 
-This document details the complete flow for sending messages from EVM to Neo N3 blockchain, using the example scenario of querying a smart contract's GAS token balance on N3.
+This document details the complete flow for sending messages from Neo X (an EVM blockchain) to N3 using the example scenario of querying a Neo token's balance on N3 from the EVM chain and receiving the result back.
 
 ## Overview
 
-The EVM to N3 flow allows EVM-based applications to execute operations on the Neo N3 blockchain and optionally receive results back. This is accomplished through a message bridge system that serializes calls, sends them across chains, executes them on N3, and returns results.
+The message bridge allows EVM applications to execute operations on N3 and receive results backa.
+
+This is accomplished by serializing a function call and sending the encoded bytes to the EVM message bridge contract. The [decoupled relayer](/bridge/how-native-bridge-works/hash-chain-and-decoupled-relayer.md#Hash_Chain_and_Decoupled_Relayer) then ensures safe transfer of the data to N3. Once the data has been bridged, the message can be executed on N3 and its result may be returned.
+
+The EVM to N3 flow allows EVM-based applications to execute operations on the N3 blockchain and optionally receive results back. This is accomplished through a message bridge system that serializes calls, sends them across chains, executes them on the N3 chain, and returns the results.
 
 ## Complete Flow Steps
 
-### Step 1: Prepare the Serialized Method Call (N3 Side)
+### Step 1: Prepare the Serialized N3 Method Call
 
 First, you prepare the serialized method call on the N3 side using the N3 MessageBridge contract:
 
 ```java
-// This encodes a call to the GAS token contract's "balanceOf" method for a target contract.
-byte[] getMessageBridgeGasBalance = messageBridge.getSerializedN3MethodCall(
-    gasToken.getScriptHash(),      // Target contract (GAS token)
+Hash160 targetAccount = new Hash160("0xabcdefabcdefabcdefabcdefabcdefabcdefabcd");
+// This encodes a call to the NEO token contract's "balanceOf" method for a target contract.
+byte[] serializedN3MethodCall = n3MessageBridge.getSerializedN3MethodCall(
+    NeoToken.SCRIPT_HASH,          // Target contract (NEO token)
     "balanceOf",                   // Method to call
     CallFlags.READ_ONLY,           // Call flags (read-only)
-    List.of(targetContractHash)    // Arguments (the contract whose balance you want)
+    List.of(targetAccount)         // Arguments (the account whose balance you want)
 );
 ```
 
@@ -28,180 +33,153 @@ This method returns a serialized byte array that represents the N3 method call.
 
 On the EVM side, you send the serialized method call as an executable message:
 
-```solidity
-// Send the serialized N3 method call as an executable message
-// Set storeResult to true to receive the result back
-bytes memory serializedCall = getMessageBridgeGasBalance; // From step 1
-bool storeResult = true; // We want the result back
-
-messageBridge.sendExecutableMessage{value: messageFee}(serializedCall, storeResult);
+```javascript
+const storeResult = true;
+const sendingFee = ethers.parseEther("0.1"); // The sending fee
+evmMessageBridge.sendExecutableMessage{value: sendingFee}(rawMessage, storeResult);
 ```
 
-**What happens internally:**
-1. The message is validated (size, fee payment)
-2. Metadata is created with `MessageType.EXECUTABLE`
-3. A new nonce is assigned and the message hash is computed
-4. The N3 state root is updated
-5. A `MessageSent` event is emitted
+- `rawMessage`: The serialized N3 method call, i.e., the output `serializedN3MethodCall` above.
+- `storeResult`: Once the message is executed, the result of the execution should be stored on-chain, so that it can be returned to the EVM chain if needed. If set to `false`, the result will not be stored. The result will be included in an event that is fired when executing regardless of this value.
+- `sendingFee`: The fee required for sending a message to N3.
+
+This creates an **EXECUTABLE** type message with:
+
+- **Message Type**: `0` (EXECUTABLE)
+- **Timestamp**: Current EVM block time
+- **Sender**: The message sender (i.e., `msg.sender`) sending the message
+- **Store Result Flag**: `true` (result should be stored on-chain on N3)
+- **Payload**: The N3 method call data
+
+The message will be assigned a number (a `nonce`). You can get it by checking the events of the transaction for the event `MessageSent`.
 
 ### Step 3: Message Relay to N3
 
-The message is picked up by relayers who monitor the EVM blockchain:
+In this step, you need to wait until the decoupled relayer has transferred the message to the EVM chain. This should only take a couple of seconds.
 
-1. **Relayer Detection**: Off-chain relayers listen for `MessageSent` events
-2. **Message Validation**: Relayers validate the message format and signature
-3. **N3 Submission**: Relayers submit the message to the N3 MessageBridge contract
+You can listen to the `Store` event emitted by the N3 MessageBridge contract. The first argument in the event is the message nonce. Once the event appears, your message has been transferred to N3 and is now ready to be executed.
 
-### Step 4: Store the Message for Execution
+### Step 4: Message Execution on N3
 
-Store the serialized method call in the message bridge contract:
+Once the message has been stored on the EVM chain, the message can be executed by anyone calling `executeMessage(int)` with the message nonce as paramter:
 
 ```java
-BigInteger executableMessageNonce = messageBridge.storeMessage(getMessageBridgeGasBalance);
+TransactionBuilder b = n3MessageBridge.invokeFunction("executeMessage", integer(nonce));
+Transaction transaction = b.signers(AccountSigner.calledByEntry(myAccount)).sign();
+NeoSendRawTransaction response = transaction.send();
+Await.waitUntilTransactionIsExecuted(response.getSendRawTransaction().getHash(), neow3j);
 ```
 
-**Validation errors and events during storage:**
+Executing a message will emit the following:
 
-1. **Contract State Validation**: The N3 MessageBridge verifies the contract is not paused
-   ```java
-   if (isPaused()) {
-       throw new Exception("Contract is paused");
-   }
-   ```
-2. **Signature Verification: Validates that enough validators have signed the message root:**
-    ```java
-    if (!management.verifyValidatorSignatures(root, signatures)) {
-        throw new Exception("Invalid validator signatures");
-    }
-    ```
-3. **Root Verification: Ensures the provided root matches the computed message root**
-    ```java
-    Hash256 computedRoot = computeMessageRoot(messageEnvelopes);
-    if (!computedRoot.equals(root)) {
-        throw new Exception("Invalid root");
-    }
-    ```
-4. **Nonce Validation: Ensures messages are processed in sequential order**
-    ```java
-    if (messageEnvelope.nonce != expectedNonce) {
-        throw new Exception("Invalid nonce sequence");
-    }
-    ```
-5. **Events Emitted: Storage events are emitted for monitoring and indexing**
-```java
-    fire("MessageStore", nonce, metadataSerializedHex);
-    fire("MessageStoreRoot", root);
-```
+1. `Execute` with parameters `Nonce` and `Metadata` emitted by the MessageBridge contract.
+2. Potential events based on the N3 method call. In this example, there's no events emitted as the `balanceOf` method call is a read-only invocation.
+3. `ExecutionResult` with parameters `Nonce` and `Result` emitted by the MessageBridge contract.
 
-### Step 5: Message Execution on N3
+The result is emitted in deserialized form as it was returned from the method call.
 
-Execute the stored message on N3:
+### Step 5: Verify Execution Results
+
+After execution, you can verify the execution results on N3:
 
 ```java
-Hash256 tx = messageBridge.executeMessage(AccountSigner.global(executorAccount), executableMessageNonce);
-```
+List<StackItem> items = n3MessageBridge.callInvokeFunction("getExecutableState", asList(integer(nonce))).getInvocationResult()
+                .getFirstStackItem().getList();
 
-This triggers:
-1. **Execute Event**: Emitted when execution starts
-2. **Target Contract Execution**: The actual `balanceOf` call to the GAS token contract
-3. **ExecutionResult Event**: Emitted with the execution result
-
-**Event Structure:**
-```java
-// Execute event
-event Execute(BigInteger nonce);
-
-// ExecutionResult event  
-event ExecutionResult(BigInteger nonce, ByteString result);
-```
-The method `balanceOf` is called on the GAS token contract, as it was defined at step 1.
-```java
-// N3 execution (conceptual)
-// The serialized call is executed against the GAS token contract
-UInt256 balance = gasToken.balanceOf(targetContractHash);
-// Result is serialized and stored for return
-```
-
-### Step 6: Verify Execution Results
-
-After execution, verify the state has changed:
-
-```java
-ExecutableStateDto execStateAfterExec = messageBridge.getExecutableState(executableMessageNonce);
-// Should be: execStateAfterExec.executed == true
+boolean executed = items.get(0).getBoolean();
+BigInteger expirationTime = items.get(1).getInteger();
 
 // Get the actual result
-byte[] resultBytes = messageBridge.getResult(executableMessageNonce);
-// Contains the serialized return value from the N3 method call
+byte[] serializedResult = n3MessageBridge.callInvokeFunction("getResult", asList(integer(nonce))).getInvocationResult()
+                .getFirstStackItem().getByteArray();
 ```
 
-### Step 7: Send Result Back to EVM
+Note that the result returned from `getResult` is serialized using the native `StdLib` contract's `serialize()` function. You can use its function `deserialize()` to get the deserialized stack items. It is up to the caller to interpret the result accordingly.
 
-Send the execution result as a message back to EVM:
+### Step 6: Return Result back to EVM
+
+> This and the following steps are only needed if you want to return the result to the EVM chain.
+
+In order to send a result back, you can call the `sendResultMessage(nonce)` function:
 
 ```java
-BigInteger nextEvmNonce = getNextEvmNonce();
-Hash256 resultSendTx = testMessageSender.sendResultMessage(
-    AccountSigner.global(senderAccount), 
-    executableMessageNonce  // Reference to the original message
-);
+TransactionBuilder b = n3MessageBridge.invokeFunction("sendResultMessage", integer(messageNonce), hash160(feePayer), integer(maxFee));
+Transaction transaction = b.signers(AccountSigner.calledByEntry(myAccount)).sign();
+NeoSendRawTransaction response = transaction.send();
+Await.waitUntilTransactionIsExecuted(response.getSendRawTransaction().getHash(), neow3j);
 ```
 
-This creates a **RESULT** type message with:
-- **Message Type**: `2` (RESULT)
-- **Timestamp**: Current N3 block time
-- **Sender**: The contract/account sending the result
-- **Related Message Nonce**: Reference to the original executable message
-- **Payload**: The actual result bytes from the N3 execution
+This will send the result back to the EVM chain in form of a normal message sent from N3 to EVM. It will get a new nonce. You can check the `MessageSend` event of the transaction to get this message nonce.
 
-The result message triggers a `MessageSend` event:
+### Step 7: Message Relay back to EVM
 
-```java
-event MessageSend(
-    BigInteger nonce,           // New EVM-bound message nonce
-    ByteString rawMessage,      // The result payload
-    ByteString metadata,        // Serialized message metadata
-    ByteString prevMessageHash, // Hash of previous message in chain
-    ByteString newMessageHash   // Hash of this message
-);
-```
+Now, the decoupled relayer transferres the response message back to the EVM chain. Take the message nonce from the returning message (i.e., the one from the `MessageSend` event in Step 6) and wait for the `MessageDeposit` event on the MessageBridge contract on EVM that has this nonce.
 
-**Metadata Structure for RESULT messages:**
-```java
-[
-    msgType,              // 2 (RESULT)
-    timestamp,            // N3 block timestamp
-    sender,               // Hash160 of sending contract
-    relatedMessageNonce   // Original message nonce being responded to
-]
-```
+In this step, the message bridge is used in the reverse direction from N3 to the EVM chain. As in Step 3, you will need to wait until the decoupled relayer has transferred the message to the EVM chain.
 
-### Step 8: Result Storage on EVM
+Once the result is transferred, it can be read on the EVM chain.
 
-The result message is stored on EVM:
+## Example Implementation (JavaScript)
 
-```solidity
-// Relayers call this function with validator signatures
-messageBridge.storeMessage(depositRoot, signatures, resultMessages);
-```
+```javascript
+const { ethers } = require('ethers');
 
-**What happens:**
-1. Validator signatures are verified
-2. The result message is stored in EVM storage
-3. The message is marked as available for retrieval
+// Define the target contract address and the account address to check the balance for.
+const neoTokenContractAddress = "0xef4073a0f2b305a38ec4050e4d3d28bc40ea63f5"; // Neo token address on N3
+const targetAddress = "0xabcdefabcdefabcdefabcdefabcdefabcdefabcd"; // Address to check the balance for
 
-### Step 9: Result Retrieval on EVM - (Currently not implemented)
+function exampleFunc() {
+    // TBD: Serialize an N3 method call using Javascript
+    // Invoke the N3 MessageBridge contract's function serializeN3MethodCall() to get the bytes needed.
+    // const rawMessage = n3MessageBridge.serializeN3MethodCall(target, method, callFlags, args);
+    const rawMessage = "0x400428141418e358c565207768eae8d237241e85d3e9f1cb280573746f72652101024002210101210440a87c68";
 
-Finally, you can retrieve the result on the EVM side:
+    const storeResult = true;
+    const sendingFee = ethers.parseEther("0.1");
+    await evmMessageBridge.connect(sender).sendExecutableMessage(rawMessage, storeResult, {value: sendingFee, maxFeePerGas, maxPriorityFeePerGas});
 
-```solidity
-// Get the result of the original message execution
-uint256 originalMessageNonce = 1; // The nonce from step 2
-AMBTypes.Result memory result = messageBridge.getResult(originalMessageNonce);
+    // Wait until the message arrives on N3...
 
-if (result.success) {
-    // Decode the balance result
-    uint256 gasBalance = abi.decode(result.returnData, (uint256));
-    // Now you have the GAS token balance from N3!
+    // TBD: Execute message on N3 using Javascript
+    // Invoke the method executeMessage() on the MessageBridge contract on N3 using the assigned message nonce when the message was sent.
+
+    // TBD: Send the result back from N3 to EVM
+    // Invoke the method sendResultMessage() on the MessageBridge contract on N3 using the assigned message nonce when the message was sent initially.
 }
 ```
+
+## Visualization
+
+```markdown
+Java (or other N3 SDK) for building the N3 method call
+┌────────────────────────────────────────────────────────────────┐
+│ Hash160 target = NeoToken.SCRIPT_HASH;                         │
+│ String method = "balanceOf";                                   │
+│ CallFlags callFlags = CallFlags.READ_ONLY                      │
+│ Hash160 account = new Hash160("");                             │
+│ ContractParameter args = array(hash160(account));              │
+└────────────────────────────────────────────────────────────────┘
+                              │
+                              ▼ n3MessageBridge.serializeN3MethodCall(target, method, callFlags, args)
+┌────────────────────────────────────────────────────────────────┐
+│ Serialized N3 Message                                          │
+│ 0x400428141418e358c565207768ea...0101210440a87c68...           │
+└────────────────────────────────────────────────────────────────┘
+                              │
+                              ▼ Send the message on EVM
+┌────────────────────────────────────────────────────────────────┐
+│ evmMessageBridge.sendExecutableMessage(bytes, bool)            │
+└────────────────────────────────────────────────────────────────┘
+                              │
+                              ▼ Cross-chain relay - then execute on N3
+┌────────────────────────────────────────────────────────────────┐
+│ n3MessageBridge.executeMessage(nonce)                          │
+└────────────────────────────────────────────────────────────────┘
+                              │
+                              ▼ Return the result to EVM
+┌────────────────────────────────────────────────────────────────┐
+│ n3MessageBridge.sendResultMessage(nonce, feePayer, sendingFee) │
+└────────────────────────────────────────────────────────────────┘
+```
+
+This completes the full EVM to N3 flow showing how to properly prepare the method call data using the message bridge contract, sending it, executing it on N3 and then sending the results back.
