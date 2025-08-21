@@ -9,7 +9,7 @@ To qualify as a candidate node on Neo X, the applicant should adhere to the foll
 * Hardware Requirements: The applicant’s infrastructure must meet the specified [hardware requirements](broken-reference) for Neo X nodes. This includes ensuring compliance with machine maintenance standards and the establishment of a robust technical setup.
 * Institutional Recognition: The applicant should represent an established organization or institution recognized within the market ecosystem.
 
-Suitable applicants can proceed with the registration process by staking 20000 GAS (Testnet) or 1000 GAS (Mainnet)  through the Neo X governance interface. This deposit serves as a commitment to participation in the governance process.
+Suitable applicants can proceed with the registration process by staking 20000 GAS (Testnet) or 1000 GAS (Mainnet) through the Neo X Governance contract interface. This deposit serves as a commitment to participation in the governance process.
 
 Upon a normal node exit, the staked GAS tokens will be refunded to the applicant. A tentative locking period of approximately 120,960 blocks is enforced to ensure the stability of the governance ecosystem.
 
@@ -37,7 +37,7 @@ Furthermore, the portion of rewards allocated to the voters is distributed based
 
 _voterReward=(totalNetworkGasTip/7)\*distributionRatio\*(voteAmount/totalVote)_
 
-The penalties for non-performing consensus nodes are yet to be determined. Wrongdoings may include but are not limited to, being unable to meet dBFT block production conditions or complete the Anti-MEV decryption key distribution. Penalties may include, but are not limited to, being prohibited from becoming a block-producing or witness node for a certain period, or the deduction of deposits upon node exit. Additionally, they may be prohibited from becoming a candidate node again. These measures will be specified in the Neo X governance contract in the future.
+The penalties for non-performing consensus nodes are yet to be determined. Wrong doings may include but are not limited to, being unable to meet dBFT block production conditions or complete the Anti-MEV decryption key distribution. Penalties may include, but are not limited to, being prohibited from becoming a block-producing or witness node for a certain period, or the deduction of deposits upon node exit. Additionally, they may be prohibited from becoming a candidate node again. These measures will be specified in the Neo X Governance contract in the future.
 
 In the early stages of multi-node governance on Neo X, we anticipate a potential shortage of candidate nodes on the Neo X. To ensure network operation, we have designated seven standby consensus nodes to operate during this kick-off phase. Once there are at least seven qualified candidate nodes and the total voted GAS token number exceeds 3 million within one Epoch, the seven standby consensus nodes will be replaced by the seven elected nodes at the conclusion of the Epoch. This transition marks the beginning of full decentralized governance.
 
