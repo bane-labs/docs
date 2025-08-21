@@ -2,20 +2,29 @@
 
 This document contains step-by-step instructions for running a geth node in Neo X.
 
-## Hardware Requirements
+## 1. Hardware Requirements
 
 The following are the minimum hardware requirements:
 
+#### Seed Node
+
 * CPU with 2+ cores
-* 4GB RAM
-* 200GB free storage space to sync the Testnet
+* 4 GB RAM
+* 2 00GB free storage space for data synchronization
 * 8 MBit/sec download Internet service
 
-## 1. Building or Downloading Geth Binary
+#### Miner Node
 
-### Build the source
+* Fast CPU with 2+ cores
+* 24 GB RAM
+* 200 GB free storage space for data synchronization
+* 8 MBit/sec download Internet service
 
-Building `geth` requires both a Go (version 1.19 or later) and a C compiler. Feel free to install them with the package manager of your choice.
+## 2. Building or Downloading Geth Binary
+
+#### Build from source
+
+Building `geth` requires both a Go (version 1.23 or later) and a C compiler. Feel free to install them with the package manager of your choice.
 
 Once the dependencies are installed, run
 
@@ -29,88 +38,56 @@ or, build the full suite of utilities:
 make all
 ```
 
-### Download the geth binary for linux
+#### Download the binary
 
-You can download the latest `geth-linux-amd64` binary from [https://github.com/bane-labs/go-ethereum/releases](https://github.com/bane-labs/go-ethereum/releases)
+You can download the latest `geth` binary from [https://github.com/bane-labs/go-ethereum/releases](https://github.com/bane-labs/go-ethereum/releases)
 
-## 2. Initializing Geth Database
+## 3. Initializing Geth Database
 
 Download the latest release version of both binary and configuration file from:&#x20;
 
-[https://github.com/bane-labs/go-ethereum/releases/tag/v0.2.2](https://github.com/bane-labs/go-ethereum/releases/tag/v0.2.2)
+[https://github.com/bane-labs/go-ethereum/releases/tag/v0.4.1](https://github.com/bane-labs/go-ethereum/releases/tag/v0.4.1)
 
-[https://github.com/bane-labs/go-ethereum/blob/v0.2.2/config](https://github.com/bane-labs/go-ethereum/blob/v0.2.2/config)
+[https://github.com/bane-labs/go-ethereum/blob/v0.4.1/config](https://github.com/bane-labs/go-ethereum/blob/v0.4.1/config)
 
-To create a blockchain node that uses this genesis block, first use geth init to import and set the canonical genesis block for the new chain. This requires the path to the configuration file to be passed as an argument.
+To create a blockchain node that uses this genesis block, first use `geth init` to import and set the canonical genesis block for the new chain. This requires the path to the configuration file to be passed as an argument.
 
-&#x20;`--datadir` is the target destination for the node database. Here we use `./nodes/node1`:
+&#x20;`--datadir` is the target destination for the node database. Here we use `./node`:
 
 Testnet
 
 ```
-./geth init --datadir ./nodes/node1 ./genesis_testnet.json
+./geth init --datadir ./node ./genesis_testnet.json
 ```
 
 Mainnet
 
 ```
-./geth init --datadir ./nodes/node1 ./genesis_mainnet.json
+./geth init --datadir ./node ./genesis_mainnet.json
 ```
 
-## 3. Initializing Node Account
-
-You can create a new account or import an existing account for your node operation. Seed nodes don't need node account.
-
-### Create a new account
-
-Create your node account with the following command. A password is required to be entered during the process. The resulting account is placed in the specified `--datadir` under the `keystore` path.
-
-```
-./geth --datadir ./nodes/node1 account new
-```
-
-### Import your existing account
-
-Import your existing account with the private key and remember to replace the `./your/privateKey.txt` parameter.
-
-```
-./geth account import --datadir ./nodes/node1 ./your/privateKey.txt
-```
-
-### Set up an Anti-MEV keystore
-
-Validators and candidates participating in **AMEV-dBFT** must set up an anti-MEV keystore, or the node will fail to enable AMEV-dBFT.
-
-To create an anti-MEV keystore for your validator account, run:
-
-```
-./geth --datadir ./nodes/node1 antimev init <address>
-```
-
-You will be prompted to enter a password for the keystore.
-
-## 4. Running Seed Node
+## 4.a. Start a Seed Node
 
 A seed node is a network member that does not participate in the consensus process. This node can be used to interact with the Neo X network, including: creating accounts, transferring funds, deploying and interacting with contracts, and querying node APIs.
 
+### 4.a.1. Start with Script
+
 Create the `startSeed.sh` file in the same folder of `geth`. You may need to change the `P2P/HTTP/RPC/WS` ports to avoid conflicts. Please note that the port configuration for the JSON-RPC interface should be set to httpport, not rpcport. Additionally, remember to change `extip` to your own IP address if you want other nodes to be able to find yours. You can refer to [https://geth.ethereum.org/docs/fundamentals/command-line-options](https://geth.ethereum.org/docs/fundamentals/command-line-options) for more details about start options.
 
-This script expects node DB directory to be `./node/node1`.
+This script expects node DB directory to be `./node`.
 
 #### Testnet:
 
 ```
 #!/bin/bash
 ​
-node="nodes/node1"
+node="./node"
 ​
 port=30301
 httpport=8551
 rpcport=8561
 wsport=8571
 extip=127.0.0.1
-​
-echo "$node and miner is $miner, rpc port $rpcport, p2p port $port"
 ​
 nohup ./geth \
 --networkid 12227332 \
@@ -137,15 +114,13 @@ ps -ef|grep geth|grep mine|grep -v grep;
 ```
 #!/bin/bash
 ​
-node="nodes/node1"
+node="./node"
 ​
 port=30301
 httpport=8551
 rpcport=8561
 wsport=8571
 extip=127.0.0.1
-​
-echo "$node and miner is $miner, rpc port $rpcport, p2p port $port"
 ​
 nohup ./geth \
 --networkid 47763 \
@@ -173,32 +148,68 @@ Then run
 ./startSeed.sh
 ```
 
-## 5. Running Miner Node
+## 4.b. Start a Miner Node
 
-A miner node participates in the consensus process. If you want to register as a candidate for the  consensus list, you need to run a miner node.
+A miner node participates in the consensus process. If you want to register as a candidate for the consensus list, you need to run a miner node.
+
+### 4.b.1. Initialize Node Account
+
+You can create a new account or import an existing account for your node operation. Seed nodes don't need node account.
+
+#### Create a new account
+
+Create your node account with the following command. A password is required to be entered during the process. The resulting account is placed in the specified `--datadir` under the `keystore` path.
+
+```
+./geth --datadir ./node account new
+```
+
+#### Import your existing account
+
+Import your existing account with the private key and remember to replace the `./your/privateKey.txt` parameter.
+
+```
+./geth account import --datadir ./node ./your/privateKey.txt
+```
+
+When the inputing node index is set to 1, this script requires the node address to be placed at `node/node_address.txt`, the node password to be placed at `node/password.txt` and the node DB directory to be placed at `./node`.
+
+### 4.b.2. Create an Anti-MEV Keystore
+
+Validators and candidates participating in dBFT consensus must set up an Anti-MEV keystore, or the node will fail to enable the miner functionality.
+
+To create an Anti-MEV keystore for your validator account, run:
+
+```
+./geth --datadir ./node antimev init <address>
+```
+
+You will be prompted to enter a password for the keystore.
+
+### 4.b.3. Download ZK Files
+
+Validators participating in onchain DKG must have three pairs of R1CS files and proving keys for Groth16 proof generation.
+
+You can download these files from [Neo X MPC](https://github.com/bane-labs/mpc) through [NeoFS](https://fs.neo.org/) or cloud URLs.
+
+### 4.b.4. Start with Script
 
 Create the `startMiner.sh` file in the same folder of `geth`. You may need to change the `P2P/RPC` ports to avoid conflicts. Additionally, remember to change `extip` if you want other nodes to be able to find yours. You can refer to [https://geth.ethereum.org/docs/fundamentals/command-line-options](https://geth.ethereum.org/docs/fundamentals/command-line-options) for more details about start options.
-
-When the inputing node index is set to 1, this script requires the node address to be placed at `nodes/node1/node_address.txt`, the node password to be placed at `nodes/node1/password.txt` and the node DB directory to be placed at `./node/node1`.
 
 #### Testnet:
 
 ```
 #!/bin/bash
 
-echo "input node index"
-read nodeIndex
-node="nodes/node$nodeIndex"
+node="./node"
 
-startP2PPort=30300
-startRPCPort=8561
-
-port=`expr $startP2PPort + $nodeIndex`
-rpcport=`expr $startRPCPort + $nodeIndex`
+port=30301
+httpport=8551
+rpcport=8561
+wsport=8571
 extip=127.0.0.1
 
 miner=$(<$node/node_address.txt)
-echo "$node and miner is $miner, rpc port $rpcport, p2p port $port"
 
 nohup ./geth \
 --networkid 12227332 \
@@ -208,6 +219,12 @@ nohup ./geth \
 --unlock $miner \
 --password $node/password.txt \
 --antimev.password $node/password.txt \
+--dkg.one-msg-r1cs=./r1cs/one_message.ccs \
+--dkg.two-msg-r1cs=./r1cs/two_message.ccs \
+--dkg.seven-msg-r1cs=./r1cs/seven_message.ccs \
+--dkg.one-msg-pk=./pk/one_message.pk \
+--dkg.two-msg-pk=./pk/two_message.pk \
+--dkg.seven-msg-pk=./pk/seven_message.pk \
 --authrpc.port $rpcport \
 --identity=$node \
 --maxpeers=50 \
@@ -226,19 +243,15 @@ ps -ef|grep geth|grep mine|grep -v grep;
 ```
 #!/bin/bash
 ​
-echo "input node index"
-read nodeIndex
-node="nodes/node$nodeIndex"
-​
-startP2PPort=30300
-startRPCPort=8561
-​
-port=`expr $startP2PPort + $nodeIndex`
-rpcport=`expr $startRPCPort + $nodeIndex`
+node="./node"
+
+port=30301
+httpport=8551
+rpcport=8561
+wsport=8571
 extip=127.0.0.1
 ​
 miner=$(<$node/node_address.txt)
-echo "$node and miner is $miner, rpc port $rpcport, p2p port $port"
 ​
 nohup ./geth \
 --networkid 47763 \
@@ -248,6 +261,12 @@ nohup ./geth \
 --unlock $miner \
 --password $node/password.txt \
 --antimev.password $node/password.txt \
+--dkg.one-msg-r1cs=./r1cs/one_message.ccs \
+--dkg.two-msg-r1cs=./r1cs/two_message.ccs \
+--dkg.seven-msg-r1cs=./r1cs/seven_message.ccs \
+--dkg.one-msg-pk=./pk/one_message.pk \
+--dkg.two-msg-pk=./pk/two_message.pk \
+--dkg.seven-msg-pk=./pk/seven_message.pk \
 --authrpc.port $rpcport \
 --identity=$node \
 --maxpeers=50 \
@@ -267,43 +286,43 @@ Then run
 ./startMiner.sh
 ```
 
-## 6. Registering as a Candidate
+### 4.b.5. Registering as a Candidate
 
 After running a miner node, you can stake 1000 GAS to register as a candidate for the consensus list. If your node receives enough votes (top 7 in GAS), it will become a consensus node, which will mint blocks and share the transaction fee rewards.
 
-1. Attach the node
+#### Attach the node IPC
 
 ```
-./geth attach nodes/node1/geth.ipc
+./geth attach ./node/geth.ipc
 ```
 
-2. Call the Governance contract
+#### Call the Governance contract
 
 ```
 var abi = [{
-      "inputs": [
-        {
-          "internalType": "uint256",
-          "name": "shareRate",
-          "type": "uint256"
-        },
-        {
-          "internalType": "bytes",
-          "name": "pubkey",
-          "type": "bytes"
-        }
-      ],
-      "name": "registerCandidate",
-      "outputs": [],
-      "stateMutability": "payable",
-      "payable": "true",
-      "type": "function"
-    }];
+  "inputs": [
+    {
+      "internalType": "uint256",
+      "name": "shareRate",
+      "type": "uint256"
+    },
+    {
+      "internalType": "bytes",
+      "name": "pubkey",
+      "type": "bytes"
+    }
+  ],
+  "name": "registerCandidate",
+  "outputs": [],
+  "stateMutability": "payable",
+  "payable": "true",
+  "type": "function"
+}];
 
-var GovContract = web3.eth.contract(abi);
-
+var govContract = web3.eth.contract(abi);
 var govInstance = GovContract.at('0x1212000000000000000000000000000000000001');
 
-// send 1000 GAS(This value is 20000 in current testnet) and call registerCandidate(shareRate), shareRate is the rate share to voters, the rate base is 1000, 100 means 10%
-govInstance.registerCandidate(100, ANTIMEV_PUBKEY, {value:'1000000000000000000000', from: eth.accounts[0]});
+// send 1000 GAS (This value is 20000 in current testnet) and call registerCandidate(shareRate)
+// shareRate is the rate share to voters, the rate base is 1000, 100 means 10%
+govInstance.registerCandidate(100, ANTIMEV_KEYSTORE_PUBKEY, {value:'1000000000000000000000', from: eth.accounts[0]});
 ```
