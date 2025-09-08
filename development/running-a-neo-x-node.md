@@ -10,13 +10,13 @@ The following are the minimum hardware requirements:
 
 * CPU with 2+ cores
 * 4 GB RAM
-* 2 00GB free storage space for data synchronization
+* 200GB free storage space for data synchronization
 * 8 MBit/sec download Internet service
 
 #### Miner Node
 
 * Fast CPU with 2+ cores
-* 24 GB RAM
+* 16 GB RAM
 * 200 GB free storage space for data synchronization
 * 8 MBit/sec download Internet service
 
@@ -46,9 +46,9 @@ You can download the latest `geth` binary from [https://github.com/bane-labs/go-
 
 Download the latest release version of both binary and configuration file from:&#x20;
 
-[https://github.com/bane-labs/go-ethereum/releases/tag/v0.4.1](https://github.com/bane-labs/go-ethereum/releases/tag/v0.4.1)
+[https://github.com/bane-labs/go-ethereum/releases/tag/v0.4.2](https://github.com/bane-labs/go-ethereum/releases/tag/v0.4.2)
 
-[https://github.com/bane-labs/go-ethereum/blob/v0.4.1/config](https://github.com/bane-labs/go-ethereum/blob/v0.4.1/config)
+[https://github.com/bane-labs/go-ethereum/blob/v0.4.2/config](https://github.com/bane-labs/go-ethereum/blob/v0.4.2/config)
 
 To create a blockchain node that uses this genesis block, first use `geth init` to import and set the canonical genesis block for the new chain. This requires the path to the configuration file to be passed as an argument.
 
