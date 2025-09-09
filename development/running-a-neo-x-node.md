@@ -28,13 +28,13 @@ Building `geth` requires both a Go (version 1.23 or later) and a C compiler. Fee
 
 Once the dependencies are installed, run
 
-```
+```shell
 make geth
 ```
 
 or, build the full suite of utilities:
 
-```
+```shell
 make all
 ```
 
@@ -56,13 +56,13 @@ To create a blockchain node that uses this genesis block, first use `geth init` 
 
 Testnet
 
-```
+```shell
 ./geth init --datadir ./node ./genesis_testnet.json
 ```
 
 Mainnet
 
-```
+```shell
 ./geth init --datadir ./node ./genesis_mainnet.json
 ```
 
@@ -78,21 +78,28 @@ This script expects node DB directory to be `./node`.
 
 #### Testnet:
 
-```
+```shell
 #!/bin/bash
 ​
+# Data directory
 node="./node"
 ​
-port=30301
+# Ports for network discovery
+port=30303
+udpport=30303
+
+# Ports for node APIs
 httpport=8551
 rpcport=8561
 wsport=8571
 extip=127.0.0.1
 ​
+# Start the node
 nohup ./geth \
 --networkid 12227332 \
 --nat extip:$extip \
 --port $port \
+--discovery.port $udpport \
 --authrpc.port $rpcport \
 --identity=$node \
 --maxpeers=50 \
@@ -111,21 +118,28 @@ ps -ef|grep geth|grep mine|grep -v grep;
 
 #### Mainnet:
 
-```
+```shell
 #!/bin/bash
 ​
+# Data directory
 node="./node"
 ​
-port=30301
+# Ports for network discovery
+port=30303
+udpport=30303
+
+# Ports for node APIs
 httpport=8551
 rpcport=8561
 wsport=8571
 extip=127.0.0.1
 ​
+# Start the node
 nohup ./geth \
 --networkid 47763 \
 --nat extip:$extip \
 --port $port \
+--discovery.port $udpport \
 --authrpc.port $rpcport \
 --identity=$node \
 --maxpeers=50 \
@@ -144,7 +158,7 @@ ps -ef|grep geth|grep mine|grep -v grep;
 
 Then run
 
-```
+```shell
 ./startSeed.sh
 ```
 
@@ -160,7 +174,7 @@ You can create a new account or import an existing account for your node operati
 
 Create your node account with the following command. A password is required to be entered during the process. The resulting account is placed in the specified `--datadir` under the `keystore` path.
 
-```
+```shell
 ./geth --datadir ./node account new
 ```
 
@@ -168,7 +182,7 @@ Create your node account with the following command. A password is required to b
 
 Import your existing account with the private key and remember to replace the `./your/privateKey.txt` parameter.
 
-```
+```shell
 ./geth account import --datadir ./node ./your/privateKey.txt
 ```
 
@@ -180,7 +194,7 @@ Validators and candidates participating in dBFT consensus must set up an Anti-ME
 
 To create an Anti-MEV keystore for your validator account, run:
 
-```
+```shell
 ./geth --datadir ./node antimev init <address>
 ```
 
@@ -198,23 +212,29 @@ Create the `startMiner.sh` file in the same folder of `geth`. You may need to ch
 
 #### Testnet:
 
-```
+```shell
 #!/bin/bash
-
+​
+# Data directory
 node="./node"
+miner=$(<$node/node_address.txt)
+​
+# Ports for network discovery
+port=30303
+udpport=30303
 
-port=30301
+# Ports for node APIs
 httpport=8551
 rpcport=8561
 wsport=8571
 extip=127.0.0.1
-
-miner=$(<$node/node_address.txt)
-
+​
+# Start the node
 nohup ./geth \
 --networkid 12227332 \
 --nat extip:$extip \
 --port $port \
+--discovery.port $udpport \
 --mine --miner.etherbase=$miner \
 --unlock $miner \
 --password $node/password.txt \
@@ -240,23 +260,29 @@ ps -ef|grep geth|grep mine|grep -v grep;
 
 #### Mainnet:
 
-```
+```shell
 #!/bin/bash
 ​
+# Data directory
 node="./node"
+miner=$(<$node/node_address.txt)
+​
+# Ports for network discovery
+port=30303
+udpport=30303
 
-port=30301
+# Ports for node APIs
 httpport=8551
 rpcport=8561
 wsport=8571
 extip=127.0.0.1
 ​
-miner=$(<$node/node_address.txt)
-​
+# Start the node
 nohup ./geth \
 --networkid 47763 \
 --nat extip:$extip \
 --port $port \
+--discovery.port $udpport \
 --mine --miner.etherbase=$miner \
 --unlock $miner \
 --password $node/password.txt \
@@ -282,7 +308,7 @@ ps -ef|grep geth|grep mine|grep -v grep;
 
 Then run
 
-```
+```shell
 ./startMiner.sh
 ```
 
@@ -292,13 +318,13 @@ After running a miner node, you can stake 1000 GAS to register as a candidate fo
 
 #### Attach the node IPC
 
-```
+```shell
 ./geth attach ./node/geth.ipc
 ```
 
 #### Call the Governance contract
 
-```
+```javascript
 var abi = [{
   "inputs": [
     {
