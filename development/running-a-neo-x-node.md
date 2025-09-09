@@ -100,7 +100,7 @@ nohup ./geth \
 --gcmode archive \
 --datadir $node \
 --bootnodes "enode://65775722283d6b19cf64c875897faf34ee120dc686c552d11c1310ee3d44bad0da88cfd9cef53a92c10604f8140d5210c4381e3e7a99322400130b5b8d4d331b@34.143.193.38:30301" \
---http.api admin,eth,debug,miner,net,txpool,personal,web3,dbft \
+--http.api eth,net,txpool,web3,dbft \
 --http --http.addr 0.0.0.0 --http.port $httpport --http.vhosts "*" --http.corsdomain '*' \
 --ws --ws.addr 0.0.0.0 --ws.port $wsport --ws.api eth,net,web3 --ws.origins '*'  \
 --verbosity 3  >> $node/node.log 2>&1 &
@@ -133,7 +133,7 @@ nohup ./geth \
 --gcmode archive \
 --datadir $node \
 --bootnodes "enode://ca6dabad08eda7cdae931df4ee2386a723676538932c5179887b6c6741246cebe60da42d14cad88fd8bb29eda7ccade48f889a422001f85cba0a794c955c8fd5@35.238.46.225:30301" \
---http.api admin,eth,debug,miner,net,txpool,personal,web3,dbft \
+--http.api eth,net,txpool,web3,dbft \
 --http --http.addr 0.0.0.0 --http.port $httpport --http.vhosts "*" --http.corsdomain '*' \
 --ws --ws.addr 0.0.0.0 --ws.port $wsport --ws.api eth,net,web3 --ws.origins '*'  \
 --verbosity 3  >> $node/node.log 2>&1 &
