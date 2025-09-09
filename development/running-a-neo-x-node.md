@@ -99,7 +99,7 @@ nohup ./geth \
 --syncmode full \
 --gcmode archive \
 --datadir $node \
---bootnodes "enode://65775722283d6b19cf64c875897faf34ee120dc686c552d11c1310ee3d44bad0da88cfd9cef53a92c10604f8140d5210c4381e3e7a99322400130b5b8d4d331b@34.143.193.38:30301" \
+--bootnodes "enode://60603db58ef8c90ed152531425910b0352e9304f04935d0f2b5ce149a8c70fb7a743a39020bb12161e56c17b34d9a6295b378436ac43a09b75bbdc954b48ca5d@34.42.6.58:30304,enode://9d58aaeb46d51ab442cff90613e65e979fbd2084b46b25e46565b289baa007ea50e4abfad4e8655873e7f5a1f51b504df217a0d577fffa8278ad2105c0b8cfa9@34.87.188.162:30304" \
 --http.api eth,net,txpool,web3,dbft \
 --http --http.addr 0.0.0.0 --http.port $httpport --http.vhosts "*" --http.corsdomain '*' \
 --ws --ws.addr 0.0.0.0 --ws.port $wsport --ws.api eth,net,web3 --ws.origins '*'  \
@@ -132,7 +132,7 @@ nohup ./geth \
 --syncmode full \
 --gcmode archive \
 --datadir $node \
---bootnodes "enode://ca6dabad08eda7cdae931df4ee2386a723676538932c5179887b6c6741246cebe60da42d14cad88fd8bb29eda7ccade48f889a422001f85cba0a794c955c8fd5@35.238.46.225:30301" \
+--bootnodes "enode://92eec46dd8b67ea8d8999defe0bf2b43d4c4802ed42a430843fec97dafbdc9128849261bdf1a940d431fc61f06a1317f5fc7c0386e18a9bbf951d0ccd8bf4f98@34.42.6.58:30303,enode://f289fb5c83ed39cf7d7aff2727afe70bf7951222c4a9aaef7bcbceef9fd0b53e4b6c9c0e08a50774dfd50d93e83b977932e4780934d379a6a0ac10cc44c6cfdb@34.87.188.162:30303" \
 --http.api eth,net,txpool,web3,dbft \
 --http --http.addr 0.0.0.0 --http.port $httpport --http.vhosts "*" --http.corsdomain '*' \
 --ws --ws.addr 0.0.0.0 --ws.port $wsport --ws.api eth,net,web3 --ws.origins '*'  \
@@ -231,7 +231,7 @@ nohup ./geth \
 --syncmode full \
 --gcmode archive \
 --datadir $node \
---bootnodes "enode://65775722283d6b19cf64c875897faf34ee120dc686c552d11c1310ee3d44bad0da88cfd9cef53a92c10604f8140d5210c4381e3e7a99322400130b5b8d4d331b@34.143.193.38:30301" \
+--bootnodes "enode://60603db58ef8c90ed152531425910b0352e9304f04935d0f2b5ce149a8c70fb7a743a39020bb12161e56c17b34d9a6295b378436ac43a09b75bbdc954b48ca5d@34.42.6.58:30304,enode://9d58aaeb46d51ab442cff90613e65e979fbd2084b46b25e46565b289baa007ea50e4abfad4e8655873e7f5a1f51b504df217a0d577fffa8278ad2105c0b8cfa9@34.87.188.162:30304" \
 --verbosity 3  >> $node/node.log 2>&1 &
 
 sleep 3s;
@@ -273,7 +273,7 @@ nohup ./geth \
 --syncmode full \
 --gcmode archive \
 --datadir $node \
---bootnodes "enode://ca6dabad08eda7cdae931df4ee2386a723676538932c5179887b6c6741246cebe60da42d14cad88fd8bb29eda7ccade48f889a422001f85cba0a794c955c8fd5@35.238.46.225:30301" \
+--bootnodes "enode://92eec46dd8b67ea8d8999defe0bf2b43d4c4802ed42a430843fec97dafbdc9128849261bdf1a940d431fc61f06a1317f5fc7c0386e18a9bbf951d0ccd8bf4f98@34.42.6.58:30303,enode://f289fb5c83ed39cf7d7aff2727afe70bf7951222c4a9aaef7bcbceef9fd0b53e4b6c9c0e08a50774dfd50d93e83b977932e4780934d379a6a0ac10cc44c6cfdb@34.87.188.162:30303" \
 --verbosity 3  >> $node/node.log 2>&1 &
 ​
 sleep 3s;
