@@ -48,8 +48,6 @@ Download the latest release version of both binary and configuration file from:&
 
 [https://github.com/bane-labs/go-ethereum/releases/tag/v0.4.2](https://github.com/bane-labs/go-ethereum/releases/tag/v0.4.2)
 
-[https://github.com/bane-labs/go-ethereum/blob/v0.4.2/config](https://github.com/bane-labs/go-ethereum/blob/v0.4.2/config)
-
 To create a blockchain node that uses this genesis block, first use `geth init` to import and set the canonical genesis block for the new chain. This requires the path to the configuration file to be passed as an argument.
 
 &#x20;`--datadir` is the target destination for the node database. Here we use `./node`:
