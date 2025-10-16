@@ -14,6 +14,9 @@
   * [Hash Chain and Decoupled Relayer](bridge/how-native-bridge-works/hash-chain-and-decoupled-relayer.md)
   * [Architecture](bridge/how-native-bridge-works/architecture.md)
   * [Technical Flow](bridge/how-native-bridge-works/technical-flow.md)
+* How Messaging Bridge Works
+  * [EVM to N3](bridge/messaging-bridge/evm-to-n3.md)
+  * [N3 to EVM](bridge/messaging-bridge/n3-to-evm.md)
 * [Quick Start: Bridging Assets](bridge/quick-start-bridging-assets.md)
 
 ## Integrations
