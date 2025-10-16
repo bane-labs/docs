@@ -3,3 +3,5 @@
 .nvmrc
 node_modules
 .env*
+_book/
+.DS_Store
