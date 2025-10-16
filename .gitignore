@@ -1,3 +1,5 @@
 *.iml
 **/.idea
-
+.nvmrc
+node_modules
+.env*
