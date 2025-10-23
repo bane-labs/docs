@@ -99,8 +99,8 @@ nohup ./geth \
 --port $port \
 --discovery.port $udpport \
 --authrpc.port $rpcport \
---identity=$node \
---maxpeers=50 \
+--identity $node \
+--maxpeers 50 \
 --syncmode full \
 --gcmode archive \
 --datadir $node \
@@ -139,8 +139,8 @@ nohup ./geth \
 --port $port \
 --discovery.port $udpport \
 --authrpc.port $rpcport \
---identity=$node \
---maxpeers=50 \
+--identity $node \
+--maxpeers 50 \
 --syncmode full \
 --gcmode archive \
 --datadir $node \
@@ -233,19 +233,19 @@ nohup ./geth \
 --nat extip:$extip \
 --port $port \
 --discovery.port $udpport \
---mine --miner.etherbase=$miner \
+--mine --miner.etherbase $miner \
 --unlock $miner \
 --password $node/password.txt \
 --antimev.password $node/password.txt \
---dkg.one-msg-r1cs=./r1cs/one_message.ccs \
---dkg.two-msg-r1cs=./r1cs/two_message.ccs \
---dkg.seven-msg-r1cs=./r1cs/seven_message.ccs \
---dkg.one-msg-pk=./pk/one_message.pk \
---dkg.two-msg-pk=./pk/two_message.pk \
---dkg.seven-msg-pk=./pk/seven_message.pk \
+--dkg.one-msg-r1cs ./r1cs/one_message.ccs \
+--dkg.two-msg-r1cs ./r1cs/two_message.ccs \
+--dkg.seven-msg-r1cs ./r1cs/seven_message.ccs \
+--dkg.one-msg-pk ./pk/one_message.pk \
+--dkg.two-msg-pk ./pk/two_message.pk \
+--dkg.seven-msg-pk ./pk/seven_message.pk \
 --authrpc.port $rpcport \
---identity=$node \
---maxpeers=50 \
+--identity $node \
+--maxpeers 50 \
 --syncmode full \
 --gcmode archive \
 --datadir $node \
@@ -281,19 +281,19 @@ nohup ./geth \
 --nat extip:$extip \
 --port $port \
 --discovery.port $udpport \
---mine --miner.etherbase=$miner \
+--mine --miner.etherbase $miner \
 --unlock $miner \
 --password $node/password.txt \
 --antimev.password $node/password.txt \
---dkg.one-msg-r1cs=./r1cs/one_message.ccs \
---dkg.two-msg-r1cs=./r1cs/two_message.ccs \
---dkg.seven-msg-r1cs=./r1cs/seven_message.ccs \
---dkg.one-msg-pk=./pk/one_message.pk \
---dkg.two-msg-pk=./pk/two_message.pk \
---dkg.seven-msg-pk=./pk/seven_message.pk \
+--dkg.one-msg-r1cs ./r1cs/one_message.ccs \
+--dkg.two-msg-r1cs ./r1cs/two_message.ccs \
+--dkg.seven-msg-r1cs ./r1cs/seven_message.ccs \
+--dkg.one-msg-pk ./pk/one_message.pk \
+--dkg.two-msg-pk ./pk/two_message.pk \
+--dkg.seven-msg-pk ./pk/seven_message.pk \
 --authrpc.port $rpcport \
---identity=$node \
---maxpeers=50 \
+--identity $node \
+--maxpeers 50 \
 --syncmode full \
 --gcmode archive \
 --datadir $node \
