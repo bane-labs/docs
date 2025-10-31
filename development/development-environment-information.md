@@ -22,7 +22,7 @@
         </tr>
         <tr>
             <td>RPC Endpoint</td>
-            <td><a href="https://mainnet-1.rpc.banelabs.org">https://mainnet-1.rpc.banelabs.org</a><br><a href="https://mainnet-2.rpc.banelabs.org">https://mainnet-2.rpc.banelabs.org</a><br><a href="https://mainnet-3.rpc.banelabs.org">https://mainnet-3.rpc.banelabs.org</a></td>
+            <td><a href="https://mainnet-1.rpc.banelabs.org">https://mainnet-1.rpc.banelabs.org</a><br><a href="https://mainnet-2.rpc.banelabs.org">https://mainnet-2.rpc.banelabs.org</a><br><a href="https://mainnet-3.rpc.banelabs.org">https://mainnet-3.rpc.banelabs.org</a><br><a href="https://mainnet-5.rpc.banelabs.org">https://mainnet-5.rpc.banelabs.org</a> (Only for Anti-MEV usage*)</td>
         </tr>
         <tr>
             <td>WSS Endpoint</td>
@@ -59,7 +59,7 @@
         </tr>
         <tr>
             <td>RPC Endpoint</td>
-            <td><a href="https://neoxt4seed1.ngd.network">https://neoxt4seed1.ngd.network</a><br><a href="https://neoxt4seed2.ngd.network">https://neoxt4seed2.ngd.network</a><br><a href="https://neoxt4seed3.ngd.network">https://neoxt4seed3.ngd.network</a><br><a href="https://neoxt4seed5.ngd.network">https://neoxt4seed5.ngd.network</a> (Only cache transactions for Anti-MEV)</td>
+            <td><a href="https://neoxt4seed1.ngd.network">https://neoxt4seed1.ngd.network</a><br><a href="https://neoxt4seed2.ngd.network">https://neoxt4seed2.ngd.network</a><br><a href="https://neoxt4seed3.ngd.network">https://neoxt4seed3.ngd.network</a><br><a href="https://neoxt4seed5.ngd.network">https://neoxt4seed5.ngd.network</a> (Only for Anti-MEV usage*)</td>
         </tr>
         <tr>
             <td>WSS Endpoint</td>
@@ -75,6 +75,8 @@
         </tr>
     </tbody>
 </table>
+
+\* RPC nodes that enable Anti-MEV support will not broadcast any normal transaction. Please refer [Envelope Transaction](../security/anti-mev-protection/constructing-envelope-transactions.md) for their proper usage.
 
 ### Development Environment Recommendations
 
