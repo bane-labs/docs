@@ -90,7 +90,7 @@
     <tbody>
         <tr>
             <td>Geth Compatibility</td>
-            <td>v1.13.15</td>
+            <td>v1.15.11</td>
         </tr>
         <tr>
             <td>Solidity Compiler</td>
@@ -98,7 +98,7 @@
         </tr>
         <tr>
             <td>EVM Version</td>
-            <td>Support up to <code>shanghai</code></td>
+            <td>Support up to <code>prague</code></td>
         </tr>
     </tbody>
 </table>

@@ -40,13 +40,11 @@ make all
 
 #### Download the binary
 
-You can download the latest `geth` binary from [https://github.com/bane-labs/go-ethereum/releases](https://github.com/bane-labs/go-ethereum/releases)
+You can download the latest `geth` binary from [Release Page](https://github.com/bane-labs/go-ethereum/releases).
 
 ## 3. Initializing Geth Database
 
-Download the latest release version of both binary and configuration file from:&#x20;
-
-[https://github.com/bane-labs/go-ethereum/releases/tag/v0.4.2](https://github.com/bane-labs/go-ethereum/releases/tag/v0.4.2)
+Download the latest release version of both binary and configuration file from [Release Page](https://github.com/bane-labs/go-ethereum/releases).
 
 To create a blockchain node that uses this genesis block, first use `geth init` to import and set the canonical genesis block for the new chain. This requires the path to the configuration file to be passed as an argument.
 
@@ -55,13 +53,13 @@ To create a blockchain node that uses this genesis block, first use `geth init` 
 Testnet
 
 ```shell
-./geth init --datadir ./node ./genesis_testnet.json
+./geth init --state.scheme hash --datadir ./node ./genesis_testnet.json
 ```
 
 Mainnet
 
 ```shell
-./geth init --datadir ./node ./genesis_mainnet.json
+./geth init --state.scheme hash --datadir ./node ./genesis_mainnet.json
 ```
 
 ## 4.a. Start a Seed Node

@@ -20,23 +20,23 @@ These contracts are not deployed by transactions but allocated in the [genesis f
         </tr>
         <tr>
             <td>0x1212000000000000000000000000000000000001</td>
-            <td>Governance Proxy</td>
+            <td>Governance</td>
         </tr>
         <tr>
             <td>0x1212000000000000000000000000000000000002</td>
-            <td>Policy Proxy</td>
+            <td>Policy</td>
         </tr>
         <tr>
             <td>0x1212000000000000000000000000000000000003</td>
-            <td>GovernanceReward Proxy</td>
+            <td>GovernanceReward</td>
         </tr>
         <tr>
             <td>0x1212000000000000000000000000000000000004</td>
-            <td>Bridge Proxy</td>
+            <td>Bridge</td>
         </tr>
         <tr>
             <td>0x1212000000000000000000000000000000000005</td>
-            <td>BridgeManagement Proxy</td>
+            <td>BridgeManagement</td>
         </tr>
         <tr>
             <td>0x1212000000000000000000000000000000000006</td>
@@ -44,47 +44,15 @@ These contracts are not deployed by transactions but allocated in the [genesis f
         </tr>
         <tr>
             <td>0x1212000000000000000000000000000000000007</td>
-            <td>CommitteeMultiSig Proxy</td>
+            <td>CommitteeMultiSig</td>
         </tr>
         <tr>
             <td>0x1212000000000000000000000000000000000008</td>
-            <td>KeyManagement Proxy</td>
+            <td>KeyManagement</td>
         </tr>
         <tr>
             <td>0x1212000000000000000000000000000000000009</td>
-            <td>Stub1 Proxy</td>
-        </tr>
-        <tr>
-            <td>0x121200000000000000000000000000000000000a</td>
-            <td>Stub2 Proxy</td>
-        </tr>
-        <tr>
-            <td>0x121200000000000000000000000000000000000b</td>
-            <td>Stub3 Proxy</td>
-        </tr>
-        <tr>
-            <td>0x121200000000000000000000000000000000000c</td>
-            <td>Stub4 Proxy</td>
-        </tr>
-        <tr>
-            <td>0x121200000000000000000000000000000000000d</td>
-            <td>Stub5 Proxy</td>
-        </tr>
-        <tr>
-            <td>0x121200000000000000000000000000000000000e</td>
-            <td>Stub6 Proxy</td>
-        </tr>
-        <tr>
-            <td>0x121200000000000000000000000000000000000f</td>
-            <td>Stub7 Proxy</td>
-        </tr>
-        <tr>
-            <td>0x1212000000000000000000000000000000000010</td>
-            <td>Stub8 Proxy</td>
-        </tr>
-        <tr>
-            <td>0x1212000000000000000000000000000000000011</td>
-            <td>Stub9 Proxy</td>
+            <td>MessageBridge</td>
         </tr>
     </tbody>
 </table>
@@ -328,7 +296,3 @@ A new round of DKG is totally independent with the past one, so the contract onl
 Different from the DKG resharing, a brand new sharing cannot be recovered before every participant generates its local secret and shares different parts of it to each other. So this period requires a fully participation of the upcoming consensus members for the next epoch, otherwise Governance will deprecate the election result and keep the same members of consensus for the next epoch.
 
 The above processes will be automatically performed by Neo X node when antimev feature is enabled. For more details about the crypto, refer to [crypto/tpke](https://github.com/bane-labs/go-ethereum/tree/bane-main/crypto/tpke) and [core/antimev](https://github.com/bane-labs/go-ethereum/tree/bane-main/core/antimev).
-
-## System contract stubs
-
-[Stub](https://github.com/bane-labs/go-ethereum/blob/bane-main/contracts/solidity/Stub.sol) is reserved system contract implementation that has pre-assigned addresses in the genesis allocations (Stup0-Stub9 Proxies). Once designated role for the stub contract is created, its code will be updated correspondingly to serve the needs of the Neo X chain.

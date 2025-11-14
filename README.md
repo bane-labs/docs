@@ -14,7 +14,7 @@ For the initial period following Mainnet launch, the Neo X network is going to b
 
 ### Ethereum Virtual Machine compatibility
 
-The Neo X Mainnet node version is based on the v1.13.11 Geth node implementation with the Shanghai hardfork supported as the latest one from the list of newly-added Ethereum forks. In other words, Neo X node is fully compatible with all Ethereum VM features up to the [Shanghai fork](https://github.com/ethereum/execution-specs/blob/master/network-upgrades/mainnet-upgrades/shanghai.md).
+The Neo X Mainnet node version is based on the v1.15.11 Geth node implementation with the Prague hardfork supported as the latest one from the list of newly-added Ethereum forks. In other words, Neo X node is fully compatible with all Ethereum VM features up to the [Prague](https://github.com/ethereum/execution-specs?tab=readme-ov-file#ethereum-execution-client-specifications) fork.
 
 ### **Bridge Between Neo X and Neo N3**
 
