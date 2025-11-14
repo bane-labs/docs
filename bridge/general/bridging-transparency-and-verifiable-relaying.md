@@ -58,7 +58,7 @@ Only after these transfer steps succeed does the contract proceed with:
 1. **Incrementing the nonce**,
 2. **Computing the new hash-chain root** using the previous root and the operation hash,
 3. **Overwriting the stored state** with the new `(nonce, root)` pair,
-4. **Emiting an event** containing the operation data, the operation hash, and the new root.
+4. **Emitting an event** containing the operation data, the operation hash, and the new root.
 
 This on-chain computation is the **canonical source of truth**.
 
@@ -90,12 +90,12 @@ Once a validator has confirmed that its locally reconstructed root matches the r
 1. Continues processing all new bridge operations in order, updating its local view of:
   a. the current nonce, and
   b. the current hash-chain root.
-2. When it is time to produce a signature (e.g., at the end of a block of after some fixed number of operations), it **signs only the lates/top root**.
+2. When it is time to produce a signature (e.g., at the end of a block or after some fixed number of operations), it **signs only the latest/top root**.
 
 Along with this signature, the validator provides the relayer with a **batch of payloads** that led to this top root. This is referred to as a **signed batch**:
 
 * the **signature** is over the top root value
-* the **batch** contains all bride operations that were applied to reach that root (e.g., all 10 deposits in a block, with their nonces and payloads).
+* the **batch** contains all bridge operations that were applied to reach that root (e.g., all 10 deposits in a block, with their nonces and payloads).
 
 In other words, the validators sign the **final state commitment** (top root), and accompany it with the **full ordered list of operations** that explain how they got there.
 
@@ -136,7 +136,7 @@ payload[n-1].nonce == lastNonce + n
 
 If there is any gap, duplicate, or non-monotonic increment, the entire batch is rejected.
 
-#### 2. **Recompute the New Top Root
+### 2. Recompute the New Top Root
 
 Using the contract's current stored `lastRoot`, the bridge contract iterates through the batch and reconstructs the next root:
 
@@ -149,7 +149,7 @@ for each payload:
 
 The final `currentRoot` is the expected **new top root**.
 
-### 3. **Compare the Recomputed Root With the Provided Top Root**
+### 3. Compare the Recomputed Root With the Provided Top Root
 
 The bridge contract checks:
 
@@ -161,11 +161,11 @@ If these differ, the batch is rejected immediately.
 
 This ensures the batch exactly reflects the state that validators attested to.
 
-### 4. **Verify Validator Signatures (via BridgeManagement)**
+### 4. Verify Validator Signatures (via BridgeManagement)
 
 Only after verifying:
 
-* nonce pregression
+* nonce progression
 * root reconstruction
 * root consistency
 
@@ -177,12 +177,12 @@ The bridge contract defines the exact message that must be signed (the new root)
 
 ## Verifying Authenticity Across Chains
 
-This desing makes the entire bridging process transparent and independently verifiable. Because each token direction and message direction maintains its own strictly ordered hash chain, an external observer only needs two pieces of information to validate the full bridging history:
+This design makes the entire bridging process transparent and independently verifiable. Because each token direction and message direction maintains its own strictly ordered hash chain, an external observer only needs two pieces of information to validate the full bridging history:
 
 * the **top nonce** for that bridge direction, and
 * the **top root** stored on each chain.
 
-For any bridge identity (token A deposits, token B withdrawals, message N3 → Neo X, etc.), the source-chain contract emits and stores the definitive (nonce, root) after every operation. The destination-chain bridge contract will only update itw own (nonce, root) to match this value if:
+For any bridge identity (token A deposits, token B withdrawals, message N3 → Neo X, etc.), the source-chain contract emits and stores the definitive (nonce, root) after every operation. The destination-chain bridge contract will only update its own (nonce, root) to match this value if:
 
 * all intermediate payloads were provided,
 * nonces progressed strictly one-by-one,
