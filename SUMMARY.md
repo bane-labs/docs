@@ -10,11 +10,14 @@
 
 ## Bridge
 
-* [How Native Bridge Works](bridge/how-native-bridge-works/README.md)
-  * [Hash Chain and Decoupled Relayer](bridge/how-native-bridge-works/hash-chain-and-decoupled-relayer.md)
-  * [Architecture](bridge/how-native-bridge-works/architecture.md)
-  * [Technical Flow](bridge/how-native-bridge-works/technical-flow.md)
-* How Messaging Bridge Works
+* [General](bridge/general/README.md)
+  * [Architecture](bridge/general/architecture.md)
+  * [Roles and Responsibilities](bridge/general/roles-responsibilities.md)
+  * [Bridging Transparency and Verifiable Relaying](bridge/general/bridging-transparency-and-verifiable-relaying.md)
+  * [Node Requirements](bridge/general/node-requirements.md)
+* [Token Bridge](bridge/token-bridge/README.md)
+  * [Technical Flow](bridge/token-bridge/technical-flow.md)
+* [Message Bridge](bridge/messaging-bridge/README.md)
   * [EVM to N3](bridge/messaging-bridge/evm-to-n3.md)
   * [N3 to EVM](bridge/messaging-bridge/n3-to-evm.md)
 * [Quick Start: Bridging Assets](bridge/quick-start-bridging-assets.md)

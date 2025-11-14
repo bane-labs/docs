@@ -49,7 +49,7 @@ Here is a breakdown of the technical steps involved in transferring GAS between 
    3. Calculate the new withdrawal hash (including `nonce, recipient, amount`).
    4. Calculate the new root.
    5. Set the new root.
-   7. Emit the event with `nonce, recipient, amount, from, withdrawal hash, new root`
+   6. Emit the event with `nonce, recipient, amount, from, withdrawal hash, new root`
 
 **Validators:**
 
