@@ -198,6 +198,12 @@ No trusted off-chain audit is required. Anyone can independently reconstruct the
 
 This property ensures that correctness, transparency, and integrity are not assumptions — they are cryptographically enforced guarantees rooted in the smart contracts themselves.
 
+### Note on Temporary Root Divergence Between Chains
+
+It is normal and expected that the destination chain may temporarily lag behind the source chain. When a new operation is executed on the source chain, the source-side bridge contract updates its nonce and root immediately. The destination-side bridge contract, however, can only advance once all required payloads with the appropriate validator signatures have been relayed.
+
+During this period, the destination chain’s nonce will be **strictly lower** than the source chain’s nonce, and its root will simply reflect the **earlier** top root associated with that nonce. This does **not** indicate an inconsistency — it only means the latest operation is still in transit. Once the relayer provides the necessary data, the destination chain will advance and both chains’ top (nonce, root) pairs will realign exactly.
+
 ### Note on Historical Hash-Chain Changes
 
 Earlier versions of the bridge contracts used **SHA-256** for computing operation hashes and hash-chain roots, because **keccak256 was not yet available on Neo N3** at the time the initial TokenBridge contract was deployed. Since both chains must always use the same hashing algorithm to reproduce the hash chain deterministically, the Neo X contracts used SHA-256 as well.
