@@ -18,4 +18,4 @@ The relayer is a single node that awaits and collects signatures and bridge requ
 
 The architecture of the bridge is illustrated in the following image:
 
-<figure><img src="../../.gitbook/assets/NeoX-Bridge-Arch.png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../.gitbook/assets/NeoX-Bridge-Arch.svg" alt=""><figcaption></figcaption></figure>
