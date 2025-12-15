@@ -6,7 +6,7 @@ This document details the complete flow for sending messages from Neo X (an EVM 
 
 The message bridge allows EVM applications to execute operations on N3 and receive results backa.
 
-This is accomplished by serializing a function call and sending the encoded bytes to the EVM message bridge contract. The [decoupled relayer](/bridge/how-native-bridge-works/hash-chain-and-decoupled-relayer.md#Hash_Chain_and_Decoupled_Relayer) then ensures safe transfer of the data to N3. Once the data has been bridged, the message can be executed on N3 and its result may be returned.
+This is accomplished by serializing a function call and sending the encoded bytes to the EVM message bridge contract. The [decoupled relayer](/bridge/general/bridging-transparency-and-verifiable-relaying.md#decoupled-validator--relayer-architecture-summary) then ensures safe transfer of the data to N3. Once the data has been bridged, the message can be executed on N3 and its result may be returned.
 
 The EVM to N3 flow allows EVM-based applications to execute operations on the N3 blockchain and optionally receive results back. This is accomplished through a message bridge system that serializes calls, sends them across chains, executes them on the N3 chain, and returns the results.
 

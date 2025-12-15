@@ -10,7 +10,7 @@ Neo X is an EVM-compatible sidechain incorporating Neo's distinctive dBFT consen
 
 Leveraging the dBFT consensus mechanism, Neo X employs a multi-node governance system. Seven consensus nodes collaboratively process transactions on-chain and participate in voting to determine parameters on the Neo X blockchain, such as blacklisted addresses and minimum required `GAS` tip.
 
-For the initial period following Mainnet launch, the Neo X network is going to be driven by StandBy validators to ensure consensus process stability and proper network connectivity. StandBy nodes are implemented to participate in the consensus process when there are not enough candidates elected by the network users, or there are not enough votes collected to start the elected governance management. For more information about the complete Neo X governance system, see [Governance](broken-reference/).
+For the initial period following Mainnet launch, the Neo X network is going to be driven by StandBy validators to ensure consensus process stability and proper network connectivity. StandBy nodes are implemented to participate in the consensus process when there are not enough candidates elected by the network users, or there are not enough votes collected to start the elected governance management. For more information about the complete Neo X governance system, see [Governance](/governance/governance-in-neo-x.md).
 
 ### Ethereum Virtual Machine compatibility
 

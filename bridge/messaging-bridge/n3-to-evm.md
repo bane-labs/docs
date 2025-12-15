@@ -6,7 +6,7 @@ This document details the complete flow for sending messages from N3 to Neo X (E
 
 The message bridge allows N3 applications to execute operations on EVM-based blockchains and receive results back.
 
-This is accomplished by encoding an `AMBTypes.Call` struct and sending the encoded bytes to the N3 message bridge contract. The [decoupled relayer](/bridge/how-native-bridge-works/hash-chain-and-decoupled-relayer.md#Hash_Chain_and_Decoupled_Relayer) then ensures safe transfer of the data to the EVM chain. Once the data has been bridged, the message can be executed on the EVM chain and its result may be returned.
+This is accomplished by encoding an `AMBTypes.Call` struct and sending the encoded bytes to the N3 message bridge contract. The [decoupled relayer](/bridge/general/bridging-transparency-and-verifiable-relaying.md#decoupled-validator--relayer-architecture-summary) then ensures safe transfer of the data to the EVM chain. Once the data has been bridged, the message can be executed on the EVM chain and its result may be returned.
 
 > Currently, BaneLabs does not provide a service to execute messages. In future versions execution rewards might be added to messages, so that users can attach an incentive for anyone active on the destination network to execute a message for them.
 

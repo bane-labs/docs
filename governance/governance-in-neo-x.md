@@ -6,7 +6,7 @@ This document covers the process of becoming a candidate node, the election proc
 
 To qualify as a candidate node on Neo X, the applicant should adhere to the following criteria:
 
-* Hardware Requirements: The applicant’s infrastructure must meet the specified [hardware requirements](broken-reference) for Neo X nodes. This includes ensuring compliance with machine maintenance standards and the establishment of a robust technical setup.
+* Hardware Requirements: The applicant’s infrastructure must meet the specified [hardware requirements](../development/running-a-neo-x-node.md#1-hardware-requirements) for Neo X nodes. This includes ensuring compliance with machine maintenance standards and the establishment of a robust technical setup.
 * Institutional Recognition: The applicant should represent an established organization or institution recognized within the market ecosystem.
 
 Suitable applicants can proceed with the registration process by staking 20000 GAS (Testnet) or 1000 GAS (Mainnet) through the Neo X Governance contract interface. This deposit serves as a commitment to participation in the governance process.
