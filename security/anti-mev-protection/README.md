@@ -11,3 +11,5 @@ The Anti-MEV mechanism in Neo X is built upon:
 * **Enhanced dBFT Consensus Algorithm**: Implements a new pre-commit phase to maintain fair transaction ordering.
 
 By leveraging **Envelope Transactions**, users can encrypt their transactions, ensuring that they are not exposed to MEV attacks during the consensus process.
+
+The following sections and [Neo X's TPKE library](https://github.com/bane-labs/neox-tpke-lib) will help you to understand and build with this unique infrastructure.
