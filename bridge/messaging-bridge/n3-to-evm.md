@@ -137,7 +137,7 @@ Once the result is transferred, it can be read on-chain on N3.
 ## Example Implementation (JavaScript)
 
 ```javascript
-const { ethers } = require('ethers');
+const {ethers} = require('ethers');
 
 // Define the Neo token contract address on EVM and target address
 const neoTokenContractAddress = "0xc28736dc83f4fd43d6fb832Fd93c3eE7bB26828f"; // Neo token address on Neo X Testnet
@@ -148,12 +148,17 @@ const erc20Interface = new ethers.Interface([
     "function balanceOf(address account) view returns (uint256)"
 ]);
 
-function exampleFunc() {
+async function exampleFunc() {
     const encodedMessage = getEncodedMessage("0xc28736dc83f4fd43d6fb832Fd93c3eE7bB26828f", "0xabcdefabcdefabcdefabcdefabcdefabcdefabcd");
 
-    // TBD: Send message on N3 using Javascript
-    // Invoke the method sendExecutableMessage on the MessageBridge contract on N3 using the encodedMessage bytes.
-    // const nonce = n3MessageBridge.sendExecutableMessage(messageBytes, true, sender, messageFee);
+    // Send message on N3 using Javascript
+    const sendingFee = await messageBridge.sendingFee();
+    const params: SendExecutableMessageParams = {
+        encodedMessage,
+        true, // storeResult
+        maxFee: sendingFee
+    };
+    await messageBridge.sendExecutableMessage(params)
 
     // Wait until the message arrives on the EVM chain...
 

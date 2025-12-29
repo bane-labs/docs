@@ -122,29 +122,41 @@ Once the result is transferred, it can be read on the EVM chain.
 ## Example Implementation (JavaScript)
 
 ```javascript
-const { ethers } = require('ethers');
+const {ethers} = require('ethers');
 
 // Define the target contract address and the account address to check the balance for.
 const neoTokenContractAddress = "0xef4073a0f2b305a38ec4050e4d3d28bc40ea63f5"; // Neo token address on N3
 const targetAddress = "0xabcdefabcdefabcdefabcdefabcdefabcdefabcd"; // Address to check the balance for
 
-function exampleFunc() {
-    // TBD: Serialize an N3 method call using Javascript
-    // Invoke the N3 MessageBridge contract's function serializeN3MethodCall() to get the bytes needed.
-    // const rawMessage = n3MessageBridge.serializeN3MethodCall(target, method, callFlags, args);
-    const rawMessage = "0x400428141418e358c565207768eae8d237241e85d3e9f1cb280573746f72652101024002210101210440a87c68";
+async function exampleFunc() {
+  // Assume evmMessageBridge and n3MessageBridge are already instantiated contract objects
+  
+  // Serialize an N3 method call using the N3 MessageBridge
+  const rawMessage = await n3MessageBridge.serializeCall(
+      neoTokenContractAddress, // Target contract (NEO token)
+      'balanceOf', // Method to call
+      15, // CallFlags.ALL - can be adjusted as needed
+      [targetAddress] // Arguments
+  );
+  // const rawMessage = "0x400428141418e358c565207768eae8d237241e85d3e9f1cb280573746f72652101024002210101210440a87c68"; // Example serialized message
 
-    const storeResult = true;
-    const sendingFee = ethers.parseEther("0.1");
-    await evmMessageBridge.connect(sender).sendExecutableMessage(rawMessage, storeResult, {value: sendingFee, maxFeePerGas, maxPriorityFeePerGas});
+  const storeResult = true;
+  let sendingFee = ethers.parseEther("0.1");
+  const nonce = await evmMessageBridge.connect(evmSender)
+    .sendExecutableMessage(rawMessage, storeResult, {value: sendingFee, maxFeePerGas, maxPriorityFeePerGas});
 
-    // Wait until the message arrives on N3...
+  // Wait until the message arrives on N3...
 
-    // TBD: Execute message on N3 using Javascript
-    // Invoke the method executeMessage() on the MessageBridge contract on N3 using the assigned message nonce when the message was sent.
+  // Execute message on N3 using Javascript
+  await n3MessageBridge.executeMessage(nonce);
 
-    // TBD: Send the result back from N3 to EVM
-    // Invoke the method sendResultMessage() on the MessageBridge contract on N3 using the assigned message nonce when the message was sent initially.
+  // Send the result back from N3 to EVM
+  sendingFee = await n3MessageBridge.sendingFee();
+  const params: SendResultMessageParams = {
+    nonce: nonce,
+    maxFee: sendingFee
+  };
+  await n3MessageBridge.sendResultMessage(params);
 }
 ```
 
