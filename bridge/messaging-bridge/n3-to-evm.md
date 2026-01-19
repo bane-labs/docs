@@ -145,60 +145,62 @@ const targetAddress = "0xabcdefabcdefabcdefabcdefabcdefabcdefabcd"; // Address t
 
 // Create the interface for ERC20 balanceOf function
 const erc20Interface = new ethers.Interface([
-    "function balanceOf(address account) view returns (uint256)"
+  "function balanceOf(address account) view returns (uint256)"
 ]);
 
 async function exampleFunc() {
-    const encodedMessage = getEncodedMessage("0xc28736dc83f4fd43d6fb832Fd93c3eE7bB26828f", "0xabcdefabcdefabcdefabcdefabcdefabcdefabcd");
+  const encodedMessage = getEncodedBalanceOfCall("0xc28736dc83f4fd43d6fb832Fd93c3eE7bB26828f",
+      "0xabcdefabcdefabcdefabcdefabcdefabcdefabcd");
 
-    // Send message on N3 using Javascript
-    const sendingFee = await messageBridge.sendingFee();
-    const params: SendExecutableMessageParams = {
-        encodedMessage,
-        true, // storeResult
-        maxFee: sendingFee
-    };
-    await messageBridge.sendExecutableMessage(params)
+  // Send message on N3 using Javascript
+  const sendingFee = await messageBridge.sendingFee();
+  const params: SendExecutableMessageParams = {
+    encodedMessage,
+    true, // storeResult
+    maxFee: sendingFee
+  };
+  await messageBridge.sendExecutableMessage(params)
 
-    // Wait until the message arrives on the EVM chain...
+  // Wait until the message arrives on the EVM chain...
 
-    // Once the message has been bridged over to the EVM chain, you can execute it
-    await evmMessageBridge.connect(sender).executeMessage(nonce, {maxFeePerGas, maxPriorityFeePerGas});
+  // Once the message has been bridged over to the EVM chain, you can execute it
+  await evmMessageBridge.connect(sender).executeMessage(nonce, {maxFeePerGas, maxPriorityFeePerGas});
 
-    // If the result should be stored on-chain, you can return the result now.
-    await evmMessageBridge.connect(sender).sendResultMessage(nonce, {value: sendingFee, maxFeePerGas, maxPriorityFeePerGas});
+  // If the result should be stored on-chain, you can return the result now.
+  await evmMessageBridge.connect(sender).
+      sendResultMessage(nonce, {value: sendingFee, maxFeePerGas, maxPriorityFeePerGas});
 }
 
-function getEncodedMessage(tokenAddress, targetAddress) {
-    // Encode the balanceOf call using ethers
-    const erc20Interface = new ethers.Interface(["function balanceOf(address account) view returns (uint256)"]);
-    const callData = erc20Interface.encodeFunctionData("balanceOf", [targetAddress]);
+function getEncodedBalanceOfCall(tokenAddress, targetAddress) {
+  // Encode the balanceOf call using ethers
+  const erc20Interface = new ethers.Interface(["function balanceOf(address account) view returns (uint256)"]);
+  const callData = erc20Interface.encodeFunctionData("balanceOf", [targetAddress]);
 
-    // Create the Call structure
-    const evmCall = {
-        target: tokenAddress,
-        allowFailure: false,
-        value: 0,
-        callData: callData
-    };
+  // Create the Call structure
+  const evmCall = {
+    target: tokenAddress,
+    allowFailure: false,
+    value: 0,
+    callData: callData
+  };
 
-    // Serialize the Call structure
-    const callStructAbi = ["tuple(address target, bool allowFailure, uint256 value, bytes callData)"];
-    const abiCoder = new ethers.AbiCoder();
-    const serializedMessage = abiCoder.encode(callStructAbi, [evmCall]);
+  // Serialize the Call structure
+  const callStructAbi = ["tuple(address target, bool allowFailure, uint256 value, bytes callData)"];
+  const abiCoder = new ethers.AbiCoder();
+  const serializedMessage = abiCoder.encode(callStructAbi, [evmCall]);
 
-    return {
-        serializedMessage: serializedMessage,
-        callData: callData,
-        evmCall: evmCall
-    };
+  return {
+    serializedMessage: serializedMessage,
+    callData: callData,
+    evmCall: evmCall
+  };
 }
 
 function decodeBalanceResult(resultData) {
-    // Decode the uint256 balance result
-    const abiCoder = new ethers.AbiCoder();
-    const balance = abiCoder.decode(["uint256"], resultData)[0];
-    return balance;
+  // Decode the uint256 balance result
+  const abiCoder = new ethers.AbiCoder();
+  const balance = abiCoder.decode(["uint256"], resultData)[0];
+  return balance;
 }
 ```
 
