@@ -7,3 +7,4 @@ As with the TokenBridge, each message direction (N3 → Neo X and Neo X → N3) 
 Through its hash-chain mechanism and validator-attested batches, the MessageBridge provides the same security guarantees for arbitrary data as the TokenBridge provides for token transfers. This ensures that cross-chain messaging remains transparent, ordered, and cryptographically verifiable.
 
 The following sections and [Neo X's bridge SDK](https://github.com/bane-labs/bridge-sdk-ts) will help you to understand and build with this unique infrastructure step by step.
+For more detailed examples, please refer to the [MessageBridge Examples Repository](https://github.com/AxLabs/bridge-examples-ts)
