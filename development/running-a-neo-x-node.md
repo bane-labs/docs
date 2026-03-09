@@ -231,7 +231,7 @@ nohup ./geth \
 --nat extip:$extip \
 --port $port \
 --discovery.port $udpport \
---mine --miner.etherbase $miner \
+--mine --miner.pending.feeRecipient $miner \
 --unlock $miner \
 --password $node/password.txt \
 --antimev.password $node/password.txt \
@@ -279,7 +279,7 @@ nohup ./geth \
 --nat extip:$extip \
 --port $port \
 --discovery.port $udpport \
---mine --miner.etherbase $miner \
+--mine --miner.pending.feeRecipient $miner \
 --unlock $miner \
 --password $node/password.txt \
 --antimev.password $node/password.txt \
