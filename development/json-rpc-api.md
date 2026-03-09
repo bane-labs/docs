@@ -14,3 +14,5 @@ Neo X is in sync with most [Ethereum JSON-RPC](https://ethereum.org/en/developer
 * `eth_getCachedTransaction` - returns the cached and signed secret transactions. It requires a valid sender signature in parameters, and only works on nodes configured with `--txpool.amevcache`;
 * `eth_envelopeFee` - returns the minimum additional `gastip`/`gasprice` that anti-mev transactions should pay for the service.
 * `eth_maxEnvelopeGasLimit` - returns the maximum `gaslimit` that an Envelope can declare for itself.
+* `eth_getBlobSidecars` - returns the blob data of a block. It requires a valid block hash or number as the parameter.
+* `eth_getBlobSidecarByTxHash` - returns the blob data of a transaction. It requires a valid transaction hash as the parameter.
