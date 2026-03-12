@@ -1,8 +1,6 @@
-# Development Environment Information
+# Network Information
 
-### Networks
-
-#### Mainnet
+### Mainnet
 
 <table>
     <thead>
@@ -36,10 +34,18 @@
             <td>Currency Symbol</td>
             <td>GAS</td>
         </tr>
+        </tr>
+            <td>Governance</td>
+            <td><a href="https://xgovernance.neo.org">https://xgovernance.neo.org</td>
+        </tr>
+        </tr>
+            <td>Bridge</td>
+            <td><a href="https://xbridge.neo.org">https://xbridge.neo.org</td>
+        </tr>
     </tbody>
 </table>
 
-#### Testnet
+### Testnet
 
 <table>
     <thead>
@@ -73,23 +79,31 @@
             <td>Currency Symbol</td>
             <td>GAS</td>
         </tr>
+        </tr>
+            <td>Governance</td>
+            <td><a href="https://testnet.governance.banelabs.org">https://testnet.governance.banelabs.org</td>
+        </tr>
+        </tr>
+            <td>Bridge</td>
+            <td><a href="https://testnet.bridge.banelabs.org">https://testnet.bridge.banelabs.org</td>
+        </tr>
     </tbody>
 </table>
 
 \* RPC nodes that enable Anti-MEV support will not broadcast any normal transaction. Please refer [Envelope Transaction](../security/anti-mev-protection/constructing-envelope-transactions.md) for their proper usage.
 
-### Development Environment Recommendations
+### Environment Compatibility
 
 <table>
     <thead>
         <tr>
             <th width="200">Name</th>
-            <th width="550">Recommendation</th>
+            <th width="550">Supported Version</th>
         </tr>
     </thead>
     <tbody>
         <tr>
-            <td>Geth Compatibility</td>
+            <td>Geth RPC</td>
             <td>v1.15.11</td>
         </tr>
         <tr>

@@ -4,8 +4,8 @@
 
 ## Development
 
-* [Development Environment Information](development/development-environment-information.md)
-* [Running a Neo X Node](development/running-a-neo-x-node.md)
+* [Networks](development/networks.md)
+* [Run a Neo X Node](development/run-a-neo-x-node.md)
 * [JSON-RPC API](development/json-rpc-api.md)
 
 ## Bridge
