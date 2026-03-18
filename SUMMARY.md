@@ -29,6 +29,7 @@
   * [Quick Start](integrations/the-graph/quick-start.md)
 * [Oracles](integrations/oracles/README.md)
   * [Supra](integrations/oracles/supra.md)
+  * [Neo Oracle Gateway](integrations/oracles/neo-oracle-gateway.md)
 
 ## Governance
 
