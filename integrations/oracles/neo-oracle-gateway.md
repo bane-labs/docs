@@ -56,7 +56,7 @@ While the Neo Oracle Gateway can function independently, the Watchtower adds con
 ## Repositories
 
 - `oracle-proxy-neo`: [https://github.com/bane-labs/oracle-proxy-neo](https://github.com/bane-labs/oracle-proxy-neo)
-- `oracle-proxy-evm`: [https://github.com/AxLabs/oracle-proxy-evm](https://github.com/AxLabs/oracle-proxy-evm)
+- `oracle-proxy-evm`: [https://github.com/bane-labs/oracle-proxy-evm](https://github.com/bane-labs/oracle-proxy-evm)
 
 ## Deployments
 
