@@ -64,8 +64,8 @@ Mainnet and testnet deployment addresses for Neo Oracle Gateway:
 
 | Network | `oracle-proxy-neo` (Neo N3) | `oracle-proxy-evm` (Neo X) |
 | --- | --- | --- |
-| Mainnet | `0xMAINNET_NEO_CONTRACT_HASH_PLACEHOLDER` | `0xMainnetEvmAddressPlaceholder000000000000` |
-| Testnet | `0xTESTNET_NEO_CONTRACT_HASH_PLACEHOLDER` | `0xTestnetEvmAddressPlaceholder000000000000` |
+| Mainnet | `0x5a0a0f188f2582ad60c1970267df30ec5428100d` | `0xce6138E61e5727a318D0DebEaD99Aff24B929131` |
+| Testnet | `0x5a0a0f188f2582ad60c1970267df30ec5428100d` | `0xce6138E61e5727a318D0DebEaD99Aff24B929131` |
 
 ## Integration Guide (How to Use)
 
@@ -119,7 +119,7 @@ oracleProxy = IOracleProxy(0xADDRESS);
 Parameter reference for `initiateOracleCall()`:
 
 - `_maxBridgeFee`: Maximum fee you accept for bridge withdrawal.
-- `_serializedOracleCall`: Serialized Neo method call bytes for the Oracle request. It must include exactly `url`, `filter`, and `callbackMethod`. The gateway appends `gasForOracle`, `gasOracleRequestExec`, `gasOracleResponseReturn`, `nonce`, and `requestId` automatically. See how to construct the `_serializedOracleCall` [here](#3a-constructing-_serializedoraclecall).
+- `_serializedOracleCall`: Serialized Neo method call bytes for the Oracle request. It must include exactly `url`, `filter`, and `callbackMethod`. The gateway appends `gasForOracle`, `gasOracleRequestExec`, `gasOracleResponseReturn`, `nonce`, and `requestId` automatically. See how to construct the `_serializedOracleCall` [here](#3a-constructing-_serializedoraclecall) [and here](#3b-constructing-_serializedoraclecall).
 - `_gasForOracle`: GAS allocated to the Oracle node. Must be `> 0.1 GAS` and `<= _gasOracleRequestExec`.
 - `_gasOracleRequestExec`: GAS for Oracle request execution on Neo N3 (includes `_gasForOracle`).
 - `_gasOracleResponseReturn`: GAS for returning the Oracle response to Neo X.
@@ -131,17 +131,149 @@ Returns:
 - `messageNonce`: Nonce of the message sent through the bridge.
 - `requestId`: Oracle request ID assigned by `oracle-proxy-evm`.
 
-### 3a) Constructing `_serializedOracleCall`
+### 3a) Constructing `_serializedOracleCall` off-chain (TypeScript)
 
-To build the `_serializedOracleCall` parameter, serialize the Neo Oracle request using the following required fields:
+To build the `_serializedOracleCall` parameter, you must serialize a Neo N3 contract call.
+In other words, `_serializedOracleCall` should be the serialized bytes for of the call:
+
+```text
+oracleProxyContractN3.requestOracleData(url, filter, callbackMethod)
+```
+
+Only the three "request" arguments are included here. The gateway contract (`oracle-proxy-evm`) appends the remaining execution arguments (gas values, withdrawal nonce, and requestId) automatically inside `initiateOracleCall()`.
+
+Serialize using the required fields below:
 
 - `url`: The full request URL as a string.
 - `filter`: A JSONPath expression to filter the Oracle response data.
-- `callbackMethod`: The Neo contract method name to call when the Oracle call completes.
+- `callbackMethod`: The Neo contract method name to call when the Oracle call completes (commonly `onOracleResponse`, depending on your Neo contract).
 
-Serialization is handled off-chain. TO BE DESCRIBED HOW, IN DETAIL.
+#### How `_serializedOracleCall` is constructed (using `bridge-sdk`)
 
-> **Tip:** TO BE DESCRIBED HOW, IN DETAIL
+Serialization is done off-chain using the bridge SDK for Neo N3 call serialization:
+
+- `@bane-labs/bridge-sdk-ts`
+
+The goal is to serialize a Neo N3 contract call to the OracleProxy method `requestOracleData(url, filter, callbackMethod)`.
+
+Off-chain steps:
+
+1. Provide the Neo N3 parameters used for serialization:
+   - `neo3RpcUrl`: Neo N3 RPC endpoint
+   - `executionManagerHash`: ExecutionManager contract hash on Neo N3
+   - `oracleProxyContractN3`: OracleProxy contract hash on Neo N3 (target of the call)
+2. Create the 3 method arguments in the exact order:
+   - `methodArgs[0]`: `{ type: 'String', value: url }`
+   - `methodArgs[1]`: `{ type: 'String', value: filter }` (empty string is allowed)
+   - `methodArgs[2]`: `{ type: 'String', value: callbackMethod }`
+3. Use a throwaway/dummy account for *read-only* serialization:
+   - The SDK serializer requires an account object, but this step does not broadcast a transaction.
+4. Serialize the call via the ExecutionManager:
+   - Target contract: `oracleProxyContractN3`
+   - Method: `'requestOracleData'` (mandatory)
+   - CallFlags: `15` (`CallFlags.All`) (mandatory hardcoded value)
+   - Args: `methodArgs`
+5. Pass the returned `hex` string (ensure `0x` prefix) as `_serializedOracleCall` to `oracleProxy.initiateOracleCall(...)`.
+
+Example (TypeScript):
+
+```ts
+import { NeoExecutionManager, neonAdapter } from '@bane-labs/bridge-sdk-ts';
+import type { ContractParamJson } from '@cityofzion/neon-core/lib/sc/ContractParam';
+
+export async function buildSerializedOracleCall(
+  neo3RpcUrl: string,
+  executionManagerHash: string,
+  oracleProxyContractN3: string,
+  url: string,
+  filter: string,
+  callbackMethod: string
+): Promise<string> {
+  const methodArgs: ContractParamJson[] = [
+    { type: 'String', value: url || '' },
+    { type: 'String', value: (filter || '').toString() },
+    { type: 'String', value: callbackMethod || '' },
+  ];
+
+  // Dummy account is used only to satisfy the SDK serializer.
+  const dummyPrivateKey = neonAdapter.create.privateKey();
+  const account = neonAdapter.create.account(dummyPrivateKey);
+
+  const executionManager = new NeoExecutionManager({
+    rpcUrl: neo3RpcUrl,
+    contractHash: executionManagerHash.replace(/^0x/i, ''),
+    account,
+  });
+
+  // Call target: OracleProxy (N3), method: requestOracleData, flags: CallFlags.All (15).
+  const serialized = await executionManager.serializeCall(
+    oracleProxyContractN3.replace(/^0x/i, ''),
+    'requestOracleData', // mandatory and cannot be changed, this is the method on the N3 Gateway contract that is being called
+    15, // CallFlags.All (mandatory)
+    methodArgs
+  );
+
+  return serialized.startsWith('0x') ? serialized : `0x${serialized}`;
+}
+```
+
+#### Important note: what *must not* be manually appended
+
+Do **not** include these values in `_serializedOracleCall` yourself:
+
+- `gasForOracle`
+- `gasOracleRequestExec`
+- `gasOracleResponseReturn`
+- `nonce` / `withdrawalNonce`
+- `requestId`
+
+These are appended automatically on-chain by `oracle-proxy-evm` during `initiateOracleCall()` via `NeoSerializerLib.appendArgToCall(...)`.
+
+### 3b) Constructing `_serializedOracleCall` on-chain (Solidity)
+
+As an alternative to building `_serializedOracleCall` off-chain (section 3a), you can construct it entirely on-chain inside your own smart contract using the [`neo-serializer-evm`](https://github.com/AxLabs/neo-serializer-evm) Solidity library.
+
+Install `neo-serializer-evm` and import `NeoSerializerLib`:
+
+```solidity
+import {NeoSerializerLib} from "neo-serializer-evm/contracts/libraries/NeoSerializerLib.sol";
+```
+
+Then build the serialized call in your contract:
+
+```solidity
+function buildSerializedOracleCall(
+    bytes20 oracleProxyN3,
+    string calldata url,
+    string calldata filter,
+    string calldata callbackMethod
+) public pure returns (bytes memory) {
+    bytes[] memory args = new bytes[](3);
+    args[0] = NeoSerializerLib.serialize(url);
+    args[1] = NeoSerializerLib.serialize(filter);
+    args[2] = NeoSerializerLib.serialize(callbackMethod);
+
+    return NeoSerializerLib.serializeCall(
+        oracleProxyN3,                       // Neo N3 OracleProxy contract hash
+        "requestOracleData",                 // mandatory: fixed method name
+        NeoSerializerLib.CALL_FLAGS_ALL,     // mandatory: CallFlags.All (15)
+        args
+    );
+}
+```
+
+Parameter reference:
+
+| Parameter | Description |
+| --- | --- |
+| `oracleProxyN3` | The Neo N3 OracleProxy contract hash (`bytes20`). This is the target contract on N3 that will execute the oracle request. Use the hash from the [Deployments](#deployments) table. |
+| `"requestOracleData"` | **Mandatory hardcoded value.** The method name on the N3 OracleProxy contract. Must always be exactly `"requestOracleData"`. |
+| `CALL_FLAGS_ALL` (`15`) | **Mandatory hardcoded value.** Maps to Neo's `CallFlags.All` (`ReadStates \| WriteStates \| AllowCall \| AllowNotify`). The library exposes this constant as `NeoSerializerLib.CALL_FLAGS_ALL`. |
+| `args` | Array of exactly 3 serialized arguments: `url`, `filter`, `callbackMethod` -- each serialized via `NeoSerializerLib.serialize(string)`. |
+
+The returned `bytes` is a valid `_serializedOracleCall` that can be passed directly to `oracleProxy.initiateOracleCall(...)`.
+
+> **Note:** `serializeCall` internally handles byte-order conversion for the target hash (reverses bytes to match Neo's `UInt160` format via `serializeHash160`), serializes the method name and call flags, wraps the args into a Neo Array, and combines everything into the outer serialized structure.
 
 ### 4) Check or fetch the result
 
