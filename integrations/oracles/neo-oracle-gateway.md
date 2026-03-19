@@ -152,7 +152,13 @@ Serialize using the required fields below:
 
 Serialization is done off-chain using the bridge SDK for Neo N3 call serialization:
 
-- `@bane-labs/bridge-sdk-ts`
+- `@bane-labs/bridge-sdk-ts`: https://www.npmjs.com/package/@bane-labs/bridge-sdk-ts
+
+You can install in your project:
+
+```shell
+npm install @bane-labs/bridge-sdk-ts
+```
 
 The goal is to serialize a Neo N3 contract call to the OracleProxy method `requestOracleData(url, filter, callbackMethod)`.
 
@@ -189,6 +195,8 @@ export async function buildSerializedOracleCall(
   filter: string,
   callbackMethod: string
 ): Promise<string> {
+
+  // Set the method arguments
   const methodArgs: ContractParamJson[] = [
     { type: 'String', value: url || '' },
     { type: 'String', value: (filter || '').toString() },
@@ -208,7 +216,7 @@ export async function buildSerializedOracleCall(
   // Call target: OracleProxy (N3), method: requestOracleData, flags: CallFlags.All (15).
   const serialized = await executionManager.serializeCall(
     oracleProxyContractN3.replace(/^0x/i, ''),
-    'requestOracleData', // mandatory and cannot be changed, this is the method on the N3 Gateway contract that is being called
+    'requestOracleData', // mandatory and cannot be changed, this is the method on the N3 Oracle Gateway contract that is being called
     15, // CallFlags.All (mandatory)
     methodArgs
   );
