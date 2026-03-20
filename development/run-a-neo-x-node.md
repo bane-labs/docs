@@ -62,6 +62,8 @@ Mainnet
 ./geth init --state.scheme hash --datadir ./node ./genesis_mainnet.json
 ```
 
+You can then download the [Mainnet archival snapshot](https://package.banelabs.org/), and insert them into your local database with `./geth import --datadir ./node <filename>`, or directly start up your node to synchronize to the latest block.
+
 ## 4.a. Start a Seed Node
 
 A seed node is a network member that does not participate in the consensus process. This node can be used to interact with the Neo X network, including: creating accounts, transferring funds, deploying and interacting with contracts, and querying node APIs.
