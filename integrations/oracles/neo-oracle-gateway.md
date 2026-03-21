@@ -1,6 +1,6 @@
 # Neo Oracle Gateway
 
-Neo Oracle Gateway is the integration layer that gives Neo X smart contracts access to the native Oracle infrastructure on Neo N3.
+Neo Oracle Gateway is the integration layer that gives [Neo X](https://x.neo.org) smart contracts access to the [native Oracle infrastructure on Neo N3](https://docs.neo.org/docs/n3/Advances/Oracles.html).
 
 Neo X currently relies mainly on price feeds, which do not cover broader data needs such as external event outcomes, off-chain metrics, and other general-purpose inputs required by many dApps.
 
@@ -152,7 +152,7 @@ Serialize using the required fields below:
 
 Serialization is done off-chain using the bridge SDK for Neo N3 call serialization:
 
-- `@bane-labs/bridge-sdk-ts`: https://www.npmjs.com/package/@bane-labs/bridge-sdk-ts
+- `@bane-labs/bridge-sdk-ts`: [https://www.npmjs.com/package/@bane-labs/bridge-sdk-ts](https://www.npmjs.com/package/@bane-labs/bridge-sdk-ts)
 
 You can install in your project:
 
@@ -239,7 +239,7 @@ These are appended automatically on-chain by `oracle-proxy-evm` during `initiate
 
 ### 3b) Constructing `_serializedOracleCall` on-chain (Solidity)
 
-As an alternative to building `_serializedOracleCall` off-chain (section 3a), you can construct it entirely on-chain inside your own smart contract using the [`neo-serializer-evm`](https://github.com/AxLabs/neo-serializer-evm) Solidity library.
+As an alternative to building `_serializedOracleCall` off-chain ([Section 3a](#3a-constructing-_serializedoraclecall-off-chain-typescript)), you can construct it entirely on-chain inside your own smart contract using the [`neo-serializer-evm`](https://github.com/AxLabs/neo-serializer-evm) Solidity library.
 
 Install `neo-serializer-evm` and import `NeoSerializerLib`:
 
