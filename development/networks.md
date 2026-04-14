@@ -119,6 +119,62 @@
 
 ### Deployed Contracts
 
+#### Core Infrastructure
+
+<table>
+    <thead>
+        <tr>
+            <th width="100">Name</th>
+            <th width="100">Network</th>
+            <th width="550">Address</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>CREATE2 Deployer</td>
+            <td>Mainnet</td>
+            <td>0x4e59b44847b379578588920ca78fbf26c0b4956c</td>
+        </tr>
+        <tr>
+            <td></td>
+            <td>Testnet</td>
+            <td>0x4e59b44847b379578588920ca78fbf26c0b4956c</td>
+        </tr>
+    </tbody>
+</table>
+
+Core infrastructure contracts provide fundamental primitives used across the ecosystem.
+The CREATE2 Deployer enables deterministic contract deployments via CREATE2 and matches the canonical Ethereum deployer at the same address.
+
+#### Utilities
+
+<table>
+    <thead>
+        <tr>
+            <th width="100">Name</th>
+            <th width="100">Network</th>
+            <th width="550">Address</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>Multicall3</td>
+            <td>Mainnet</td>
+            <td>0xD6010D102015fEa9cB3a9AbFBB51994c0Fd6E672</td>
+        </tr>
+        <tr>
+            <td></td>
+            <td>Testnet</td>
+            <td>0x82096F92248dF7afDdef72E545F06e5be0cf0F99</td>
+        </tr>
+    </tbody>
+</table>
+
+Utility contracts provide reusable functionality for interacting with the network.
+Multicall3 enables batching multiple contract calls into a single request.
+
+#### Assets
+
 <table>
     <thead>
         <tr>
@@ -138,15 +194,8 @@
             <td>Testnet</td>
             <td>0x1CE16390FD09040486221e912B87551E4e44Ab17</td>
         </tr>
-        <tr>
-            <td>Multicall3</td>
-            <td>Mainnet</td>
-            <td>0xD6010D102015fEa9cB3a9AbFBB51994c0Fd6E672</td>
-        </tr>
-        <tr>
-            <td></td>
-            <td>Testnet</td>
-            <td>0x82096F92248dF7afDdef72E545F06e5be0cf0F99</td>
-        </tr>
     </tbody>
 </table>
+
+Asset contracts represent tokenized value on Neo X.
+WGAS10 wraps native GAS with a WETH9-compatible design and implements ERC-3156 flash loans.
