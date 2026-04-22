@@ -167,11 +167,22 @@ The CREATE2 Deployer enables deterministic contract deployments via CREATE2 and 
             <td>Testnet</td>
             <td>0x82096F92248dF7afDdef72E545F06e5be0cf0F99</td>
         </tr>
+        <tr>
+            <td>Permit2</td>
+            <td>Mainnet</td>
+            <td>0x000000000022D473030F116dDEE9F6B43aC78BA3</td>
+        </tr>
+        <tr>
+            <td></td>
+            <td>Testnet</td>
+            <td>0x000000000022D473030F116dDEE9F6B43aC78BA3</td>
+        </tr>
     </tbody>
 </table>
 
 Utility contracts provide reusable functionality for interacting with the network.
 Multicall3 enables batching multiple contract calls into a single request.
+Permit2 enables signature-based token approvals and transfers.
 
 #### Assets
 
@@ -199,3 +210,32 @@ Multicall3 enables batching multiple contract calls into a single request.
 
 Asset contracts represent tokenized value on Neo X.
 WGAS10 wraps native GAS with a WETH9-compatible design and implements ERC-3156 flash loans.
+
+#### Integrations
+
+<table>
+    <thead>
+        <tr>
+            <th width="100">Name</th>
+            <th width="100">Network</th>
+            <th width="550">Address</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>x402ExactPermit2Proxy</td>
+            <td>Mainnet</td>
+            <td>0x402085c248EeA27D92E8b30b2C58ed07f9E20001</td>
+        </tr>
+        <tr>
+            <td></td>
+            <td>Testnet</td>
+            <td>0x402085c248EeA27D92E8b30b2C58ed07f9E20001</td>
+        </tr>
+    </tbody>
+</table>
+
+Integration contracts enable higher-level workflows built on top of Neo X.
+The x402ExactPermit2Proxy is a Permit2-based x402 settlement contract for exact-amount, witness-bound payments.
+
+See: [x402 Integration](../integrations/x402/README.md)
