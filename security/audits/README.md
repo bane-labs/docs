@@ -19,3 +19,5 @@ Reports are listed below in reverse chronological order. Each link opens the ful
 * **Scope vs. calendar date** — Some Red4Sec reports list both an engagement window (e.g. April–June 2024) and a report publication date on the cover. The **Finalized** column uses the date printed on the published report.
 * **Follow-up work** — Several reports document remediation or re-audit cycles (for example, Secure3 contest findings and Red4Sec re-reviews). Refer to each PDF for finding severity and resolution status.
 * **Missing reports** — If you believe a Neo X audit is absent from this list, please open an issue or contact the maintainers with the report title and auditor so it can be added.
+
+Maintainers: see [Adding audit reports](ADDING-AUDITS.md) for filename conventions and how to update this page.
