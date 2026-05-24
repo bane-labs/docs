@@ -38,6 +38,7 @@
 
 ## Security
 
+* [Audits](security/audits/README.md)
 * [Anti-MEV Protection](security/anti-mev-protection/README.md)
   * [Threshold Encryption](security/anti-mev-protection/threshold-encryption-and-dkg.md)
   * [Envelope Transaction](security/anti-mev-protection/constructing-envelope-transactions.md)
