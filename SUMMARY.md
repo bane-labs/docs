@@ -42,6 +42,7 @@
   * [Threshold Encryption](security/anti-mev-protection/threshold-encryption-and-dkg.md)
   * [Envelope Transaction](security/anti-mev-protection/constructing-envelope-transactions.md)
   * [dBFT Enhancement](security/anti-mev-protection/dbft-enhancements-against-mev.md)
+* [Audits](security/audits/README.md)
 
 ## FAQ
 
