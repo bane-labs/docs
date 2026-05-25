@@ -5,6 +5,7 @@ This guide describes how to publish a new audit on the [Audits](README.md) page.
 ## Before you add an entry
 
 * Confirm the report is **approved for public disclosure** (not under NDA or internal-only).
+* Confirm the audited codebase is **open source** and traceable to a public repository, tag, commit, or release.
 * Confirm it covers **Neo X–related** software (contracts, node, bridge, governance, Anti-MEV, and similar).
 * Use the **final published report** (not a preliminary draft), unless you intentionally label a draft in the title.
 
@@ -82,6 +83,7 @@ If a report must not be public:
 ## Checklist
 
 - [ ] Disclosure approved for publication
+- [ ] Audited codebase is open source and traceable to a public repository, tag, commit, or release
 - [ ] PDF added under `security/audits/reports/` with correct filename
 - [ ] Table row added in `README.md` (newest date first)
 - [ ] Title and Report links point to the same PDF path
