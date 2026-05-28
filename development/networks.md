@@ -194,8 +194,20 @@ Multicall3 enables batching multiple contract calls into a single request.
             <td>Testnet</td>
             <td>0x1CE16390FD09040486221e912B87551E4e44Ab17</td>
         </tr>
+        <tr>
+            <td><a href="https://github.com/bane-labs/xgas">xGAS</a></td>
+            <td>Mainnet</td>
+            <td>0x9a50C8804dC885F118835cD96d3Ea4D4A5131A01</td>
+        </tr>
+        <tr>
+            <td></td>
+            <td>Testnet</td>
+            <td>0x3eE9da67D85475a250423138cBf56aF511277958</td>
+        </tr>
     </tbody>
 </table>
 
 Asset contracts represent tokenized value on Neo X.
-WGAS10 wraps native GAS with a WETH9-compatible design and implements ERC-3156 flash loans.
+
+- WGAS10 wraps native GAS with a WETH9-compatible design and implements ERC-3156 flash loans.
+- xGAS is an immutable wrapped native GAS asset that extends standard ERC-20 behavior with explicit permit and transfer-authorization support (EIP-2612, EIP-3009, EIP-712), plus ERC-1271-compatible encoded-signature extensions.
