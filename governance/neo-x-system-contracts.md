@@ -63,9 +63,9 @@ These contracts are not deployed by transactions but allocated in the [genesis f
 
 Any contract inheriting `GovernanceVote.sol` can set up a consensus vote on method execution, by calling internal `vote(bytes32 methodKey, bytes32 paramKey)`, which requires **more than half** of the **current consensus** votes for **the same method call and the same calling parameters**.
 
-1. More than half - the threshold value is `1/2` instead of `2/3`;
-2. Current consensus - if an address is no longer a consensus member, its votes will not be counted;
-3. The same method and parameters - it means the majority votes for the same execution result.
+1. More than half — the threshold value is `1/2` instead of `2/3`;
+2. Current consensus — if an address is no longer a consensus member, its votes will not be counted;
+3. The same method and parameters — it means the majority votes for the same execution result.
 
 ## GovProxyAdmin
 
