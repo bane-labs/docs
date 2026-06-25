@@ -104,7 +104,7 @@
     <tbody>
         <tr>
             <td>Geth RPC</td>
-            <td>v1.15.11</td>
+            <td>v1.16.9</td>
         </tr>
         <tr>
             <td>Solidity Compiler</td>
@@ -112,7 +112,7 @@
         </tr>
         <tr>
             <td>EVM Version</td>
-            <td>Support up to <code>prague</code></td>
+            <td>Support up to <code>osaka</code></td>
         </tr>
     </tbody>
 </table>
