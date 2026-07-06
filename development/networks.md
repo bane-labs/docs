@@ -148,11 +148,30 @@
                 </a>
             </td>
         </tr>
+        <tr>
+            <td><a href="https://github.com/pcaversaccio/createx/blob/main/src/CreateX.sol">CreateX</a></td>
+            <td align="center">Mainnet</td>
+            <td align="center">
+                <a href="https://xexplorer.neo.org/address/0xba5Ed099633D3B313e4D5F7bdc1305d3c28ba5Ed">
+                    <code>0xba5Ed099633D3B313e4D5F7bdc1305d3c28ba5Ed</code>
+                </a>
+            </td>
+        </tr>
+        <tr>
+            <td></td>
+            <td align="center">Testnet</td>
+            <td align="center">
+                <a href="https://xt4scan.ngd.network/address/0xba5Ed099633D3B313e4D5F7bdc1305d3c28ba5Ed">
+                    <code>0xba5Ed099633D3B313e4D5F7bdc1305d3c28ba5Ed</code>
+                </a>
+            </td>
+        </tr>
     </tbody>
 </table>
 
 Core infrastructure contracts provide fundamental primitives used across the ecosystem.
 The CREATE2 Deployer enables deterministic contract deployments via CREATE2 and matches the canonical Ethereum deployer at the same address.
+CreateX is an extensible deployment factory for CREATE, CREATE2, and CREATE3-based contract creation, including clone and deploy-and-init workflows.
 
 #### Account Abstraction
 
