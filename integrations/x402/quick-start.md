@@ -9,7 +9,7 @@ To use x402 on Neo X, you need:
 - a token supported by the settlement flow
 - an agent, relayer, or backend that can submit transactions on-chain
 
-If you want to use `settleWithPermit(...)`, the token must also support EIP-2612.
+`settleWithPermit(...)` is intended for tokens that support EIP-2612 so approval and settlement can be combined into one transaction path. If the token-side `permit()` attempt fails, settlement can still proceed when the required Permit2 approval already exists.
 
 ## Payment Flow
 
