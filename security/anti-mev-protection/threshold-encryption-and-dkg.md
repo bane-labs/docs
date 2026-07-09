@@ -18,7 +18,7 @@ Starting from [**v0.3.0**](https://github.com/bane-labs/go-ethereum/releases/tag
 
 Each participant executes the following steps:
 
-1.  Take a random polynomial $$f(x) = a_0 + a_1x + a_2x^2 + \dots + a_{t-1}x^{t-1}$$ as their local secret, where $$t = 2f+1$$ (the threshold for consensus).
+1. Take a random polynomial $$f(x) = a_0 + a_1x + a_2x^2 + \ldots + a_{t-1}x^{t-1}$$ as their local secret, where $$t = 2f+1$$ (the threshold for consensus).
 2. Compute $$f_1,f_2,...,f_n$$ where $$f_i=f(i)$$ and share them with corresponding participants, where $$i$$ is the index of different participants of `Share`.
 3. Accept all $$f_i$$ from other participants as $$f_1(i),f_2(i),...,f_n(i)$$, where $$i$$ is the index of receiver, and compute $$s_i=\sum f_i$$ to get the final secret key.
 
@@ -45,7 +45,7 @@ The KeyManagement contract validates $$F(1),F(2),...,F(n)$$, and verifies scalar
 
 Each participant executes the following steps:
 
-1.  Regenerate his local secret $$f'(x)=a_0+a'_1 x+a'_2 x^2+ \dots +a'_{t-1}x^{t-1}$$ while preserving the constant term $$a_0$$.
+1. Regenerate his local secret $$f'(x)=a_0+a'_1 x+a'_2 x^2+ \ldots +a'_{t-1}x^{t-1}$$ while preserving the constant term $$a_0$$.
 2. Follow the step 2 and 3 in the **Share** phase, but send the shares to the next consensus group.
 
 The KeyManagement contract ensures $$F(0)=F'(0)$$, preserving the global public key unchanged and preventing leakage of the original secret shares.
