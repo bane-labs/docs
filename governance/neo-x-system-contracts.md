@@ -54,6 +54,10 @@ These contracts are not deployed by transactions but allocated in the [genesis f
             <td>0x1212000000000000000000000000000000000009</td>
             <td>MessageBridge</td>
         </tr>
+        <tr>
+            <td>0x121200000000000000000000000000000000000A</td>
+            <td>GovPaymaster</td>
+        </tr>
     </tbody>
 </table>
 
@@ -216,36 +220,65 @@ The current Neo X Policy maintains following parameters. All these policies are 
         <tr>
             <th width="160">Name</th>
             <th width="140">Parameter</th>
-            <th width="450">Usage</th>
+            <th width="75">Value</th>
+            <th width="375">Usage</th>
         </tr>
     </thead>
     <tbody>
         <tr>
             <td>Address Blacklist</td>
             <td><code>isBlackListed</code></td>
+            <td></td>
             <td>Prevent blacklisted addresses to send transactions or be elected as block validators in Neo X network</td>
         </tr>
         <tr>
             <td>Minimum Transaction Tip Cap</td>
             <td><code>minGasTipCap</code></td>
+            <td>20 Gwei</td>
             <td>Force transaction senders to pay a minimum tip to Neo X Governance</td>
         </tr>
         <tr>
             <td>Base Fee</td>
             <td><code>baseFee</code></td>
+            <td>20 Gwei</td>
             <td>Burn a fixed part of transaction fees instead of following EIP-1559's dynamic evaluation</td>
         </tr>
         <tr>
             <td>Candidate Limit</td>
             <td><code>candidateLimit</code></td>
+            <td>2,000</td>
             <td>Limit the number of candidates in Governance registration and election</td>
+        </tr>
+        <tr>
+            <td>Envelope Fee</td>
+            <td><code>envelopeFee</code></td>
+            <td>0 Gwei</td>
+            <td>Force envelope transaction senders to pay an extra tip to Neo X Governance</td>
+        </tr>
+        <tr>
+            <td>Maximum Envelopes Per Block</td>
+            <td><code>maxEnvelopesPerBlock</code></td>
+            <td>10</td>
+            <td>Limit the number of envelope transactions in each block</td>
+        </tr>
+        <tr>
+            <td>Maximum Envelope Gas Limit</td>
+            <td><code>maxEnvelopeGasLimit</code></td>
+            <td>2,000,000</td>
+            <td>Limit the gas consumption of each envelope transaction</td>
+        </tr>
+        <tr>
+            <td>Sponsor Distribution Rate</td>
+            <td><code>sponsorRate</code></td>
+            <td>10%</td>
+            <td>Distribute part of the governance reward for ERC-4337 sponsorship</td>
         </tr>
     </tbody>
 </table>
 
 Since all the policy setters adopt the `needVote` modifier, any policy change requires more than 1/2 of the current Neo X consensus nodes votes to be collected.
 
-## Bridge
+## Bridge / MessageBridge
 
 Refer to the [Bridge Contracts repository](https://github.com/bane-labs/bridge-evm-contracts).
 
@@ -296,3 +329,10 @@ A new round of DKG is totally independent with the past one, so the contract onl
 Different from the DKG resharing, a brand new sharing cannot be recovered before every participant generates its local secret and shares different parts of it to each other. So this period requires a fully participation of the upcoming consensus members for the next epoch, otherwise Governance will deprecate the election result and keep the same members of consensus for the next epoch.
 
 The above processes will be automatically performed by Neo X node when antimev feature is enabled. For more details about the crypto, refer to [crypto/tpke](https://github.com/bane-labs/go-ethereum/tree/bane-main/crypto/tpke) and [core/antimev](https://github.com/bane-labs/go-ethereum/tree/bane-main/core/antimev).
+
+## GovPaymaster
+
+[GovPaymaster](https://github.com/bane-labs/go-ethereum/blob/bane-main/contracts/solidity/GovPaymaster.sol) is a system contract assigned as the Neo X official paymaster contract. This contract receives part of the Neo X Governance reward and can
+be requested to sponsor gasless services in the network, with Neo X Policy check restricted on the `PackedUserOperation`.
+
+This contract only works with [EntryPoint v0.9](https://github.com/eth-infinitism/account-abstraction/releases/tag/v0.9.0), which should be deployed to `0x433709009B8330FDa32311DF1C2AFA402eD8D009` in the network.

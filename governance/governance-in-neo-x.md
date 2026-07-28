@@ -27,7 +27,7 @@ Once the voting period concludes, the result will be settled immediately.
 
 ## Rewards and Penalties for Nodes
 
-All transaction fees accrued during each Epoch will be evenly split among the seven consensus nodes hosting the period.
+All transaction fees accrued during each Epoch will be accounted into the Governance reward. After the base fee burning and paymaster distribution, left rewards will be evenly split among the seven consensus nodes hosting the period.
 
 <figure><img src="https://miro.medium.com/v2/resize:fit:1225/0*iVSA4MrcuEXWbJXk" alt=""><figcaption></figcaption></figure>
 
@@ -35,7 +35,7 @@ Additionally, rewards obtained by the consensus nodes are distributed between th
 
 Furthermore, the portion of rewards allocated to the voters is distributed based on their voting weight, which is determined by the amount of GAS tokens they have staked for voting.
 
-_voterReward=(totalNetworkGasTip/7)\*distributionRatio\*(voteAmount/totalVote)_
+_voterReward=(governanceReward/7)\*distributionRatio\*(voteAmount/totalVote)_
 
 The penalties for non-performing consensus nodes are yet to be determined. Wrong doings may include but are not limited to, being unable to meet dBFT block production conditions or complete the Anti-MEV decryption key distribution. Penalties may include, but are not limited to, being prohibited from becoming a block-producing or witness node for a certain period, or the deduction of deposits upon node exit. Additionally, they may be prohibited from becoming a candidate node again. These measures will be specified in the Neo X Governance contract in the future.
 
