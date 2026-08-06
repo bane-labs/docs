@@ -23,11 +23,11 @@ Neo X has set up an official Paymaster to sponsor ERC-4337 UserOperations and an
         <tr>
             <td rowspan="2">Bunder RPC</td>
             <td width="75">Mainnet</td>
-            <td></td>
+            <td><a href="https://mainnet.bundler.banelabs.org">https://mainnet.bundler.banelabs.org</a></td>
         </tr>
         <tr>
             <td width="75">Testnet</td>
-            <td></td>
+            <td><a href="https://neoxt4bundler.banelabs.org">https://neoxt4bundler.banelabs.org</a></td>
         </tr>
     </tbody>
 </table>
