@@ -1,0 +1,71 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="760" height="760" viewBox="0 0 760 760" role="img" aria-labelledby="title desc">
+  <title id="title">x402 Permit2 settlement flow</title>
+  <desc id="desc">A vertical five-step flow showing a user signing a Permit2 authorization, an agent submitting settlement, the x402 contract validating witness data, Permit2 executing transfer, and the recipient receiving the exact token amount.</desc>
+  <defs>
+    <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#344054"/>
+    </marker>
+    <style>
+      .card { fill: #f8fafc; stroke: #d0d5dd; stroke-width: 2; }
+      .badge { fill: #101828; }
+      .note { fill: #ecfdf3; stroke: #12b76a; stroke-width: 1.5; }
+      .warn { fill: #fffaeb; stroke: #f79009; stroke-width: 1.5; }
+      .title { font: 700 22px Arial, sans-serif; fill: #101828; }
+      .role { font: 700 16px Arial, sans-serif; fill: #101828; }
+      .small { font: 13px Arial, sans-serif; fill: #475467; }
+      .badgeText { font: 700 12px Arial, sans-serif; fill: #ffffff; }
+      .arrow { stroke: #344054; stroke-width: 2.4; fill: none; marker-end: url(#arrow); }
+    </style>
+  </defs>
+
+  <rect width="760" height="760" fill="#ffffff"/>
+  <text x="380" y="44" text-anchor="middle" class="title">x402 Permit2 settlement flow</text>
+
+  <rect x="70" y="76" width="620" height="76" rx="8" class="card"/>
+  <circle cx="104" cy="114" r="14" class="badge"/>
+  <text x="104" y="119" text-anchor="middle" class="badgeText">1</text>
+  <text x="138" y="106" class="role">User wallet</text>
+  <text x="138" y="130" class="small">Signs a Permit2 authorization covering token, amount, nonce, and deadline.</text>
+
+  <path d="M 380 158 L 380 178" class="arrow"/>
+
+  <rect x="70" y="184" width="620" height="76" rx="8" class="card"/>
+  <circle cx="104" cy="222" r="14" class="badge"/>
+  <text x="104" y="227" text-anchor="middle" class="badgeText">2</text>
+  <text x="138" y="214" class="role">Agent or backend</text>
+  <text x="138" y="238" class="small">Submits settlement through settle(...) or settleWithPermit(...).</text>
+
+  <path d="M 380 266 L 380 286" class="arrow"/>
+
+  <rect x="70" y="292" width="620" height="76" rx="8" class="card"/>
+  <circle cx="104" cy="330" r="14" class="badge"/>
+  <text x="104" y="335" text-anchor="middle" class="badgeText">3</text>
+  <text x="138" y="322" class="role">x402 contract</text>
+  <text x="138" y="346" class="small">Validates settlement inputs and checks the witness-bound destination and validAfter.</text>
+
+  <path d="M 380 374 L 380 394" class="arrow"/>
+
+  <rect x="70" y="400" width="620" height="76" rx="8" class="card"/>
+  <circle cx="104" cy="438" r="14" class="badge"/>
+  <text x="104" y="443" text-anchor="middle" class="badgeText">4</text>
+  <text x="138" y="430" class="role">Permit2</text>
+  <text x="138" y="454" class="small">Checks the signed authorization and executes the witness-bound token transfer.</text>
+
+  <path d="M 380 482 L 380 502" class="arrow"/>
+
+  <rect x="70" y="508" width="620" height="76" rx="8" class="card"/>
+  <circle cx="104" cy="546" r="14" class="badge"/>
+  <text x="104" y="551" text-anchor="middle" class="badgeText">5</text>
+  <text x="138" y="538" class="role">Recipient</text>
+  <text x="138" y="562" class="small">Receives the exact token amount specified by the signed authorization.</text>
+
+  <rect x="70" y="620" width="294" height="90" rx="8" class="note"/>
+  <text x="92" y="649" class="small">Signed data covers the payment</text>
+  <text x="92" y="671" class="small">constraints the contract enforces:</text>
+  <text x="92" y="693" class="small">token, amount, recipient, and timing.</text>
+
+  <rect x="396" y="620" width="294" height="90" rx="8" class="warn"/>
+  <text x="418" y="649" class="small">Changing the recipient changes the</text>
+  <text x="418" y="671" class="small">witness hash, invalidating the signature</text>
+  <text x="418" y="693" class="small">before funds can be redirected.</text>
+</svg>

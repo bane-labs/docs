@@ -38,6 +38,56 @@ In the exact settlement flow, the signed payload is bound to:
 
 This ensures the payment can only be settled under the agreed conditions.
 
+Example EIP-712 signing shape:
+
+```ts
+import { createWalletClient, custom } from "viem";
+
+const walletClient = createWalletClient({
+  chain,
+  transport: custom(window.ethereum),
+});
+
+const signature = await walletClient.signTypedData({
+  account,
+  domain: {
+    name: "Permit2",
+    chainId,
+    verifyingContract: permit2Address,
+  },
+  types: {
+    TokenPermissions: [
+      { name: "token", type: "address" },
+      { name: "amount", type: "uint256" },
+    ],
+    ExactPaymentWitness: [
+      { name: "to", type: "address" },
+      { name: "validAfter", type: "uint256" },
+    ],
+    PermitWitnessTransferFrom: [
+      { name: "permitted", type: "TokenPermissions" },
+      { name: "spender", type: "address" },
+      { name: "nonce", type: "uint256" },
+      { name: "deadline", type: "uint256" },
+      { name: "witness", type: "ExactPaymentWitness" },
+    ],
+  },
+  primaryType: "PermitWitnessTransferFrom",
+  message: {
+    permitted: { token, amount },
+    spender: x402ExactPermit2Proxy,
+    nonce,
+    deadline,
+    witness: {
+      to: recipient,
+      validAfter,
+    },
+  },
+});
+```
+
+The exact witness type string and calldata fields must match the deployed contract implementation.
+
 ### 3. Submit settlement
 
 An agent or backend submits the settlement transaction to:
@@ -49,7 +99,7 @@ Depending on the flow, this is either:
 - `settle(...)`
 - `settleWithPermit(...)`
 
-The submitter pays gas for execution.
+The submitter pays gas for execution. You can run that yourself, or use a facilitator such as [Ax402](https://ax402.io/), which provides settlement for Neo X; account creation includes an API key with free settlements.
 
 ### 4. Execute on-chain
 

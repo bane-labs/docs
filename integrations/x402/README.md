@@ -39,6 +39,12 @@ The x402 integration relies on the following contracts:
 
 See: [Contracts](./contracts.md)
 
+## Facilitators
+
+Settlement can be submitted by any agent, relayer, or facilitator that can call the on-chain settlement contract.
+
+[Ax402](https://ax402.io/) provides a facilitator for Neo X. Creating an account gives you an API key with free settlements.
+
 ## Quick Start
 
 A typical x402 flow looks like this:

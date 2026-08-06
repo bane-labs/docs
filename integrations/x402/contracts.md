@@ -4,6 +4,8 @@
 
 The x402 integration on Neo X supports authorization-based payments.
 
+For protocol background, see the [x402 website](https://x402.org/) and the [Coinbase x402 documentation](https://docs.cdp.coinbase.com/x402/welcome). This page focuses on the Neo X settlement contracts and the Permit2-based exact-amount path.
+
 Depending on the capabilities of the underlying token, x402 can follow different settlement paths:
 
 - **Permit2-based settlement** for broad ERC-20 compatibility
@@ -102,6 +104,8 @@ A key property of this design is the use of a witness structure containing:
 The witness hash is signed together with the Permit2 authorization and binds the destination address cryptographically.
 
 This prevents a facilitator or relayer from redirecting funds to a different recipient after the user has signed.
+
+<figure><img src="../../.gitbook/assets/x402-permit2-settlement-flow.svg" alt="x402 Permit2 settlement flow showing user signature, relayer submission, witness validation, and exact-amount token transfer"><figcaption>x402 Permit2 settlement flow on Neo X</figcaption></figure>
 
 ## Settlement Paths
 
