@@ -178,9 +178,9 @@ CreateX is an extensible deployment factory for CREATE, CREATE2, and CREATE3-bas
 <table>
     <thead>
         <tr>
-            <th width="200">Name</th>
+            <th width="220">Name</th>
             <th width="100">Network</th>
-            <th width="450">Address</th>
+            <th width="430">Address</th>
         </tr>
     </thead>
     <tbody>

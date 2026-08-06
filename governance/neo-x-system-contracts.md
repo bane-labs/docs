@@ -219,9 +219,9 @@ The current Neo X Policy maintains following parameters. All these policies are 
     <thead>
         <tr>
             <th width="160">Name</th>
-            <th width="140">Parameter</th>
-            <th width="75">Value</th>
-            <th width="375">Usage</th>
+            <th width="185">Parameter</th>
+            <th width="100">Value</th>
+            <th width="305">Usage</th>
         </tr>
     </thead>
     <tbody>

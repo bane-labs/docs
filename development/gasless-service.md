@@ -2,31 +2,51 @@
 
 Neo X has set up an official Paymaster to sponsor ERC-4337 UserOperations and an official Bundler known as the Altpool.
 
-### Information
+### Mainnet
 
 <table>
     <thead>
         <tr>
             <th width="200">Property</th>
-            <th width="550" colspan="2">Value</th>
+            <th width="550">Value</th>
         </tr>
     </thead>
     <tbody>
         <tr>
             <td>Official Paymaster</td>
-            <td colspan="2"><code>0x121200000000000000000000000000000000000A</code></td>
+            <td><code>0x121200000000000000000000000000000000000A</code></td>
         </tr>
         <tr>
             <td>EntryPoint v0.9</td>
-            <td colspan="2"><code>0x433709009B8330FDa32311DF1C2AFA402eD8D009</code></td>
+            <td><code>0x433709009B8330FDa32311DF1C2AFA402eD8D009</code></td>
         </tr>
         <tr>
-            <td rowspan="2">Bunder RPC</td>
-            <td width="75">Mainnet</td>
+            <td>Bunder RPC</td>
             <td><a href="https://mainnet.bundler.banelabs.org">https://mainnet.bundler.banelabs.org</a></td>
         </tr>
+    </tbody>
+</table>
+
+### Testnet
+
+<table>
+    <thead>
         <tr>
-            <td width="75">Testnet</td>
+            <th width="200">Property</th>
+            <th width="550">Value</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>Official Paymaster</td>
+            <td><code>0x121200000000000000000000000000000000000A</code></td>
+        </tr>
+        <tr>
+            <td>EntryPoint v0.9</td>
+            <td><code>0x433709009B8330FDa32311DF1C2AFA402eD8D009</code></td>
+        </tr>
+        <tr>
+            <td>Bunder RPC</td>
             <td><a href="https://neoxt4bundler.banelabs.org">https://neoxt4bundler.banelabs.org</a></td>
         </tr>
     </tbody>
