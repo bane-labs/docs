@@ -137,3 +137,4 @@ However:
 
 - Review [Contracts](./contracts.md) for implementation details and trust assumptions
 - Check [Networks](../../development/networks.md) for deployed addresses
+- See [SDKs and tooling](./README.md#sdks-and-tooling) for x402 client libraries and optional Ax402 packages

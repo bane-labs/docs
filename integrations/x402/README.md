@@ -45,6 +45,23 @@ Settlement can be submitted by any agent, relayer, or facilitator that can call 
 
 [Ax402](https://ax402.io/) provides a facilitator for Neo X. Creating an account gives you an API key with free settlements.
 
+## SDKs and tooling
+
+To implement buyers, sellers, or settlement helpers, start from the open-source x402 client libraries:
+
+- TypeScript: [x402/typescript](https://github.com/x402-foundation/x402/tree/main/typescript)
+- Python: [x402/python](https://github.com/x402-foundation/x402/tree/main/python)
+- Go: [x402/go](https://github.com/x402-foundation/x402/tree/main/go)
+
+If you use the Ax402 facilitator, additional packages are available for platform management, buyer helpers, agent tooling, and React paywalls:
+
+- SDK: [`@ax402/sdk`](https://www.npmjs.com/package/@ax402/sdk) (includes buyer-side helpers)
+- CLI: [`@ax402/cli`](https://www.npmjs.com/package/@ax402/cli)
+- MCP server: [`@ax402/mcp-server`](https://www.npmjs.com/package/@ax402/mcp-server)
+- React paywall: [`@ax402/react-paywall`](https://www.npmjs.com/package/@ax402/react-paywall)
+
+Source and additional language SDKs (Python, Go) are in the [ax402-sdks](https://github.com/axLabs/ax402-sdks) repository.
+
 ## Quick Start
 
 A typical x402 flow looks like this:
