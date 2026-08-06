@@ -178,9 +178,9 @@ CreateX is an extensible deployment factory for CREATE, CREATE2, and CREATE3-bas
 <table>
     <thead>
         <tr>
-            <th width="150">Name</th>
+            <th width="200">Name</th>
             <th width="100">Network</th>
-            <th width="500">Address</th>
+            <th width="450">Address</th>
         </tr>
     </thead>
     <tbody>
@@ -259,6 +259,46 @@ CreateX is an extensible deployment factory for CREATE, CREATE2, and CREATE3-bas
             <td align="center">
                 <a href="https://xt4scan.ngd.network/address/0x433709009B8330FDa32311DF1C2AFA402eD8D009">
                     <code>0x433709009B8330FDa32311DF1C2AFA402eD8D009</code>
+                </a>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <a href="https://github.com/eth-infinitism/account-abstraction/releases/tag/v0.8.0">Simple7702Account v0.8</a>
+            </td>
+            <td align="center">Mainnet</td>
+            <td align="center">
+                <a href="https://xexplorer.neo.org/address/0x4Cd241E8d1510e30b2076397afc7508Ae59C66c9">
+                    <code>0x4Cd241E8d1510e30b2076397afc7508Ae59C66c9</code>
+                </a>
+            </td>
+        </tr>
+        <tr>
+            <td></td>
+            <td align="center">Testnet</td>
+            <td align="center">
+                <a href="https://xt4scan.ngd.network/address/0x4Cd241E8d1510e30b2076397afc7508Ae59C66c9">
+                    <code>0x4Cd241E8d1510e30b2076397afc7508Ae59C66c9</code>
+                </a>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <a href="https://github.com/eth-infinitism/account-abstraction/releases/tag/v0.9.0">Simple7702Account v0.9</a>
+            </td>
+            <td align="center">Mainnet</td>
+            <td align="center">
+                <a href="https://xexplorer.neo.org/address/0xa46cc63eBF4Bd77888AA327837d20b23A63a56B5">
+                    <code>0xa46cc63eBF4Bd77888AA327837d20b23A63a56B5</code>
+                </a>
+            </td>
+        </tr>
+        <tr>
+            <td></td>
+            <td align="center">Testnet</td>
+            <td align="center">
+                <a href="https://xt4scan.ngd.network/address/0xa46cc63eBF4Bd77888AA327837d20b23A63a56B5">
+                    <code>0xa46cc63eBF4Bd77888AA327837d20b23A63a56B5</code>
                 </a>
             </td>
         </tr>
