@@ -62,7 +62,7 @@ This Bundler operates as follows:
 
 It's recommended to start with the official Bundler, and make full use of the Paymaster's sponsorship.
 
-1. Choose a deployed ERC-4337 wallet factory and prepare the `initCode`;
+1. Choose a deployed ERC-4337 wallet factory or EIP-7702 wallet implementation, and prepare the `initCode`;
 2. Include the `initCode` in your UserOperation and set the Neo X official Paymaster in `paymasterAndData`;
 3. Configure `gasFees` within the maximum values allowed by the Neo X Paymaster;
 4. Sign and send the UserOperation to the official Bundler, then wait for execution.
