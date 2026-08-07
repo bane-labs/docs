@@ -31,6 +31,9 @@
 * [Oracles](integrations/oracles/README.md)
   * [Supra](integrations/oracles/supra.md)
   * [Neo Oracle Gateway](integrations/oracles/neo-oracle-gateway.md)
+* [x402 (Agent-Driven Payments)](integrations/x402/README.md)
+  * [Quick Start](integrations/x402/quick-start.md)
+  * [Contracts](integrations/x402/contracts.md)
 
 ## Governance
 
