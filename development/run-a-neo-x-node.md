@@ -2,7 +2,7 @@
 
 This document contains step-by-step instructions for running a geth node in Neo X.
 
-## 1. Hardware Requirements
+### Hardware Requirements
 
 The following are the minimum hardware requirements:
 
@@ -20,7 +20,7 @@ The following are the minimum hardware requirements:
 * 200 GB free storage space for data synchronization
 * 8 MBit/sec download Internet service
 
-## 2. Building or Downloading Geth Binary
+### 1. Build or Download Geth Binary
 
 #### Build from source
 
@@ -38,11 +38,11 @@ or, build the full suite of utilities:
 make all
 ```
 
-#### Download the binary
+#### Download from release
 
 You can download the latest `geth` binary from [Release Page](https://github.com/bane-labs/go-ethereum/releases).
 
-## 3. Initializing Geth Database
+### 2. Initialize Geth Database
 
 Download the latest release version of both binary and configuration file from [Release Page](https://github.com/bane-labs/go-ethereum/releases).
 
@@ -64,11 +64,11 @@ Mainnet
 
 You can then download the [Mainnet archival snapshot](https://package.banelabs.org/), and insert them into your local database with `./geth import --datadir ./node <filename>`, or directly start up your node to synchronize to the latest block.
 
-## 4.a. Start a Seed Node
+### 3.a. Start a Seed Node
 
 A seed node is a network member that does not participate in the consensus process. This node can be used to interact with the Neo X network, including: creating accounts, transferring funds, deploying and interacting with contracts, and querying node APIs.
 
-### 4.a.1. Start with Script
+### 3.a.1. Start with Script
 
 Create the `startSeed.sh` file in the same folder of `geth`. You may need to change the `P2P/HTTP/RPC/WS` ports to avoid conflicts. Please note that the port configuration for the JSON-RPC interface should be set to httpport, not rpcport. Additionally, remember to change `extip` to your own IP address if you want other nodes to be able to find yours. You can refer to [https://geth.ethereum.org/docs/fundamentals/command-line-options](https://geth.ethereum.org/docs/fundamentals/command-line-options) for more details about start options.
 
@@ -160,11 +160,11 @@ Then run
 ./startSeed.sh
 ```
 
-## 4.b. Start a Miner Node
+### 3.b. Start a Miner Node
 
 A miner node participates in the consensus process. If you want to register as a candidate for the consensus list, you need to run a miner node.
 
-### 4.b.1. Initialize Node Account
+### 3.b.1. Initialize Node Account
 
 You can create a new account or import an existing account for your node operation. Seed nodes don't need node account.
 
@@ -186,7 +186,7 @@ Import your existing account with the private key and remember to replace the `.
 
 When the inputing node index is set to 1, this script requires the node address to be placed at `node/node_address.txt`, the node password to be placed at `node/password.txt` and the node DB directory to be placed at `./node`.
 
-### 4.b.2. Create an Anti-MEV Keystore
+### 3.b.2. Create an Anti-MEV Keystore
 
 Validators and candidates participating in dBFT consensus must set up an Anti-MEV keystore, or the node will fail to enable the miner functionality.
 
@@ -198,13 +198,13 @@ To create an Anti-MEV keystore for your validator account, run:
 
 You will be prompted to enter a password for the keystore.
 
-### 4.b.3. Download ZK Files
+### 3.b.3. Download ZK Files
 
 Validators participating in onchain DKG must have three pairs of R1CS files and proving keys for Groth16 proof generation.
 
 You can download these files from [Neo X MPC](https://github.com/bane-labs/mpc) through [NeoFS](https://fs.neo.org/) or cloud URLs.
 
-### 4.b.4. Start with Script
+### 3.b.4. Start with Script
 
 Create the `startMiner.sh` file in the same folder of `geth`. You may need to change the `P2P/RPC` ports to avoid conflicts. Additionally, remember to change `extip` if you want other nodes to be able to find yours. You can refer to [https://geth.ethereum.org/docs/fundamentals/command-line-options](https://geth.ethereum.org/docs/fundamentals/command-line-options) for more details about start options.
 
@@ -310,7 +310,7 @@ Then run
 ./startMiner.sh
 ```
 
-### 4.b.5. Registering as a Candidate
+### 3.b.5. Registering as a Candidate
 
 After running a miner node, you can stake 1000 GAS to register as a candidate for the consensus list. If your node receives enough votes (top 7 in GAS), it will become a consensus node, which will mint blocks and share the transaction fee rewards.
 
