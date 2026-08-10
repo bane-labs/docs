@@ -103,7 +103,7 @@ This Bundler operates as follows:
 
 ### Altpool and other Bundlers
 
-Altpool is the name of the Bundler service documented for Neo X. A Bundler may use the canonical UserOperation mempool or operate its own alternative mempool, depending on its implementation and policies.
+Altpool is the name of the Bundler service documented for Neo X. It accepts UserOperations through the ERC-7769 API and submits accepted bundles to EntryPoint.
 
 GovPaymaster sponsorship is not restricted to Altpool. Any Bundler that supports the required EntryPoint version and UserOperation format can submit an operation that explicitly identifies GovPaymaster, provided the operation passes GovPaymaster's policy checks and sufficient Paymaster funds are available. The Bundler supplies the `beneficiary` address when it calls `EntryPoint.handleOps(...)`; EntryPoint uses that address when transferring the collected fees. Running an independent Bundler still requires the operator to provide the Bundler infrastructure and initially fund the outer on-chain transaction.
 
