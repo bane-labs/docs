@@ -15,7 +15,13 @@ GovPaymaster is a Neo X system contract exposed through the native-contract prox
 - GovPaymaster pays the eligible operation's gas through its EntryPoint deposit;
 - the user does not need to hold native GAS for that sponsored operation.
 
-Sponsorship is conditional: GovPaymaster may reject an operation, and sponsorship is unavailable when its balance is insufficient. ERC-4337 EntryPoint provides the common on-chain validation, execution, and fee-accounting flow; the Bundler submits the bundle, while the sender or a Paymaster provides the funds. Other Bundlers and Paymasters can implement different gas-abstraction models, including sponsorship policies or payment through a tokenized gas asset, without using GovPaymaster. For example, another Bundler could support a Paymaster that charges users in xGAS, wrapped GAS (wGAS), a stablecoin, or another supported token while still submitting the UserOperation bundle through EntryPoint; the Paymaster would handle the token-based payment while EntryPoint accounts for the underlying network gas.
+Sponsorship is conditional:
+
+- GovPaymaster may reject an operation, and sponsorship is unavailable when its balance is insufficient;
+- ERC-4337 EntryPoint provides and enforces the common on-chain validation, execution, and fee-accounting flow;
+- The Bundler may not submit an operation, if the local simulation fails due to the GovPaymaster or EntryPoint validation.
+
+Other Bundlers and Paymasters can implement different gas-abstraction models, including sponsorship policies or payment through a tokenized gas asset, without using GovPaymaster. For example, another Bundler could support a Paymaster that charges users in xGAS, wrapped GAS (wGAS), a stablecoin, or another supported token while still submitting the UserOperation bundle through EntryPoint; the Paymaster would handle the token-based payment while EntryPoint accounts for the underlying network gas.
 
 ### Deployments
 
@@ -121,11 +127,11 @@ These methods are sent to the Bundler RPC endpoint, not to the ordinary chain RP
 
 It's recommended to start with Altpool and make full use of GovPaymaster's sponsorship. The result is sponsored rather than intrinsically free: execution consumes gas, and GovPaymaster covers the accepted operation's gas through its EntryPoint deposit.
 
-1. Choose a deployed ERC-4337 smart-account implementation and wallet factory, or an EIP-7702 wallet implementation. A traditional ERC-4337 flow uses a smart-contract account; EIP-7702 provides an alternative account-authorization flow.
-2. Calculate the account's deterministic `sender` address. For a new account, prepare `initCode` using the selected factory and its initialization calldata. EntryPoint calls that factory during the first UserOperation and deploys the account before validating and executing the operation. The client constructing the UserOperation controls `initCode`; for an account that already exists, it should set `initCode` to `0x`. A Bundler may reject an existing `sender` paired with non-empty account-creation data.
-3. Obtain the UserOperation nonce from EntryPoint, normally with `getNonce(sender, key)`.
-4. Include GovPaymaster information in `paymasterAndData` (or the equivalent v0.9 RPC fields), and configure `gasFees` within the maximum values it allows.
-5. Sign the complete UserOperation using the smart account's authorization scheme and send it to the Altpool Bundler RPC using `eth_sendUserOperation`, together with the supported EntryPoint v0.9 address.
+1. Choose a deployed ERC-4337 smart-account implementation and wallet factory, or an EIP-7702 wallet implementation. A traditional ERC-4337 flow uses a smart-contract account; EIP-7702 provides an alternative account-authorization flow;
+2. Calculate the account's deterministic `sender` address. For a new account, prepare `initCode` using the selected factory and its initialization calldata. EntryPoint calls that factory during the first UserOperation and deploys the account before validating and executing the operation. The client constructing the UserOperation controls `initCode`; for an account that already exists, it should set `initCode` to `0x`. A Bundler may reject an existing `sender` paired with non-empty account-creation data;
+3. Obtain the UserOperation nonce from EntryPoint, normally with `getNonce(sender, key)`;
+4. Include GovPaymaster information in `paymasterAndData` (or the equivalent v0.9 RPC fields), and configure `gasFees` within the maximum values it allows;
+5. Sign the complete UserOperation using the smart account's authorization scheme and send it to the Altpool Bundler RPC using `eth_sendUserOperation`, together with the supported EntryPoint v0.9 address;
 6. Poll `eth_getUserOperationReceipt` until the operation is included or rejected.
 
 If the smart wallet is successfully deployed and initialized, you can begin your gasless Account Abstraction journey.
