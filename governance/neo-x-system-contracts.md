@@ -332,7 +332,6 @@ The above processes will be automatically performed by Neo X node when antimev f
 
 ## GovPaymaster
 
-[GovPaymaster](https://github.com/bane-labs/go-ethereum/blob/bane-main/contracts/solidity/GovPaymaster.sol) is a system contract assigned as the Neo X official paymaster contract. This contract receives part of the Neo X Governance reward and can
-be requested to sponsor gasless services in the network, with Neo X Policy check restricted on the `PackedUserOperation`.
+[GovPaymaster](https://github.com/bane-labs/go-ethereum/blob/bane-main/contracts/solidity/GovPaymaster.sol) is a native system contract that serves as the governance-funded Paymaster. It is exposed through the native-contract proxy infrastructure rather than deployed by individual users or application integrators. The contract receives a portion of Neo X Governance rewards and may sponsor eligible UserOperations, subject to Neo X Policy checks applied to the `PackedUserOperation`.
 
 This contract only works with [EntryPoint v0.9](https://github.com/eth-infinitism/account-abstraction/releases/tag/v0.9.0), which should be deployed to `0x433709009B8330FDa32311DF1C2AFA402eD8D009` in the network.

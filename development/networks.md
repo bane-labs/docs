@@ -307,7 +307,9 @@ CreateX is an extensible deployment factory for CREATE, CREATE2, and CREATE3-bas
 
 Account abstraction infrastructure provides the canonical ERC-4337 EntryPoint contracts used by smart accounts, bundlers, paymasters, and related account abstraction tooling.
 
-The EntryPoint is a critical singleton contract for ERC-4337. Different wallets and bundlers may depend on different EntryPoint versions, so Neo X provides deployments for v0.6, v0.7, v0.8, and v0.9. The contracts are deployed at the same deterministic addresses as on other EVM networks using CREATE2.
+The EntryPoint is a critical singleton contract for ERC-4337. Different wallets and Bundlers may depend on different EntryPoint versions, so Neo X provides deployments for v0.6, v0.7, v0.8, and v0.9. The contracts use the same CREATE2-based deployment scheme and canonical addresses as the corresponding upstream releases, allowing their deployment bytecode and runtime bytecode to be independently checked against those releases.
+
+The governance-sponsored gas abstraction flow using GovPaymaster currently targets EntryPoint v0.9. GovPaymaster is coupled to that EntryPoint version, and the documented Altpool endpoints advertise support for it. The other canonical EntryPoint deployments are available for compatible wallets and independently operated Bundlers; their availability does not by itself imply GovPaymaster sponsorship support.
 
 #### Utilities
 
