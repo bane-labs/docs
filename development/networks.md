@@ -416,9 +416,9 @@ Asset contracts represent tokenized value on Neo X.
 <table>
     <thead>
         <tr>
-            <th width="100">Name</th>
+            <th width="200">Name</th>
             <th width="100">Network</th>
-            <th width="550">Address</th>
+            <th width="450">Address</th>
         </tr>
     </thead>
     <tbody>
