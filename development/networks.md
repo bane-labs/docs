@@ -38,10 +38,6 @@
             <td>Governance</td>
             <td><a href="https://xgovernance.neo.org">https://xgovernance.neo.org</a></td>
         </tr>
-        <tr>
-            <td>Bridge</td>
-            <td><a href="https://xbridge.neo.org">https://xbridge.neo.org</td>
-        </tr>
     </tbody>
 </table>
 
@@ -83,14 +79,71 @@
             <td>Governance</td>
             <td><a href="https://testnet.governance.banelabs.org">https://testnet.governance.banelabs.org</a></td>
         </tr>
-        <tr>
-            <td>Bridge</td>
-            <td><a href="https://testnet.bridge.banelabs.org">https://testnet.bridge.banelabs.org</a></td>
-        </tr>
     </tbody>
 </table>
 
 \* RPC nodes that enable Anti-MEV support will not broadcast any normal transaction. Please refer [Envelope Transaction](../security/anti-mev-protection/constructing-envelope-transactions.md) for their proper usage.
+
+### Bridges
+
+<table>
+    <thead>
+        <tr>
+            <th width="150">Name</th>
+            <th width="100">Network</th>
+            <th width="500">URL</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>Native Bridge</td>
+            <td align="center">Mainnet</td>
+            <td><a href="https://xbridge.neo.org">https://xbridge.neo.org</td>
+        </tr>
+        <tr>
+            <td></td>
+            <td align="center">Testnet</td>
+            <td><a href="https://testnet.bridge.banelabs.org">https://testnet.bridge.banelabs.org</a></td>
+        </tr>
+        <tr>
+            <td>CCIP Bridge</td>
+            <td align="center">Mainnet</td>
+            <td><a href="https://app.transporter.io/?to=neox">https://app.transporter.io</td>
+        </tr>
+        <tr>
+            <td></td>
+            <td align="center">Testnet</td>
+            <td><a href="https://test.transporter.io/?to=neox-testnet-t4">https://test.transporter.io</td>
+        </tr>
+    </tbody>
+</table>
+
+### Faucets
+
+<table>
+    <thead>
+        <tr>
+            <th width="150">Name</th>
+            <th width="500">URL</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>N3 Faucet</td>
+            <td><a href="https://n3t5wish.ngd.network">https://n3t5wish.ngd.network</td>
+        </tr>
+        <tr>
+            <td>Chainlink Faucet</td>
+            <td><a href="https://faucets.chain.link/neox-testnet-t4">https://faucets.chain.link</td>
+        </tr>
+        <tr>
+            <td>Circle Faucet</td>
+            <td><a href="https://faucet.circle.com">https://faucet.circle.com</td>
+        </tr>
+    </tbody>
+</table>
+
+\* Bridge N3 Faucet assets to Neo X via Native Bridge, and Circle Faucet assets via CCIP Bridge.
 
 ### Environment Compatibility
 

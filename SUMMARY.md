@@ -9,19 +9,21 @@
 * [JSON-RPC API](development/json-rpc-api.md)
 * [Governance-Sponsored Gasless Transactions](development/gasless-service.md)
 
-## Bridge
+## Bridges
 
-* [General](bridge/general/README.md)
-  * [Architecture](bridge/general/architecture.md)
-  * [Roles and Responsibilities](bridge/general/roles-responsibilities.md)
-  * [Bridging Transparency and Verifiable Relaying](bridge/general/bridging-transparency-and-verifiable-relaying.md)
-  * [Node Requirements](bridge/general/node-requirements.md)
-* [Token Bridge](bridge/token-bridge/README.md)
-  * [Technical Flow](bridge/token-bridge/technical-flow.md)
-* [Message Bridge](bridge/messaging-bridge/README.md)
-  * [EVM to N3](bridge/messaging-bridge/evm-to-n3.md)
-  * [N3 to EVM](bridge/messaging-bridge/n3-to-evm.md)
-* [Quick Start: Bridging Assets](bridge/quick-start-bridging-assets.md)
+* [Native Bridge](bridges/native-bridge/README.md)
+  * [General](bridges/native-bridge/general/README.md)
+    * [Architecture](bridges/native-bridge/general/architecture.md)
+    * [Roles and Responsibilities](bridges/native-bridge/general/roles-responsibilities.md)
+    * [Bridging Transparency and Verifiable Relaying](bridges/native-bridge/general/bridging-transparency-and-verifiable-relaying.md)
+    * [Node Requirements](bridges/native-bridge/general/node-requirements.md)
+  * [Token Bridge](bridges/native-bridge/token-bridge/README.md)
+    * [Technical Flow](bridges/native-bridge/token-bridge/technical-flow.md)
+  * [Message Bridge](bridges/native-bridge/messaging-bridge/README.md)
+    * [EVM to N3](bridges/native-bridge/messaging-bridge/evm-to-n3.md)
+    * [N3 to EVM](bridges/native-bridge/messaging-bridge/n3-to-evm.md)
+  * [Quick Start: Bridging Assets](bridges/native-bridge/quick-start-bridging-assets.md)
+* [CCIP Bridge](bridges/ccip-bridge/README.md)
 
 ## Integrations
 
